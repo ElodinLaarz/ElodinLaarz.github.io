@@ -1,0 +1,185 @@
+%-------------------------
+% Resume in Latex
+% Author : Sourabh Bajaj
+% License : MIT
+%------------------------
+
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage{xcolor}
+\definecolor{cBlue}{HTML}{455d7a}
+\definecolor{cRed}{HTML}{e23e57}
+
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\hypersetup{%
+    colorlinks=true,
+    urlcolor = cBlue
+}
+% \usepackage{fancyhdr}
+\usepackage{microtype}
+
+\usepackage[adobe-utopia]{mathdesign}
+% \usepackage[T1]{fontenc}
+\usepackage{fontawesome}
+
+% \pagestyle{fancy}
+% \fancyhf{} % clear all header and footer fields
+% \fancyfoot{}
+% \renewcommand{\headrulewidth}{0pt}
+% \renewcommand{\footrulewidth}{0pt}
+
+% Adjust margins
+% \addtolength{\oddsidemargin}{-0.5in}
+% \addtolength{\evensidemargin}{-0.5in}
+% \addtolength{\textwidth}{1in}
+% \addtolength{\topmargin}{-.5in}
+% \addtolength{\textheight}{1.0in}
+\usepackage[margin=0.75in]{geometry}
+
+\urlstyle{same}
+
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+% Sections formatting
+\titleformat{\section}{
+    \vspace{-4pt}\scshape\raggedright\large\color{cRed}
+}{}{0em}{}[\titlerule \vspace{-5pt}]
+
+%-------------------------
+% Custom commands
+\newcommand{\resumeItem}[2]{
+  \item\small{
+    \textbf{#1}{: #2 \vspace{-2pt}}
+  }
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-1pt}\item
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & #2 \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-5pt}
+}
+
+\newcommand{\resumeSubItem}[2]{\resumeItem{#1}{#2}\vspace{-4pt}}
+
+\renewcommand{\labelitemii}{$\circ$}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=*]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+
+\newcommand{\resumeItemListStart}{\begin{itemize}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
+
+
+
+%-------------------------------------------
+%%%%%%  CV STARTS HERE  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+%----------HEADING-----------------
+\begin{tabular*}{\textwidth}{l@{\extracolsep{\fill}}r}
+    \textbf{\Huge{Caleb Laarz Geiger}} 
+    & \faEnvelope: \url{caleblgeiger@gmail.com} \\
+
+    \faGithub: \url{https://github.com/ElodinLaarz}
+    &
+    \faGlobe: \url{https://calebgeiger.org}
+    \\
+
+    \faLinkedin: \url{https://www.linkedin.com/in/caleb-geiger/}
+    &
+    \faMapO: Tehachapi, CA (Open to relocation)
+    \\
+
+    Citizenship: USA
+    &
+\end{tabular*}
+
+
+% --------PROGRAMMING SKILLS------------
+\section{Technical Skills}
+  \resumeSubHeadingListStart
+    \item{
+            \textbf{Fluent in: }{Python, C++}
+    }
+\item{\vspace{-0.15cm}
+            \textbf{Prior projects using: }{keras, numpy, pandas, pytorch, sage, scikit-learn, tensor-flow}
+    }
+  % \item{Python, Git, SQL, Bash, C++, MATLAB, Cython}
+  \resumeSubHeadingListEnd
+  \vspace{-0.5cm}
+
+%-----------PROJECTS-----------------
+\section{Select Personal Projects}
+\resumeSubHeadingListStart
+\resumeSubItem{HanabiAI}{A machine-learning project to teach a neural-network to play
+    the card game {\it Hanabi}.
+    See \url{https://github.com/ElodinLaarz/HanabiAI}.
+}
+\resumeSubItem{KevinCoin}{An implementation of a cryptocurrency from first-principles implemented in C++ and Rust.
+ See \url{https://github.com/ElodinLaarz/KevinCoin}}
+% \resumeSubItem{Sagemath -- isomorphism testing}{Implemented isomorphism testing of
+% modular abelian varieties into the Sagemath Python library. Currently in the
+% process of being merged. See \url{https://trac.sagemath.org/ticket/28275}}
+% \resumeSubItem{zlong\_alert.zsh}{Zsh plugin for alerting you upon the
+% completion of a long-running command. See
+% \url{https://github.com/kevinywlui/zlong_alert.zsh}}
+
+\resumeSubHeadingListEnd
+
+
+%-----------EXPERIENCE-----------------
+\section{Experience}
+\resumeSubHeadingListStart
+
+\resumeSubheading
+{University of Washington}{Seattle, WA}
+{Researcher in Computational Number Theory}{Sep. 2014 --- Jun. 2019}
+\resumeItemListStart
+\resumeItem{Overview}
+{
+    % Thesis research centered around creating and implementing algorithms for
+    % computing invariants of modular abelian varieties. I was able to create
+    % algorithms for computing certain invariants where existing methods where
+    % computationally infeasible or non-existent.
+    Thesis research centered around creating and implementing algorithms in
+    number theory. Created polynomial-time algorithms for computing invariants
+    where existing methods where computationally infeasible or non-existent.
+}
+\resumeItem{Technical skills used}{
+    % Code was written using the Sagemath Python library. Experiments were done
+    % using Jupyter notebooks. Tables of related invariants were computed and
+    % stored in PostgreSQL databases.
+    Implemented algorithms using thousands of lines of Python. Invariants were
+    computed in parallel on a 24-core server and stored in a PostgreSQL
+    database. 
+}
+\resumeItem{Link to thesis}{\url{https://kevinlui.org/pages/thesis}}
+\resumeItemListEnd
+
+\resumeSubHeadingListEnd
+
+%-----------EDUCATION-----------------
+\section{Education}
+\resumeSubHeadingListStart
+\resumeSubheading
+{University of Washington, Seattle}{Seattle, WA}
+{M.S. in Mathematics specializing in Number Theory}{Sep. 2015
+--- Jun. 2020}
+\resumeSubheading
+{University of California, Irvine}{Irvine, CA}
+{Bachelors in Mathematics}{Sep. 2013 --- Jun. 2015}
+\resumeSubHeadingListEnd
+
+
+%-------------------------------------------
+\end{document}
