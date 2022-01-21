@@ -1,0 +1,181 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;700&display=swap');
+
+:root{
+    --primary-wordl-color:#07B73B;
+    --secondary-battl-color:#C70606;
+    --secondary-helpr-color:#C7C706;
+
+    --empty-letter-box-color:#787D7A;
+}
+
+
+body{
+    background: #1C1919;
+    margin: 0;
+    font-family:'Source Code Pro'
+}
+
+.navbar{
+    column-count: 3;
+    .container{
+        height: 2em;
+        display:grid;
+        grid-template-columns: 300px 300px 300px;
+        justify-content: unset;
+        margin:0;
+    }
+    .primary-nav{
+        padding : 0.5em;
+        // display: grid;
+        column-count: 2;
+    }
+    // height:7vh;
+    align-content: center;
+    justify-content: center;
+    // column-count: 4;
+    background: #171111;
+    padding: 1em;
+    .battlLogo{
+        text-decoration: none;
+        font-weight: bold;
+        color:var(--primary-wordl-color);
+        font-size: 2em;
+        span{
+            color:var(--secondary-battl-color);
+        }
+    }
+    .helprLogo{    
+        text-decoration: none;
+        font-weight: bold;
+        color:var(--primary-wordl-color);
+        font-size: 2em;
+        span{
+            color:var(--secondary-helpr-color);
+        }
+    }
+
+    .battl{
+        // position: absolute;
+        // left:10vw;
+        padding: 1vh;
+        text-decoration: none;
+        font-weight: bold;
+        color:var(--primary-wordl-color);
+        font-size: 1.2em;
+        span{
+            color:var(--secondary-battl-color);
+        }
+    }
+    .helpr{
+        // position:absolute;
+        // left: 20vw;
+        text-decoration: none;
+        font-weight: bold;
+        color:var(--primary-wordl-color);
+        font-size: 1.2em;
+        span{
+            color:var(--secondary-helpr-color);
+        }
+    }
+    .home{
+        position:absolute;
+        right: 5vw;
+        text-decoration: none;
+        color: white;
+    }
+}
+
+ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+section{
+    padding: 5em 2em;
+}
+
+// td{
+//     border:black;
+//     border-style: solid;
+//     border-width: 1;
+// }
+
+.game{
+    // display:inline;
+    // column-count: 3;
+    // position:fixed;
+    justify-content:center;
+    // padding: 1vw 4vw 0 4vw;
+    .player-board,.computer-board{
+        // margin-right: 10vw;
+        h2{
+            text-align: center;
+            color:white;
+        }
+        .game-rows{
+            .row{
+                .row-letter{
+                    color:white;
+                    text-align: center;
+                    font-family: 'Courier New';
+                    // font-weight:lighter;
+                    font-size: 3vw;
+                    background: var(--empty-letter-box-color);
+                    padding: 0.1vw;
+
+                    height: 5vw;
+                    width: 5vw;
+                    border: 0.1em solid black;
+                    // border-style:solid;
+                    // border-width: 0.1em;
+                    border-radius: 0.2em;
+                }
+            }
+        }
+    }
+    .player-board{
+        position:absolute;
+        top:10%;
+    }
+    .computer-board{
+        position:absolute;
+        top:10%;
+        left:65%;
+    }
+    .chat-box{
+        position:absolute;
+        top:20%;
+        left:35%;
+        // margin: 1vw;
+        background: #272323;
+        border-radius: 10vw;
+        opacity: 30%;
+        height: 60vh;
+        width: 25vw;
+    }
+    // .computer-board{
+    //     // width: 30%;
+    //     margin-left: 10vw;
+    //     .game-rows{
+    //         .row{
+    //             .row-letter{
+    //                 color:white;
+    //                 text-align: center;
+    //                 font-family: 'Courier New';
+    //                 // font-weight:lighter;
+    //                 font-size: 3vw;
+    //                 background: var(--empty-letter-box-color);
+    //                 padding: 0.1vw;
+
+    //                 height: 5vw;
+    //                 width: 5vw;
+    //                 border: black;
+    //                 border-style:solid;
+    //                 border-width: 0.1em;
+    //                 border-radius: 0.2em;
+    //             }
+    //         }
+    //     }
+    // }
+}

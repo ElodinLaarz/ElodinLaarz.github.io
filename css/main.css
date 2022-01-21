@@ -1,0 +1,152 @@
+@import url("https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;700&display=swap");
+:root {
+  --primary-wordl-color:#07B73B;
+  --secondary-battl-color:#C70606;
+  --secondary-helpr-color:#C7C706;
+  --empty-letter-box-color:#787D7A;
+}
+
+body {
+  background: #1C1919;
+  margin: 0;
+  font-family: 'Source Code Pro';
+}
+
+.navbar {
+  -webkit-column-count: 3;
+          column-count: 3;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  background: #171111;
+  padding: 1em;
+}
+
+.navbar .container {
+  height: 2em;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 300px 300px 300px;
+      grid-template-columns: 300px 300px 300px;
+  -webkit-box-pack: unset;
+      -ms-flex-pack: unset;
+          justify-content: unset;
+  margin: 0;
+}
+
+.navbar .primary-nav {
+  padding: 0.5em;
+  -webkit-column-count: 2;
+          column-count: 2;
+}
+
+.navbar .battlLogo {
+  text-decoration: none;
+  font-weight: bold;
+  color: var(--primary-wordl-color);
+  font-size: 2em;
+}
+
+.navbar .battlLogo span {
+  color: var(--secondary-battl-color);
+}
+
+.navbar .helprLogo {
+  text-decoration: none;
+  font-weight: bold;
+  color: var(--primary-wordl-color);
+  font-size: 2em;
+}
+
+.navbar .helprLogo span {
+  color: var(--secondary-helpr-color);
+}
+
+.navbar .battl {
+  padding: 1vh;
+  text-decoration: none;
+  font-weight: bold;
+  color: var(--primary-wordl-color);
+  font-size: 1.2em;
+}
+
+.navbar .battl span {
+  color: var(--secondary-battl-color);
+}
+
+.navbar .helpr {
+  text-decoration: none;
+  font-weight: bold;
+  color: var(--primary-wordl-color);
+  font-size: 1.2em;
+}
+
+.navbar .helpr span {
+  color: var(--secondary-helpr-color);
+}
+
+.navbar .home {
+  position: absolute;
+  right: 5vw;
+  text-decoration: none;
+  color: white;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+section {
+  padding: 5em 2em;
+}
+
+.game {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.game .player-board h2, .game .computer-board h2 {
+  text-align: center;
+  color: white;
+}
+
+.game .player-board .game-rows .row .row-letter, .game .computer-board .game-rows .row .row-letter {
+  color: white;
+  text-align: center;
+  font-family: 'Courier New';
+  font-size: 3vw;
+  background: var(--empty-letter-box-color);
+  padding: 0.1vw;
+  height: 5vw;
+  width: 5vw;
+  border: 0.1em solid black;
+  border-radius: 0.2em;
+}
+
+.game .player-board {
+  position: absolute;
+  top: 10%;
+}
+
+.game .computer-board {
+  position: absolute;
+  top: 10%;
+  left: 65%;
+}
+
+.game .chat-box {
+  position: absolute;
+  top: 20%;
+  left: 35%;
+  background: #272323;
+  border-radius: 10vw;
+  opacity: 30%;
+  height: 60vh;
+  width: 25vw;
+}
+/*# sourceMappingURL=main.css.map */
