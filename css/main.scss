@@ -101,14 +101,60 @@ section{
 //     border-width: 1;
 // }
 
+#battlPage{
+    .game{
+        .player-board{
+            position:absolute;
+            top:10%;
+        }
+        .computer-board{
+            position:absolute;
+            top:10%;
+            left:65%;
+        }
+        .chat-box{
+            position:absolute;
+            top:20%;
+            left:35%;
+            color:var(--primary-wordl-color);
+            background: #272323;
+            border-radius: 10vw;
+            opacity: 30%;
+            height: 60vh;
+            width: 25vw;
+        }
+    }
+}
+
+#helprPage{
+    .game{    
+        .player-board{
+            position:absolute;
+            top:10%;
+            left:15%;
+            button{
+                background: white;
+            }
+        }
+        .chat-box{
+            position: absolute;
+            top: 20%;
+            right: 15%;
+            text-align: center;
+            font-weight:bold;
+            color:var(--primary-wordl-color);
+            background: #272323;
+            border-radius: 10vw;
+            opacity: 30%;
+            height: 60vh;
+            width: 25vw;
+        }
+    }
+}
+
 .game{
-    // display:inline;
-    // column-count: 3;
-    // position:fixed;
-    justify-content:center;
-    // padding: 1vw 4vw 0 4vw;
+    
     .player-board,.computer-board{
-        // margin-right: 10vw;
         h2{
             text-align: center;
             color:white;
@@ -134,48 +180,4 @@ section{
             }
         }
     }
-    .player-board{
-        position:absolute;
-        top:10%;
-    }
-    .computer-board{
-        position:absolute;
-        top:10%;
-        left:65%;
-    }
-    .chat-box{
-        position:absolute;
-        top:20%;
-        left:35%;
-        // margin: 1vw;
-        background: #272323;
-        border-radius: 10vw;
-        opacity: 30%;
-        height: 60vh;
-        width: 25vw;
-    }
-    // .computer-board{
-    //     // width: 30%;
-    //     margin-left: 10vw;
-    //     .game-rows{
-    //         .row{
-    //             .row-letter{
-    //                 color:white;
-    //                 text-align: center;
-    //                 font-family: 'Courier New';
-    //                 // font-weight:lighter;
-    //                 font-size: 3vw;
-    //                 background: var(--empty-letter-box-color);
-    //                 padding: 0.1vw;
-
-    //                 height: 5vw;
-    //                 width: 5vw;
-    //                 border: black;
-    //                 border-style:solid;
-    //                 border-width: 0.1em;
-    //                 border-radius: 0.2em;
-    //             }
-    //         }
-    //     }
-    // }
 }

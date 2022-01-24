@@ -1,0 +1,207 @@
+%-------------------------
+% Resume in Latex
+% Author : Sourabh Bajaj
+% License : MIT
+%------------------------
+
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage{xcolor}
+\definecolor{cBlue}{HTML}{455d7a}
+\definecolor{cRed}{HTML}{e23e57}
+
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\hypersetup{%
+    colorlinks=true,
+    urlcolor = cBlue
+}
+% \usepackage{fancyhdr}
+\usepackage{microtype}
+
+\usepackage[adobe-utopia]{mathdesign}
+% \usepackage[T1]{fontenc}
+\usepackage{fontawesome}
+
+% \pagestyle{fancy}
+% \fancyhf{} % clear all header and footer fields
+% \fancyfoot{}
+% \renewcommand{\headrulewidth}{0pt}
+% \renewcommand{\footrulewidth}{0pt}
+
+% Adjust margins
+% \addtolength{\oddsidemargin}{-0.5in}
+% \addtolength{\evensidemargin}{-0.5in}
+% \addtolength{\textwidth}{1in}
+% \addtolength{\topmargin}{-.5in}
+% \addtolength{\textheight}{1.0in}
+\usepackage[margin=0.75in]{geometry}
+
+\urlstyle{same}
+
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+% Sections formatting
+\titleformat{\section}{
+    \vspace{-4pt}\scshape\raggedright\large\color{cRed}
+}{}{0em}{}[\titlerule \vspace{-5pt}]
+
+%-------------------------
+% Custom commands
+\newcommand{\resumeItem}[2]{
+  \item\small{
+    \textbf{#1}{: #2 \vspace{-2pt}}
+  }
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-1pt}\item
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & #2 \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-5pt}
+}
+
+\newcommand{\resumeSubItem}[2]{\resumeItem{#1}{#2}\vspace{-4pt}}
+
+\renewcommand{\labelitemii}{$\circ$}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=*]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+
+\newcommand{\resumeItemListStart}{\begin{itemize}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
+
+
+
+%-------------------------------------------
+%%%%%%  CV STARTS HERE  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+%----------HEADING-----------------
+\begin{tabular*}{\textwidth}{l@{\extracolsep{\fill}}r}
+    \textbf{\Huge{Caleb Geiger}} 
+    & \faEnvelope: \url{caleblgeiger@gmail.com} \\
+    \faGithub: \url{https://github.com/ElodinLaarz}
+    &
+    \faGlobe: \url{https://calebgeiger.org/}
+    \\
+    \faLinkedin: \url{https://www.linkedin.com/in/caleb-geiger/}
+    &
+    \faMapO: Hinesville, GA (Open to relocation)
+    \\
+
+    Citizenship: USA
+    &
+\end{tabular*}
+
+
+% --------PROGRAMMING SKILLS------------
+\section{Technical Skills}
+  \resumeSubHeadingListStart
+    \item{
+            \textbf{Fluent in: }{Python, Git}
+    }
+\item{\vspace{-0.15cm}
+            \textbf{Prior projects using: }{C++, Sage, Javascript, HTML, CSS, C\#}
+    }
+  % \item{Python, Git, SQL, Bash, C++, MATLAB, Cython}
+  \resumeSubHeadingListEnd
+  \vspace{-0.5cm}
+
+%-----------PROJECTS-----------------
+\section{Select Personal Projects}
+\resumeSubHeadingListStart
+\resumeSubItem{WordlBattl}{Inspired by the popularity of the Wordle game, I created a version where you can play against an AI opponent. I also created an accompanying {\it WordlHelpr} that you can use to get ideas for words to try out if you are stuck in your Wordle game. See \url{https://elodinlaarz.github.io/wordlBattl.html}, and play for yourself!
+}
+\resumeSubItem{HanabiAI}{A project that used genetic learning algorithms to teach an AI to play the card game Hanabi. As a consequence, it also included a text-based implementation of the game of Hanabi to play with the AI. See \url{https://github.com/ElodinLaarz/HanabiAI}.
+}
+\resumeSubItem{Crypto}{A simple project where I implement Diffie-Hellman Key Exchange in the case of elliptic curves and then attempt to break the encryption using Pollard's Rho algorithm. See \url{https://github.com/ElodinLaarz/CryptoPractice}.
+}
+\resumeSubItem{APLUnity}{A simple, single, two-dimensional level coded in C\# using Unity. See \url{https://github.com/ElodinLaarz/APLUnity/}}
+% \resumeSubItem{Sagemath -- isomorphism testing}{Implemented isomorphism testing of
+% modular abelian varieties into the Sagemath Python library. Currently in the
+% process of being merged. See \url{https://trac.sagemath.org/ticket/28275}}
+% \resumeSubItem{zlong\_alert.zsh}{Zsh plugin for alerting you upon the
+% completion of a long-running command. See
+% \url{https://github.com/kevinywlui/zlong_alert.zsh}}
+
+\resumeSubHeadingListEnd
+
+
+%-----------EXPERIENCE-----------------
+\section{Experience}
+\resumeSubHeadingListStart
+
+\resumeSubheading
+{University of Washington}{Seattle, WA}
+{Researcher in Computational Number Theory}{Sep. 2015 --- Jun. 2020}
+\resumeItemListStart
+\resumeItem{Overview}
+{
+    % Thesis research centered around creating and implementing algorithms for
+    % computing invariants of modular abelian varieties. I was able to create
+    % algorithms for computing certain invariants where existing methods where
+    % computationally infeasible or non-existent.
+    Thesis research centered around the ideal class group of imaginary quadratic orders by counting the number of ideals prime powered norm in the case of non-maximal orders. 
+}
+\resumeItem{Technical skills used}{
+    % Code was written using the Sagemath Python library. Experiments were done
+    % using Jupyter notebooks. Tables of related invariants were computed and
+    % stored in PostgreSQL databases.
+    Heavily used Sage and Python when working with these non-maximal orders.
+}
+\resumeItem{Link to thesis}{\url{https://digital.lib.washington.edu/researchworks/bitstream/handle/1773/45518/Geiger_washington_0250O_21118.pdf}}
+\resumeItemListEnd
+
+\resumeSubheading
+{Coding Enthusiast}{Online}
+{Participant}{2019-Present}
+\resumeItemListStart
+\resumeItem{Overview}
+{
+	Google Code Jam (2019 - 2021), qualifying in 2020 and 2021; Google Hash Code (2020 and 2021), placing 1,908th out of 10,724 participants and  2,615th out of 9004 participants, respectively, and I have already signed up for Google Hash code 2022, as well; and finally, foobar.withgoogle (currently Level 4 out of 5).
+}
+\resumeItemListEnd
+\resumeSubheading
+{Mathematics Instructor}
+{Savannah Technical College}{Instructor}{August 2021-Present}
+\resumeItemListStart
+\resumeItem{Overview}{Instruct and facilitate meaningful learning of the course outcomes in the curriculum and proactively support all facets of the learning environment.}
+\resumeItemListEnd
+
+\resumeSubheading
+{Graduate Student Instructor}
+{University of Washington}{Mathematics Instructor}{2015-2020}
+\resumeItemListStart
+\resumeItem{Overview}{Taught mathematics courses from Precalculus to Differential Equations and Linear Algebra.}
+\resumeItemListEnd
+
+
+\resumeSubHeadingListEnd
+
+%-----------EDUCATION-----------------
+\section{Education}
+\resumeSubHeadingListStart
+\resumeSubheading
+{University of Washington, Seattle}{Seattle, WA}
+{M.S. in Mathematics specializing in Algebraic Number Theory}{Sep. 2015
+--- Jun. 2020}
+% \resumeSubheading
+% {University of Washington, Seattle}{Seattle, WA}
+% {Masters in Mathematics}{June 2018}
+\resumeSubheading
+{University of California, Irvine}{Irvine, CA}
+{Bachelors in Mathematics}{Sep. 2013 --- Jun. 2015}
+\resumeSubHeadingListEnd
+
+
+%-------------------------------------------
+\end{document}
