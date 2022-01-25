@@ -1,4 +1,5 @@
-"use strict";
+import { five_dict } from "./five_word_dictionary_list.js";
+console.log(five_dict[five_dict.length - 1]);
 const WORD_LENGTH = 5;
 const root = document.querySelector("#app");
 if (root) {
@@ -75,7 +76,7 @@ if (root) {
         </div>`;
 }
 let cur_row = 0;
-const rows = root?.getElementsByClassName("row");
+const rows = root === null || root === void 0 ? void 0 : root.getElementsByClassName("row");
 // Keep track of the color of the letter boxes
 let cur_color_indices = new Array(WORD_LENGTH).fill(0);
 ;
@@ -139,3 +140,4 @@ function printWord() {
         }
     }
 }
+//# sourceMappingURL=wordlHelpr.js.map

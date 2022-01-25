@@ -1,3 +1,7 @@
+import {five_dict} from "./five_word_dictionary_list.js"
+
+console.log(five_dict[five_dict.length-1])
+
 const WORD_LENGTH : number = 5;
 
 const root : Element | null = document.querySelector("#app");
