@@ -1,6 +1,7 @@
-import {five_dict} from "./five_word_dictionary_list.js"
+// import {five_dict} from "./five_word_dictionary_list.js"
+import {five_letter_dic, wordScore, wordSuggestions} from "./helprFunctions.js"
+// import {}
 
-console.log(five_dict[five_dict.length-1])
 
 const WORD_LENGTH : number = 5;
 
@@ -151,3 +152,5 @@ function printWord() : void {
         }
     }
 }
+
+// console.log(wordSuggestions('words', 'BGBBY'));

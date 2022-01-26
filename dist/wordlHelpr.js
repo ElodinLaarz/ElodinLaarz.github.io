@@ -1,5 +1,4 @@
-import { five_dict } from "./five_word_dictionary_list.js";
-console.log(five_dict[five_dict.length - 1]);
+// import {}
 const WORD_LENGTH = 5;
 const root = document.querySelector("#app");
 if (root) {
@@ -140,4 +139,6 @@ function printWord() {
         }
     }
 }
+export {};
+// console.log(wordSuggestions('words', 'BGBBY'));
 //# sourceMappingURL=wordlHelpr.js.map
