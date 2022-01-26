@@ -2,6 +2,9 @@
 import {five_letter_dic, wordScore, wordSuggestions} from "./helprFunctions.js"
 // import {}
 
+let cur_dic = [...five_letter_dic];
+let prev_dic = [...five_letter_dic];
+
 
 const WORD_LENGTH : number = 5;
 

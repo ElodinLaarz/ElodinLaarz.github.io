@@ -31,7 +31,7 @@ export function wordScore(word, dic) {
     }
     return score;
 }
-export function wordSuggestions(word, colors) {
+export function wordSuggestions(word, colors, dic) {
     let good_letters = Array(WORD_LENGTH);
     let filtered_dict;
     for (let i = 0; i < WORD_LENGTH; i++) {
@@ -58,7 +58,7 @@ export function wordSuggestions(word, colors) {
             }
         }
     }
-    filtered_dict = five_letter_dic.filter(function (elem) {
+    filtered_dict = dic.filter(function (elem) {
         let valid = true;
         for (let i = 0; i < elem.length; i++) {
             valid = valid && good_letters[i].has(elem[i]);
@@ -69,7 +69,7 @@ export function wordSuggestions(word, colors) {
         return valid;
     });
     return filtered_dict.sort(function (a, b) {
-        if (wordScore(a, five_letter_dic) > wordScore(b, five_letter_dic)) {
+        if (wordScore(a, dic) > wordScore(b, dic)) {
             return 1;
         }
         return 0;
