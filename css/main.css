@@ -156,16 +156,21 @@ section {
   color: white;
 }
 
-.game .player-board .game-rows .row .row-letter, .game .computer-board .game-rows .row .row-letter {
+.game .player-board .game-rows .cur-row .row-letter, .game .computer-board .game-rows .cur-row .row-letter {
+  border-style: solid;
+  border-width: 3px;
+  border-color: white;
+}
+
+.game .player-board .game-rows .row .row-letter, .game .player-board .game-rows .cur-row .row-letter, .game .computer-board .game-rows .row .row-letter, .game .computer-board .game-rows .cur-row .row-letter {
   color: white;
   text-align: center;
   font-family: 'Courier New';
   font-size: 3vw;
   background: var(--empty-letter-box-color);
-  padding: 0.1vw;
+  padding: 0.5vw;
   height: 5vw;
   width: 5vw;
-  border: 0.1em solid black;
   border-radius: 0.2em;
   -webkit-touch-callout: none;
   -webkit-user-select: none;

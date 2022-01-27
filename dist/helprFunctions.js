@@ -68,12 +68,18 @@ export function wordSuggestions(word, colors, dic) {
         }
         return valid;
     });
-    return filtered_dict.sort(function (a, b) {
-        if (wordScore(a, dic) > wordScore(b, dic)) {
+    filtered_dict.sort(function (a, b) {
+        let a_score = wordScore(a, dic);
+        let b_score = wordScore(b, dic);
+        if (a_score < b_score) {
+            return -1;
+        }
+        else if (b_score < a_score) {
             return 1;
         }
         return 0;
     });
+    return filtered_dict;
 }
 // five_letter_dic = wordSuggestions('tries', 'BYBBB');
 // five_letter_dic = wordSuggestions('ranch', 'YBBBB');
