@@ -158,15 +158,19 @@ document.addEventListener('keypress', addToWord);
 // These two functions keep track of the word that is being typed.
 function addToWord(e : KeyboardEvent) : void {
 
-    if (word.length < WORD_LENGTH){
+    if (word.length < WORD_LENGTH && (/[a-zA-Z]/).test(e.key) && e.key.length == 1){
         word += e.key;
     }
     printWord();
 }
 
 function logKey(e : KeyboardEvent) : void {
+    console.log(e);
+
     if (e.key == "Backspace" && word.length > 0){
         word = word.slice(0, word.length -1);
+    }else if(word.length == WORD_LENGTH && e.key == "Enter"){
+        submit_button?.click();
     }
     printWord();
 }
@@ -193,6 +197,14 @@ function wordSubmit(){
     // rgb(7, 183, 59) -- Green
 
 
+    let chat_box = document.getElementsByClassName("chat-box")[0];
+    chat_box.innerHTML = "Hmmm, let's check which words satisfy this...";
+
+
+    // I am trying to give the user some feedback that we're actually considering words and the browser isn't frozen.
+    // setTimeout(() => {  console.log("Waited!"); }, 500);
+
+
     prev_dic = [...cur_dic];
     let colors : string = '';    
     if (cur_row){
@@ -214,10 +226,9 @@ function wordSubmit(){
         })   
     }
 
+    // This seems to take quite a bit of time the first run-through of the dictionary.
     cur_dic = wordSuggestions(word, colors, cur_dic);
 
-    let chat_box = document.getElementsByClassName("chat-box")[0];
-    chat_box.innerHTML = "";
     cur_dic.forEach(function(entry){
         if (chat_box){
             chat_box.innerHTML += entry + ", " ;
