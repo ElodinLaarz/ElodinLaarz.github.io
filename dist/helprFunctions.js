@@ -8,11 +8,15 @@ const alphabet = new Array(26);
 for (let i = 0; i < alphabet.length; i++) {
     alphabet[i] = String.fromCharCode(i + 97);
 }
+let letter_score = {};
 export function wordScore(word, dic) {
-    let letter_score = {};
-    // for (let i in alphabet){
-    //     letter_score[alphabet[i]] = 0;
-    // }
+    let score = 0;
+    for (let i = 0; i < word.length; i++) {
+        score += letter_score[word[i]];
+    }
+    return score;
+}
+function scoreLetters(dic) {
     alphabet.forEach(function (l) {
         letter_score[l] = 0;
     });
@@ -25,11 +29,6 @@ export function wordScore(word, dic) {
             letter_score[cur_char]++;
         }
     }
-    let score = 0;
-    for (let i = 0; i < word.length; i++) {
-        score += letter_score[word[i]];
-    }
-    return score;
 }
 export function wordSuggestions(word, colors, dic) {
     let good_letters = Array(WORD_LENGTH);
@@ -63,30 +62,29 @@ export function wordSuggestions(word, colors, dic) {
         for (let i = 0; valid && i < elem.length; i++) {
             valid = valid && good_letters[i].has(elem[i]);
         }
-        if (valid) {
-            for (const yellow_letter of cur_yellow_letters) {
+        for (const yellow_letter of cur_yellow_letters) {
+            if (valid) {
                 valid = valid && elem.includes(yellow_letter);
+            }
+            else {
+                return false;
             }
         }
         return valid;
     });
-    // let progress_numerator = 0;
-    // let progress_denominator = filtered_dict.length; 
-    // let progress_bar = document.getElementById("my-progress-bar");
-    // filtered_dict.sort(function(a,b) : number {
-    //     let a_score = wordScore(a, dic);
-    //     let b_score = wordScore(b, dic);
-    //     if (a_score < b_score){
-    //         return -1;
-    //     }else if(b_score < a_score) {
-    //         return 1;
-    //     }
-    //     return 0;
-    // });
+    scoreLetters(filtered_dict);
+    filtered_dict.sort(function (a, b) {
+        let a_score = wordScore(a, dic);
+        let b_score = wordScore(b, dic);
+        if (a_score < b_score) {
+            return -1;
+        }
+        else if (b_score < a_score) {
+            return 1;
+        }
+        return 0;
+    });
     // return [];
     return filtered_dict;
 }
-// five_letter_dic = wordSuggestions('tries', 'BYBBB');
-// five_letter_dic = wordSuggestions('ranch', 'YBBBB');
-// console.log(wordSuggestions('wordy', 'BYYBB'));
 //# sourceMappingURL=helprFunctions.js.map

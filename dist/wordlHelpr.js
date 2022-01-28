@@ -160,62 +160,86 @@ function printWord() {
         }
     }
 }
-function wordSubmit() {
-    // This is terrible, I know, but... Just gonna hard-code in the rgb
-    // values for the three colors we have...
-    // rgb(120, 125, 122) -- Gray
-    // rgb(199, 199, 6) -- Yellow
-    // rgb(7, 183, 59) -- Green
-    let chat_box = document.getElementsByClassName("scroll")[0];
-    chat_box.innerHTML = "Hmmm, let's check which words satisfy this... ";
-    let colors = '';
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+function flash() {
     if (cur_row) {
-        let letter_boxes = Array.from(cur_row.children);
-        letter_boxes.forEach(function (element) {
-            if (element instanceof HTMLElement) {
-                let s = getComputedStyle(element);
-                if (s.background == "rgb(7, 183, 59) none repeat scroll 0% 0% / auto padding-box border-box") {
-                    // Green
-                    colors += 'G';
+        const row = cur_row;
+        for (let i = 0; i < WORD_LENGTH; i++) {
+            let letter_box = row.children[i];
+            if (letter_box instanceof HTMLElement) {
+                letter_box.style.background = "red";
+                sleep(50).then(() => {
+                    if (letter_box instanceof HTMLElement) {
+                        letter_box.style.background = "#787D7A";
+                    }
+                });
+            }
+        }
+    }
+}
+function wordSubmit() {
+    if (word.length < WORD_LENGTH) {
+        flash();
+    }
+    else {
+        // This is terrible, I know, but... Just gonna hard-code in the rgb
+        // values for the three colors we have...
+        // rgb(120, 125, 122) -- Gray
+        // rgb(199, 199, 6) -- Yellow
+        // rgb(7, 183, 59) -- Green
+        let chat_box = document.getElementsByClassName("scroll")[0];
+        chat_box.innerHTML = "Hmmm, let's check which words satisfy this... ";
+        let colors = '';
+        if (cur_row) {
+            let letter_boxes = Array.from(cur_row.children);
+            letter_boxes.forEach(function (element) {
+                if (element instanceof HTMLElement) {
+                    let s = getComputedStyle(element);
+                    if (s.background == "rgb(7, 183, 59) none repeat scroll 0% 0% / auto padding-box border-box") {
+                        // Green
+                        colors += 'G';
+                    }
+                    else if (s.background == "rgb(199, 199, 6) none repeat scroll 0% 0% / auto padding-box border-box") {
+                        // Yellow
+                        colors += 'Y';
+                    }
+                    else {
+                        // "Black" (Gray)
+                        colors += 'B';
+                    }
                 }
-                else if (s.background == "rgb(199, 199, 6) none repeat scroll 0% 0% / auto padding-box border-box") {
-                    // Yellow
-                    colors += 'Y';
-                }
-                else {
-                    // "Black" (Gray)
-                    colors += 'B';
-                }
+            });
+        }
+        // This seems to take quite a bit of time the first run-through of the dictionary.
+        cur_dic = wordSuggestions(word, colors, cur_dic);
+        chat_box.innerHTML += "Looks like we found " + cur_dic.length + " candidate words!<br><br>";
+        cur_dic.forEach(function (entry) {
+            if (chat_box) {
+                chat_box.innerHTML += entry + ", ";
             }
         });
-    }
-    // This seems to take quite a bit of time the first run-through of the dictionary.
-    cur_dic = wordSuggestions(word, colors, cur_dic);
-    chat_box.innerHTML += "Looks like we found " + cur_dic.length + " candidate words!<br><br>";
-    cur_dic.forEach(function (entry) {
-        if (chat_box) {
-            chat_box.innerHTML += entry + ", ";
-        }
-    });
-    chat_box.innerHTML = chat_box.innerHTML.slice(0, chat_box.innerHTML.length - 2) + '.';
-    let game_rows = document.getElementsByClassName("game-rows")[0];
-    if (game_rows) {
-        let prev_row = game_rows.children[cur_row_index];
-        prev_row.classList.add("row");
-        prev_row.classList.remove("cur-row");
-        for (let i = 0; i < WORD_LENGTH; i++) {
-            prev_row.children[i].removeAttribute('id');
-        }
-        if (cur_row_index < num_rows) {
-            let new_row = game_rows.children[cur_row_index + 1];
-            new_row.classList.remove("row");
-            new_row.classList.add("cur-row");
+        chat_box.innerHTML = chat_box.innerHTML.slice(0, chat_box.innerHTML.length - 2) + '.';
+        let game_rows = document.getElementsByClassName("game-rows")[0];
+        if (game_rows) {
+            let prev_row = game_rows.children[cur_row_index];
+            prev_row.classList.add("row");
+            prev_row.classList.remove("cur-row");
             for (let i = 0; i < WORD_LENGTH; i++) {
-                new_row.children[i].setAttribute('id', String(i));
+                prev_row.children[i].removeAttribute('id');
             }
+            if (cur_row_index < num_rows) {
+                let new_row = game_rows.children[cur_row_index + 1];
+                new_row.classList.remove("row");
+                new_row.classList.add("cur-row");
+                for (let i = 0; i < WORD_LENGTH; i++) {
+                    new_row.children[i].setAttribute('id', String(i));
+                }
+            }
+            cur_row_index++;
+            resetAll();
         }
-        cur_row_index++;
-        resetAll();
     }
 }
 //# sourceMappingURL=wordlHelpr.js.map
