@@ -2,7 +2,7 @@
 import { five_letter_dic, wordSuggestions } from "./helprFunctions.js";
 // import {}
 let cur_dic = [...five_letter_dic];
-let prev_dic = [];
+// let prev_dic : string[] = [];
 const WORD_LENGTH = 5;
 const root = document.querySelector("#app");
 if (root) {
@@ -25,82 +25,74 @@ if (root) {
         <section class="player-board">
             <h2>Your Board</h2>
             <table>
-                <tbody class=game-rows>
-                    <tr class="cur-row">
-                        <td class="row-letter" id="0">T</td>
-                        <td class="row-letter" id="1">Y</td>
-                        <td class="row-letter" id="2">P</td>
-                        <td class="row-letter" id="3">E</td>
-                        <td class="row-letter" id="4">!</td>
-                    </tr>
-                    <tr class="row">
-                        <td class="row-letter"></td>
-                        <td class="row-letter"></td>
-                        <td class="row-letter"></td>
-                        <td class="row-letter"></td>
-                        <td class="row-letter"></td>
-                    </tr>
-                    <tr class="row">
-                        <td class="row-letter"></td>
-                        <td class="row-letter"></td>
-                        <td class="row-letter"></td>
-                        <td class="row-letter"></td>
-                        <td class="row-letter"></td>
-                    </tr>
-                    <tr class="row">
-                        <td class="row-letter"></td>
-                        <td class="row-letter"></td>
-                        <td class="row-letter"></td>
-                        <td class="row-letter"></td>
-                        <td class="row-letter"></td>
-                    </tr>
-                    <tr class="row">
-                        <td class="row-letter"></td>
-                        <td class="row-letter"></td>
-                        <td class="row-letter"></td>
-                        <td class="row-letter"></td>
-                        <td class="row-letter"></td>
-                    </tr>
-                    <tr class="row">
-                        <td class="row-letter"></td>
-                        <td class="row-letter"></td>
-                        <td class="row-letter"></td>
-                        <td class="row-letter"></td>
-                        <td class="row-letter"></td>
-                    </tr>
+                <tbody class=game-rows>                   
                 </tbody>
             </table>
             <p role="alert">&nbsp;</p>
-            <button id="submit" onclick="wordSubmit()">Submit</button>
+            <div class="container" id="buttons">
+                <button id="submit">Submit</button>
+                <button id="reset">Reset</button>
+            </div>
         </section>
-        <section class="chat-box">
-           Please enter the word that you guessed, and the click on the individual letters to change their color. As a reminder,
-           GREEN means right letter in the right place; YELLOW means right letter in the wrong place; and GRAY means this letter isn't 
-           in the word.
-
-           Once you've entered your word and the colors, press submit!
-        </section>
+        <div class="container">
+            <section class="chat-box">
+                <section class="scroll">
+                </section>
+            </section>
+        </div>
         </div>`;
 }
+let num_rows = 6;
 let cur_row_index = 0;
 let cur_row = root === null || root === void 0 ? void 0 : root.getElementsByClassName("cur-row")[0];
 const rows = root === null || root === void 0 ? void 0 : root.getElementsByClassName("row");
 const submit_button = document.getElementById("submit");
-// console.log(submit_button);
-// SUBMIT IS NOT WORKING :'(
-// console.log('run?');
 if (submit_button) {
-    console.log('submit!');
+    // console.log('submit!')
     submit_button.onclick = wordSubmit;
+}
+const reset_button = document.getElementById("reset");
+console.log(reset_button);
+// let reset_dic = false;
+if (reset_button) {
+    reset_button.onclick = function () {
+        resetAll(true);
+    };
 }
 // Keep track of the color of the letter boxes
 let cur_color_indices = new Array(WORD_LENGTH).fill(0);
 ;
 let word = "";
-resetAll();
+resetAll(true);
 function resetAll(reset_dic = false) {
     if (reset_dic) {
+        let chat_box = document.getElementsByClassName("scroll")[0];
+        chat_box.innerHTML = `Please enter the word that you guessed, and the click on the individual letters to change their color. As a reminder,
+        GREEN means right letter in the right place; YELLOW means right letter in the wrong place; and GRAY means this letter isn't 
+        in the word.<br><br>
+        Once you've entered your word and the colors, press submit!`;
+        reset_dic = false;
+        cur_row_index = 0;
         cur_dic = five_letter_dic;
+        let game_rows = document.getElementsByClassName('game-rows')[0];
+        if (game_rows) {
+            game_rows.innerHTML = `<tr class="cur-row">
+                <td class="row-letter" id="0">T</td>
+                <td class="row-letter" id="1">Y</td>
+                <td class="row-letter" id="2">P</td>
+                <td class="row-letter" id="3">E</td>
+                <td class="row-letter" id="4">!</td>
+            </tr>`;
+            for (let i = 0; i < num_rows - 1; i++) {
+                game_rows.innerHTML += `<tr class="row">
+                    <td class="row-letter"></td>
+                    <td class="row-letter"></td>
+                    <td class="row-letter"></td>
+                    <td class="row-letter"></td>
+                    <td class="row-letter"></td>
+                </tr>`;
+            }
+        }
     }
     word = "";
     cur_row = document.getElementsByClassName("cur-row")[0];
@@ -146,7 +138,7 @@ function addToWord(e) {
     printWord();
 }
 function logKey(e) {
-    console.log(e);
+    // console.log(e);
     if (e.key == "Backspace" && word.length > 0) {
         word = word.slice(0, word.length - 1);
     }
@@ -174,11 +166,8 @@ function wordSubmit() {
     // rgb(120, 125, 122) -- Gray
     // rgb(199, 199, 6) -- Yellow
     // rgb(7, 183, 59) -- Green
-    let chat_box = document.getElementsByClassName("chat-box")[0];
-    chat_box.innerHTML = "Hmmm, let's check which words satisfy this...";
-    // I am trying to give the user some feedback that we're actually considering words and the browser isn't frozen.
-    // setTimeout(() => {  console.log("Waited!"); }, 500);
-    prev_dic = [...cur_dic];
+    let chat_box = document.getElementsByClassName("scroll")[0];
+    chat_box.innerHTML = "Hmmm, let's check which words satisfy this... ";
     let colors = '';
     if (cur_row) {
         let letter_boxes = Array.from(cur_row.children);
@@ -202,27 +191,28 @@ function wordSubmit() {
     }
     // This seems to take quite a bit of time the first run-through of the dictionary.
     cur_dic = wordSuggestions(word, colors, cur_dic);
+    chat_box.innerHTML += "Looks like we found " + cur_dic.length + " candidate words!<br><br>";
     cur_dic.forEach(function (entry) {
         if (chat_box) {
             chat_box.innerHTML += entry + ", ";
         }
     });
-    console.log(cur_dic);
+    chat_box.innerHTML = chat_box.innerHTML.slice(0, chat_box.innerHTML.length - 2) + '.';
     let game_rows = document.getElementsByClassName("game-rows")[0];
     if (game_rows) {
-        if (cur_row) {
-            console.log(cur_row.children);
-        }
         let prev_row = game_rows.children[cur_row_index];
-        // This is bad and is going to go out of bounds please fix later I'm sleepy
-        let new_row = game_rows.children[cur_row_index + 1];
         prev_row.classList.add("row");
         prev_row.classList.remove("cur-row");
-        new_row.classList.remove("row");
-        new_row.classList.add("cur-row");
         for (let i = 0; i < WORD_LENGTH; i++) {
             prev_row.children[i].removeAttribute('id');
-            new_row.children[i].setAttribute('id', String(i));
+        }
+        if (cur_row_index < num_rows) {
+            let new_row = game_rows.children[cur_row_index + 1];
+            new_row.classList.remove("row");
+            new_row.classList.add("cur-row");
+            for (let i = 0; i < WORD_LENGTH; i++) {
+                new_row.children[i].setAttribute('id', String(i));
+            }
         }
         cur_row_index++;
         resetAll();
