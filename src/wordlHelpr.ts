@@ -1,5 +1,5 @@
 // import {five_dict} from "./five_word_dictionary_list.js"
-import {five_letter_dic, wordScore, wordSuggestions} from "./helprFunctions.js"
+import {five_letter_dic, wordScore, wordSuggestions, alphabet} from "./helprFunctions.js"
 // import {}
 
 let cur_dic : string[] = [...five_letter_dic];
@@ -50,7 +50,7 @@ if (root){
 let num_rows = 6;
 
 let cur_row_index : number = 0;
-let cur_row = root?.getElementsByClassName("cur-row")[0];
+let cur_row = root?.getElementsByClassName("player-cur-row")[0];
 const rows = root?.getElementsByClassName("row");
 
 const submit_button = document.getElementById("submit");
@@ -83,7 +83,7 @@ function resetAll(reset_dic = false){
 
     if (reset_dic){
         let chat_box = document.getElementsByClassName("scroll")[0];
-        chat_box.innerHTML = `Please enter the word that you guessed, and the click on the individual letters to change their color. As a reminder,
+        chat_box.innerHTML = `Please enter the word that you guessed, and then click on the individual letters to change their color. As a reminder,
         GREEN means right letter in the right place; YELLOW means right letter in the wrong place; and GRAY means this letter isn't 
         in the word.<br><br>
         Once you've entered your word and the colors, press submit!`;
@@ -94,7 +94,7 @@ function resetAll(reset_dic = false){
 
         let game_rows = document.getElementsByClassName('game-rows')[0];
         if(game_rows){
-            game_rows.innerHTML = `<tr class="cur-row">
+            game_rows.innerHTML = `<tr class="player-cur-row">
                 <td class="row-letter" id="0">T</td>
                 <td class="row-letter" id="1">Y</td>
                 <td class="row-letter" id="2">P</td>
@@ -115,7 +115,7 @@ function resetAll(reset_dic = false){
 
     word = "";
 
-    cur_row = document.getElementsByClassName("cur-row")[0];
+    cur_row = document.getElementsByClassName("player-cur-row")[0];
     // Set the on-click event for the letter boxes to change their colors.
     for (let i = 0; i < WORD_LENGTH; i++){
         if(cur_row){
@@ -176,12 +176,11 @@ function logKey(e : KeyboardEvent) : void {
 
 function printWord() : void {
     if (cur_row){
-        const row : Element = cur_row;
         for (let i = 0 ; i < WORD_LENGTH; i++){
             if (i < word.length){
-                row.children[i].innerHTML = word[i].toUpperCase();
+                cur_row.children[i].innerHTML = word[i].toUpperCase();
             }else{
-                row.children[i].innerHTML = '';
+                cur_row.children[i].innerHTML = '';
             }
         }
     }
@@ -212,7 +211,7 @@ function flash(){
 
 function wordSubmit(){
 
-    if (word.length < WORD_LENGTH){
+    if (word.length < WORD_LENGTH || !five_letter_dic.includes(word)){
         flash();
     }else{
         // This is terrible, I know, but... Just gonna hard-code in the rgb
@@ -266,7 +265,7 @@ function wordSubmit(){
             let prev_row = game_rows.children[cur_row_index];
             
             prev_row.classList.add("row");
-            prev_row.classList.remove("cur-row");
+            prev_row.classList.remove("player-cur-row");
 
             for( let i = 0; i < WORD_LENGTH; i++){
                 prev_row.children[i].removeAttribute('id');
@@ -278,7 +277,7 @@ function wordSubmit(){
             let new_row = game_rows.children[cur_row_index+1];
             
                 new_row.classList.remove("row");
-                new_row.classList.add("cur-row");
+                new_row.classList.add("player-cur-row");
                 
                 for( let i = 0; i < WORD_LENGTH; i++){
                     new_row.children[i].setAttribute('id',String(i));

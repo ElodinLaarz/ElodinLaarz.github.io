@@ -9,12 +9,12 @@ let options_to_print = 5;
 // let five_letter_dic = [];
 
 // Build an array of the letters of the alphabet.
+export
 const alphabet : string[] = new Array(26);
 
 for (let i = 0; i < alphabet.length; i++){
     alphabet[i] = String.fromCharCode(i+97);
 }
-
 
 let letter_score : {[letter: string] : number} = {};
 

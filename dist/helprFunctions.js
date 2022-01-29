@@ -4,7 +4,7 @@ let options_to_print = 5;
 // We need a fixed dictionary, previous dictionary, and current dictionary.
 // let five_letter_dic = [];
 // Build an array of the letters of the alphabet.
-const alphabet = new Array(26);
+export const alphabet = new Array(26);
 for (let i = 0; i < alphabet.length; i++) {
     alphabet[i] = String.fromCharCode(i + 97);
 }

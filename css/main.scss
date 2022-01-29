@@ -93,28 +93,120 @@ ul{
 }
 
 #battlPage{
+    .boards{
+        // background-color:white;
+        width: 100vw;
+        height: 100vh;
+    }
     .game{
+        // .container{
+        //     background-color: white;
+        // }
         .player-board{
             position:absolute;
             top:10%;
+            left:5%;
         }
         .computer-board{
             position:absolute;
             top:10%;
-            left:65%;
+            right: 5%;
+            // left:%;
+            // width: 7.5em;
+            // height: 40vh;
+            button{
+                background: white;
+            }
+        }
+        #buttons{
+            // background : white;
+            position: relative;
+            align-content: center;
+            padding: 0;
+
+        }
+        #submit{
+            // display:none;
+            background-color: #C7C706;
+        }    
+        #reset{
+            // display:none;
+            background-color: #C70606;
+            position: absolute;
+            right: 0;
+        }
+        button{
+            border-color: black;
+            border-width: 0.05em;
+            border-radius: 0.5em;
+            font-family:'Source Code Pro';
+            font-size: 150%;
+            font-weight:bold;
+            width : 25%;
+            height: 5vh;
+            margin: 5%;
+            padding: 0.1em;
         }
         .chat-box{
-            position:absolute;
-            top:20%;
-            left:35%;
-            color:var(--primary-wordl-color);
-            background: #272323;
-            border-radius: 10vw;
+            position: absolute;
+            top: 15%;
+            left: 41%;
+            background: #0D0208;
+            border-radius: 7vw;
             opacity: 30%;
             height: 60vh;
-            width: 25vw;
+            width: 20vw;
+            .scroll{
+                -ms-overflow-style: none; /* for Internet Explorer, Edge */
+                scrollbar-width: none; /* for Firefox */
+                // display: ;
+                position: relative;
+                text-align: center;
+                width : 80%;
+                height : 80%;
+                left: 10%;
+                top: 10%;
+                font-weight:bold;
+                color:var(--matrix-green-color);
+                overflow-y: scroll;
+            }
+            .scroll::-webkit-scrollbar {
+                display: none; /* for Chrome, Safari, and Opera */
+            }
+            #start{
+                background-color: lime;
+                color:black;
+                margin:0;
+                position:relative;
+                // justify-self:right;
+                top : 2.5em;
+                width: 40%;
+                left:30%;
+            }
         }
     }
+    // .game{
+    //     .player-board{
+    //         position:absolute;
+    //         top:10%;
+    //     }
+    //     .computer-board{
+    //         position:absolute;
+    //         top:10%;
+    //         left:65%;
+    //     }
+    //     .chat-box{
+    //         position:absolute;
+    //         top:20%;
+    //         left:35%;
+    //         color:var(--primary-wordl-color);
+    //         background: #272323;
+    //         border-radius: 10vw;
+    //         opacity: 30%;
+    //         height: 60vh;
+    //         width: 25vw;
+    //     }
+    // }
 }
 
 
@@ -208,14 +300,14 @@ ul{
             color:white;
         }
         .game-rows{
-            .cur-row{
+            .player-cur-row{
                 .row-letter{
                     border-style: solid;
                     border-width: 3px;
                     border-color: white;
                 }
             }
-            .row,.cur-row{
+            .row,.player-cur-row, .computer-cur-row{
                 .row-letter{
                     color:white;
                     text-align: center;
@@ -225,8 +317,8 @@ ul{
                     background: var(--empty-letter-box-color);
                     padding: 0.5vw;
 
-                    height: 5vw;
-                    width: 5vw;
+                    height: 1.5em;
+                    width: 1.5em;
                     border-radius: 0.2em;
                     
                     -webkit-touch-callout: none;
