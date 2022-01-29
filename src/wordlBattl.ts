@@ -235,7 +235,7 @@ function startGame(){
     document.addEventListener('keypress', addToWord);
 
     secret_word = five_letter_dic[Math.floor(Math.random() * five_letter_dic.length)];
-    console.log(secret_word);
+    // console.log(secret_word);
 
     if (start_button){
         start_button.style.display = "none";
@@ -372,6 +372,10 @@ function wordSubmit(word_to_check : string, is_cpu = false){
                 return "";
             }
             
+            if (chat_box){
+                chat_box.innerHTML = "Nope! The word is not \"" + word_to_check.toUpperCase() + "\".<br> Give it another try!";
+            }
+            
             let game_rows = document.getElementsByClassName("game-rows")[0];
             if (game_rows){
                         
@@ -387,8 +391,9 @@ function wordSubmit(word_to_check : string, is_cpu = false){
                 
                 
                 if (player_cur_row_index+1 < num_rows){
-                let new_row = game_rows.children[player_cur_row_index+1];
-                player_cur_row = new_row;
+                    word = "";
+                    let new_row = game_rows.children[player_cur_row_index+1];
+                    player_cur_row = new_row;
                 
                     new_row.classList.remove("row");
                     new_row.classList.add("player-cur-row");
@@ -397,13 +402,13 @@ function wordSubmit(word_to_check : string, is_cpu = false){
                         new_row.children[i].setAttribute('id',String(i));
                     }
                 }else{
+                    
                     endGame();
                     // return "end";
                 }
     
     
                 player_cur_row_index++;
-                word = "";
                 // resetAll();
             }
         }
@@ -523,7 +528,7 @@ function endGame(give_up : boolean = false){
         computer_score_value++;
         updateScore();
         if(chat_box){
-            chat_box.innerHTML = "Oh, tough luck. Guessing \"" + secret_word.toUpperCase() + "\" was difficult!<br><br>" +
+            chat_box.innerHTML = "Oh, tough luck. It seems that guessing \"" + secret_word.toUpperCase() + "\" was difficult!<br><br>" +
             "The computer gets the point this time!";
         }
     }else{

@@ -207,7 +207,7 @@ function startGame() {
     document.addEventListener('keydown', logKey);
     document.addEventListener('keypress', addToWord);
     secret_word = five_letter_dic[Math.floor(Math.random() * five_letter_dic.length)];
-    console.log(secret_word);
+    // console.log(secret_word);
     if (start_button) {
         start_button.style.display = "none";
     }
@@ -331,6 +331,9 @@ function wordSubmit(word_to_check, is_cpu = false) {
                 // Empty return stops computer from going after you.
                 return "";
             }
+            if (chat_box) {
+                chat_box.innerHTML = "Nope! The word is not \"" + word_to_check.toUpperCase() + "\".<br> Give it another try!";
+            }
             let game_rows = document.getElementsByClassName("game-rows")[0];
             if (game_rows) {
                 let prev_row = game_rows.children[player_cur_row_index];
@@ -340,6 +343,7 @@ function wordSubmit(word_to_check, is_cpu = false) {
                     prev_row.children[i].removeAttribute('id');
                 }
                 if (player_cur_row_index + 1 < num_rows) {
+                    word = "";
                     let new_row = game_rows.children[player_cur_row_index + 1];
                     player_cur_row = new_row;
                     new_row.classList.remove("row");
@@ -353,7 +357,6 @@ function wordSubmit(word_to_check, is_cpu = false) {
                     // return "end";
                 }
                 player_cur_row_index++;
-                word = "";
                 // resetAll();
             }
         }
@@ -454,7 +457,7 @@ function endGame(give_up = false) {
         computer_score_value++;
         updateScore();
         if (chat_box) {
-            chat_box.innerHTML = "Oh, tough luck. Guessing \"" + secret_word.toUpperCase() + "\" was difficult!<br><br>" +
+            chat_box.innerHTML = "Oh, tough luck. It seems that guessing \"" + secret_word.toUpperCase() + "\" was difficult!<br><br>" +
                 "The computer gets the point this time!";
         }
     }

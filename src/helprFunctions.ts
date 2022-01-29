@@ -48,36 +48,57 @@ function scoreLetters(dic : string[]){
 export
 function wordSuggestions(word : string, colors : string, dic : string[]) : string[] {
 
+    let guess_letter_count : {[letter : string] : number} = {};    
+    alphabet.forEach(function(l){
+        guess_letter_count[l] = 0;
+    }); 
 
     let good_letters = Array(WORD_LENGTH);
     let filtered_dict : string[];
+
     for (let i = 0; i < WORD_LENGTH; i++){
         good_letters[i] = new Set(alphabet);
     }
+
     let cur_yellow_letters = new Set<string>();
+   
     for (let i = 0; i < colors.length; i++){
         let color : string = colors[i];
         if (color == 'G'){
             good_letters[i] = new Set([word[i]]);
+            guess_letter_count[word[i]]++;
         }else if (color == 'Y'){
+            guess_letter_count[word[i]]++;
             good_letters[i].delete(word[i]);
             cur_yellow_letters.add(word[i]);
         }else{
             good_letters[i].delete(word[i]);
             if (!cur_yellow_letters.has(word[i])){
                 for (let j = 0; j < good_letters.length; j++){
-                    if (good_letters[j].has(word[i]) && good_letters[j].length != 1){
+                    if (good_letters[j].has(word[i]) && good_letters[j].size != 1){
                         good_letters[j].delete(word[i]);
                     }
                 }
             }
         }
     }
-    
+    // console.log(good_letters);
+
     filtered_dict = dic.filter(function(elem){
-        let valid : boolean = true;
+        let valid : boolean = true;     
+        let cur_letter_count  : {[letter : string] : number} = {};
+        alphabet.forEach(function(l){
+            cur_letter_count[l] = 0;
+        }); 
         for (let i = 0; valid && i < elem.length; i++){
             valid = valid && good_letters[i].has(elem[i]);
+            cur_letter_count[elem[i]]++;
+        }
+        // Make sure we're always using all known letters.
+        for (let letter in cur_letter_count){
+            if(cur_letter_count[letter] < guess_letter_count[letter]){
+                return false;
+            }
         }
         for (const yellow_letter of cur_yellow_letters){
             if (valid){
@@ -86,6 +107,7 @@ function wordSuggestions(word : string, colors : string, dic : string[]) : strin
                 return false;
             }
         }
+
         return valid;
     });
     
