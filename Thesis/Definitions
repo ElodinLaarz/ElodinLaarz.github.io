@@ -1,0 +1,98 @@
+%%%% Theoremstyles
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{hypothesis}[theorem]{Hypothesis}
+\newtheorem{conjecture}[theorem]{Conjecture}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{question}[theorem]{Question}
+\newtheorem{idea}[theorem]{Idea}
+\newtheorem{project}[theorem]{Project}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{openproblem}[theorem]{Open Problem}
+\newtheorem{challenge}[theorem]{Challenge}
+
+%\theoremstyle{remark}
+\newtheorem{goal}[theorem]{Goal}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{remarks}[theorem]{Remarks}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}[theorem]{Exercise}
+
+\numberwithin{equation}{section}
+\numberwithin{figure}{section}
+\numberwithin{table}{section}
+
+
+%MathsSymbols
+\DeclareMathOperator{\Cl}{Cl}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Frob}{Frob}
+\DeclareMathOperator{\cond}{cond}
+\DeclareMathOperator{\PSL}{PSL}
+\DeclareMathOperator{\disc}{disc}
+\DeclareMathOperator{\Pic}{Pic}
+\DeclareMathOperator{\SL}{SL}
+\DeclareMathOperator{\Gal}{Gal}
+\DeclareMathOperator{\Frb}{Frob}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\ord}{ord}
+\DeclareMathOperator{\Norm}{N}
+
+% \newcommmand{\Thm}{Thm}
+% \newcommand{\Cor}{Cor}
+% \newcommand{\Prop}{Prop}
+% \newcommand{\Conj}{Conj}
+
+
+%Order Stuff
+\newcommand{\od}{d} %arbitrary
+\newcommand{\oD}{D} %maximal
+\newcommand{\odz}{d_0}
+
+
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+%MathBBLetters
+\renewcommand{\AA}{\mathbb{A}}
+\newcommand{\BB}{\mathbb{B}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\FF}{\mathbb{F}}
+\newcommand{\GG}{\mathbb{G}}
+\newcommand{\HH}{\mathbb{H}}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\PP}{\mathbb{P}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\ZZ}{\mathbb{Z}}
+
+%MathCalLetters
+\newcommand{\cD}{\mathcal{D}}
+\newcommand{\cO}{\mathcal{O}}
+
+%MathFrak
+\newcommand{\fa}{\mathfrak{a}}
+\newcommand{\fA}{\mathfrak{A}}
+\newcommand{\fb}{\mathfrak{b}}
+\newcommand{\fp}{\mathfrak{p}}
+\newcommand{\fP}{\mathfrak{P}}
+\newcommand{\fq}{\mathfrak{q}}
+\newcommand{\fQ}{\mathfrak{Q}}
+\newcommand{\fr}{\mathfrak{r}}
+\newcommand{\fR}{\mathfrak{R}}
+\newcommand{\fN}{\mathfrak{N}}
+
+%Caleb is Lazy
+\renewcommand{\t}[1]{\text{#1}}
+
+%Hiragana
+\newcommand{\hiraa}{\text{\usefont{U}{min}{m}{n}\symbol{'101}}}
+\newcommand{\hiraro}{\text{\usefont{U}{min}{m}{n}\symbol{'215}}}
+
+\DeclareFontFamily{U}{min}{}
+\DeclareFontShape{U}{min}{m}{n}{<-> udmj30}{}

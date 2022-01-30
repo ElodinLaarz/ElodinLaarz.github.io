@@ -1,0 +1,803 @@
+\documentclass[11pt, proquest]{uwthesis}
+\usepackage{natbib}
+\def\bibpreamble{\protect\addcontentsline{toc}{chapter}{Bibliography}}
+\setcounter{tocdepth}{1}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{adjustbox}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true}
+
+\usepackage{float}
+
+\usepackage{enumitem}
+\setlist[enumerate]{label*=\arabic*.}
+
+\usepackage{caption}
+
+\bibliographystyle{alpha}
+\input{Definitions}
+
+\begin{document}
+\prelimpages
+\Title{Singular Moduli and the Ideal Class Group}
+\Author{Caleb Geiger}
+\Year{2020}
+\Program{Mathematics}
+
+\Chair{Bianca Viray}{}{}
+\Signature{Max Lieblich}
+
+\copyrightpage
+
+\titlepage
+
+%
+% ----- abstract
+%
+
+\setcounter{page}{-1}
+\abstract{%
+  Let $d_1$ and $d_2$ be discriminants of distinct quadratic imaginary orders $\cO_{d_1}$ and $\cO_{d_2}$ and let $J(d_1,d_2)$ denote the product of differences of CM $j$-invariants with discriminants $d_1$ and $d_2$. In 2012, Lauter and Viray generalized the methods of Gross, Zagier, and Dorman to give a computable formula for $v_p(J(d_1,d_2))$ for any distinct pair of discriminants $d_1,d_2$ and any prime $p>2$.
+Further, in the case that $d_1$ is squarefree and $d_2$ is the discriminant of any quadratic imaginary order, they gave a simple closed form. To do this, they related the question to a particular counting problem.
+  We recap the developments of Gross-Zagier, Dorman, and Lauter-Viray before making progress on the remaining cases by considering a related counting problem.
+}
+
+%
+% ----- acknowledgments
+%
+
+\acknowledgments{
+I would like to express gratitude towards my advisor, Bianca Viray, without whom this thesis would not have been possible.
+I would also like to thank Max Lieblich for his mentoring.
+I learned much from them both, and I have become a better person because of the time and effort they have invested in me.\par
+I thank my colleagues and friends who have supported me throughout my journey.
+A special thanks to my office mates Ashwin, Gerardo, Kevin, Nikolas, Scott, and Zihui, as well as my academic siblings Manar, Sam, and Thomas.\par
+Finally, I wish to thank my family and those who have helped me positively grow throughout my time writing this thesis outside of academia.
+In particular, my mother, who gave me constant encouragement to succeed; my father, who sparked my initial interest in the subject; my brothers, for their welcome distractions; and my sister, who inspired me to attend university.
+A special thanks to Camilo, Seth, and Sharat for everything that they've done, which cannot be put in bijection with a subset of the integers.\par
+To the grad student reading this for inspiration, it may seem like everyone has it together, but the journey is challenging for everyone.
+This final product is the result of dozens of revisions, I didn't just wake up one day with this thesis in mind.
+Don't be discouraged; if I can do this, so can you.
+}
+
+\tableofcontents
+\textpages
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Introduction}
+
+
+\section{Brief History and Motivation}
+Gross and Zagier in their seminal paper \cite[Def~1.2]{Gross-Zagier:Singular} introduced a function of particular note.
+\begin{definition}\label{J:Def}
+  Given two arbitrary discriminants of imaginary quadratic orders, $d_1$ and $d_2$, define the function
+  $$J(d_1,d_2) := \prod_{\stackrel{\disc[\tau_i] = d_i,}{\tau_i\in\HH/\SL_2(\ZZ)}} \left( j(\tau_1) - j(\tau_2)\right)$$
+  where $j$ is the elliptic modular function.
+\end{definition}
+
+If the $d_i$ are coprime discriminants of {\it maximal} orders, surprisingly, $J(d_1,d_2)^{\frac{8}{w_1w_2}}$ is an integer; moreover, it is a so-called `highly-divisible' integer, meaning it is divisible by many small primes.
+In the maximal case, the paper of Gross-Zagier provided a beautiful description of its factorization (which we discuss in \textsection$\ref{GZ:Sec}$).
+
+Later, Dorman \cite{Dorman:elliptic_modular} would give an algebraic proof of one of the results of Gross-Zagier about $J(d_1,d_2)$, which was originally proven analytically.
+In particular, he gave an expression for the powers of its prime factorization in the case of $d_1$ being square-free, $d_2$ fundamental, and $\gcd(d_1,d_2) = 1$ (his results are discussed in \textsection$\ref{Dorman:Sec}$).
+
+Finally, we discuss the most recent results of Lauter and Viray $\cite{Lauter-Viray:Singular}$.
+Inspired by cryptographic applications to computing denominators of certain Igusa polynomials \cite{Lauter-Viray:Igusa} used in the construction of genus 2 curves, Lauter-Viray generalized the factorization to include arbitrary discriminants.
+They give a method to compute the exact prime powers dividing $J(d_1,d_2)^{\frac{8}{w_1w_2}}$ and give an explicit expression for the powers under certain technical conditions, conjecturing the result remains true when some conditions are dropped.
+
+The expression given relates the power of the primes dividing $J(d_1,d_2)$ to a counting of ideals in an imaginary quadratic order of fixed norm with certain properties.
+In an attempt to attempt to show the conjectured formula holds true, we have worked on this counting problem.
+In \textsection$\ref{Progress:Sec}$, we determine the number of ideals of fixed norm in an imaginary quadratic order of discriminant $d$, relating it to the case of a maximal order, resulting in an interesting observation.
+We then give a proposed direction to prove the resut of Lauter-Viray and the tools we have to complete this task.
+
+\section{Notation}
+  We will use $K$ and $L$ to denote number fields with rings of integers $\cO_K$ and $\cO_L$, respectively.
+  Rational prime numbers will be denoted by $\ell,p$, and $q$ with corresponding primes $\mu, \fp,$ and $\fq$ being used for prime ideals of a number field lying over the corresponding rational prime.
+  In general, we try to use {\it fraktur} letters when referring to ideals, e.g. $\fa$ and $\fb$.
+  Completion with respect to a prime ideal will be denoted via a subscript; so, for example $\QQ_\ell$ would be the $\ell$-adic rationals, the fraction field of the $\ell$-adic integers $\ZZ_\ell$.
+  To distinguish localization at a prime from the former, we use parentheses, i.e., $\ZZ_{(\ell)}$ and $\cO_{L,(\mu)}$.
+  Since there is a {\it unique} imaginary quadratic order for each discriminant $\od$, we let this order be denoted $\cO_\od := \ZZ[\tau]$, where $\tau:= \frac{\od+\sqrt{\od}}{2}$ and $\od<0$.
+  We may also simply use $\cO$ if the discriminant is clear from context, and reserve $\oD$ for a fundamental discriminant $\cO_\oD = \cO_{\QQ(\sqrt{\oD})}$.
+  This gives an alternate expression for $\cO_\od = \ZZ[f\frac{\oD + \sqrt{\oD}}{2}]$ where $\od = \oD f^2$ for some integer $f$, which we call the {\it conductor} of $\cO_\od$.
+  Finally, we denote the class group of an order, that is, the group of locally principal (invertible) ideals modulo principle ideals, by $\Cl(\cO_{\od})$, the Picard group of the order, which is of size $h=h_{\cO_{\od}}=h_\od$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Previous Results}
+
+This section recaps some of the results of Gross-Zagier, Dorman, and Lauter-Viray, which will display the motivation of those questions that we begin to answer in \textsection$\ref{Progress:Sec}$. Proofs of the results of this section are omitted, as they exist in the respective papers of note. We do, however, try to state all the results from first principles.
+
+\section{Preliminaries}
+
+Let $z\in\HH = \{z\in \CC:\t{Im}(z) > 0\}$ be a complex number in the upper-half plane.
+Then there exists a certain function called the {\it elliptic modular function} $j\colon\HH\to \CC$, which gives a parameterization of homothetic lattices of the form $\ZZ[\tau]$ where $\tau\in\HH$.
+That is, given $\tau,\tau'\in\HH$, then there is some $\lambda\in\CC^\times$ such that $\ZZ[\tau] = \lambda \ZZ[\tau']$ if and only if $j(\tau) = j(\tau')$ \cite[Thm~4]{Lang:elliptic_functions}.
+Explicitly, if we define $q := e^{2\pi i z}$, $j$ is given by a $q$-expansion
+$$j(z):= \frac{1}{q} + 744 + 196884q + \cdots = 1/q + \sum_{n\geq 0} c_n q^n$$
+for some $c_n\in\ZZ$ $\cite{Silverman:arithmetic_elliptic}$.
+
+One may define an $\SL_2(\ZZ)$ action on the upper-half plane by linear fractional transformations. In particular, given $A = \begin{pmatrix}\alpha&\beta\\ \gamma&\delta\end{pmatrix}\in\SL_2(\ZZ)$ define $A \cdot z := \frac{\alpha z + \beta}{\gamma z + \delta}$.
+The $j$-function is invariant under this action. %citation?
+
+We will be primarily interested in evaluating $j(\tau)$ where $\tau$ satisfies
+$$a\tau^2 + b\tau + c =0$$
+for some $a,b,c\in\ZZ$ where the discriminant $\od := \disc(\tau) = b^2-4ac < 0$.
+Such $j(\tau)$ are called {\it singular moduli}.
+This discriminant differs from the maximal order of $K:= \QQ(\sqrt{d})$ by a square \cite[Proposition 6.2.6]{Stein:number_theory} called its conductor, which we will denote $f$.
+
+Let $\cO_\od = \ZZ[\frac{\od + \sqrt{\od}}{2}]$ be the imaginary quadratic order of dicsriminant $d$. The following are standard (rather involved) results concerning singular moduli $j(\tau)$, that can be found in such texts as \cite[Thm~10.23,\textsection 11]{Cox:primes_of_the_form} or \cite[Thm~6.10]{Neukirch:Number_Theory}:
+
+\begin{itemize}
+  \item $j(\tau)$ is an algebraic integer of degree $h= \#\Cl(\cO_\od)$, the class number of $\cO_\od$, over $\QQ$,
+  \item $K(j(\tau))$ is the ring class field of conductor $f$ associated to $K$,
+  \item There exists an elliptic curve, $E$, having complex multiplication by $\cO_\od$ with $j$ invariant $j(E) =j(\tau)$,
+  \item and the $h$ different conjugates of $j(\tau)$ over $\cO_\od$ are the values $j(\tau')$ where $\tau'$ run over the roots of the primitive quadratic polynomials of discriminant $\od$.
+\end{itemize}
+
+Suppose that $\od_1$ and $\od_2$ are two negative, relatively prime discriminants.
+Define
+$$J(\od_1,\od_2) = \prod_{\disc[\tau_i]=\od_i}(j(\tau_1)-j(\tau_2)).$$
+This product is taken over the pairs of equivalence classes of imaginary quadratic elements $[\tau_1],[\tau_2]$ modulo the $\SL_2(\ZZ)$ action given above.
+
+One might be wary of the finiteness of this product, and rightly so; the finiteness of the product is a consequence of the finiteness of the class group, which is a non-trivial result itself \cite[\textsection 7]{Stein:number_theory}.
+
+In reference to this $J$ function, the papers of Gross-Zagier and Dorman are concerned only when $\od_i = \oD_i$ are fundamental.
+In this case, letting $w_i$ be the number of roots of unity in $\cO_{\od_i}$, $J(\oD_1,\oD_2)^{\frac{4}{w_1w_2}}$ is an integer unless one of the $\oD_i=-4$ in which case $J(\oD_1,\oD_2)^{\frac{8}{w_1w_2}}$ is an integer.
+The case where one of the discriminants is $-3$, say $\oD_2$, results in adjoining $\zeta_3$ a third root a unity, giving six roots of unity, i.e., $w_2=6$. This ostensibly gives a cube root in the expression of $J(D_1,-3)$; however, $j(\zeta_3) = 0$, and so the product becomes $J(D_1,-3)=\prod_{\disc[\tau_1] = D_1}j(\tau_1)$.
+Since the other fundamental discriminant is coprime, we may use a result that $K(j(\tau_1)^{1/3}) = K(j(\tau_1))$ for any of the $\tau_1$ \cite[\textsection 13]{Cox:primes_of_the_form}.
+
+When one removes the coprime and fundamental discriminant restrictions, as $\cite{Lauter-Viray:Singular}$ find, the factorization results in powers which can be fractional.
+One could alternately consider $J(d_1,d_2)^{\frac{24}{w_1w_2}}$ to avoid such fractional powers; however, to stay as close as possible to the statements of Gross-Zagier, we shall not do so.
+
+\section{Gross-Zagier}\label{GZ:Sec}
+
+Let $\oD_1,\oD_2$ be coprime, fundamental discriminants and $w_i = |\cO_{\oD_i}^\times|$. Letting $\oD = \oD_1\oD_2$, we consider all primes $\ell$ where $\left(\frac{\oD}{\ell}\right)\ne 1$, and for such primes, we define
+$$\epsilon(\ell) = \begin{cases} \left(\frac{\oD_1}{\ell}\right) &\text{ if } (\ell,\oD_1) = 1,\\ \left(\frac{\oD_2}{\ell}\right) &\text{ if } (\ell,\oD_2) = 1\end{cases}$$
+where $(\frac{D_i}{\ell})$ is the Jacobi symbol.
+We extend $\epsilon$ to $\ZZ^{\geq 0}$ by multiplicativity.
+
+The main result of $\cite{Gross-Zagier:Singular}$ is the following factorization formula:
+
+\begin{theorem}[{\cite[Thm~1.3]{Gross-Zagier:Singular}}]
+  $$J(\oD_1,\oD_2)^{\frac{8}{w_1w_2}} = \pm \prod_{\stackrel{n,n'\in\ZZ}{n,n'>0, x^2 + 4nn' = \oD}}n^{\epsilon(n')}.$$
+\end{theorem}
+
+One may rewrite this result by defining
+$$F(m) = \prod_{\stackrel{nn'=m}{n,n'>0}} n^{\epsilon(n')},$$
+then the result can be stated
+$$J(\oD_1,\oD_2)^{\frac{8}{w_1w_2}} = \pm \prod_{\stackrel{x^2<\oD}{x^2\equiv \oD\bmod 4}} F\left(\frac{\oD-x^2}{4}\right).$$
+
+It is not at all obvious apriori, but these $F(m)$ are powers of a single prime, namely an $\ell\mid \frac{D-x^2}{4}$.
+The reason for the high-divisibility is then explained in a corollary.
+
+\begin{corollary}[{\cite[Cor~1.6]{Gross-Zagier:Singular}}]
+  If $\ell$ is a rational prime dividing $J(\oD_1,\oD_2)^{\frac{8}{w_1w_2}}$, then $\left(\frac{\oD_1}{\ell}\right)~\ne~1$, $\left(\frac{\oD_2}{\ell}\right)\ne 1$, and $\ell$ divides a positive integer of the form $\frac{\oD-x^2}{4}$. In particular, $\ell\leq \oD/4$; moreover, if $\oD\equiv 1\bmod 8$, then $\ell <\oD/8$, and if $\oD_1\equiv \oD_2\equiv 5\bmod 8$, then $\ell < \oD/16.$
+\end{corollary}
+
+Namely, every prime ideal containing $j(\tau_1)-j(\tau_2)$ lies in a particular, bounded collection of rational primes, which is independent of the chosen prime ideal.
+
+\section{Dorman}\label{Dorman:Sec}
+
+In the paper of Gross-Zagier, the authors go on to give two proofs to provide a formula for the prime factorization of the differences of two singular moduli.
+Whilst the proof in the case of prime discriminants used only algebraic means, an analytic proof was necessary for the composite, relatively prime case.
+Dorman remedied this by providing an algebraic proof of such a formula in his paper \cite{Dorman:elliptic_modular}.
+
+Again, we let $\oD_1,\oD_2$ be coprime, fundamental discriminants and $w_i = |\cO_{\oD_i}^\times|$.
+Let $K = \QQ(\sqrt{\oD_1})$ and $\cO = \cO_K$ be the ring of integers of $K$. Define
+$$R(n) = \#\{\fa\subseteq \cO: |\cO/\fa| = n\}.$$
+Extend $R$ to $\QQ$ by defining $R(x) := 0$ for $x\in\QQ\setminus\{1,2,3,\ldots\}$.
+
+Let $H$ be the {\it Hilbert Class Field} of $K$, i.e., the maximal unramified extension of $K$. It is well-known that its Galois group $G = \Gal(H/K) \simeq \Cl(\cO)$ \cite[Thm~5.23]{Cox:primes_of_the_form}.
+Let $\chi_{\oD_1}$ be the primitive, quadratic character defined $\bmod\; \oD_1$ extended to $\ZZ$ in the standard way, i.e., start by letting
+$$\chi_p(x) = \begin{cases} 0 &\text{ if } p\mid x\\ 1 &\text{ if there is an } a\in\ZZ: x \equiv a^2\bmod p\\ -1 &\text{ if there is no } a\in\ZZ: x \equiv a^2\bmod p,\end{cases}$$
+
+then one can extend this to $\chi_{\oD_1}:(\ZZ/\oD_1)^\times\to \{\pm 1\}$ by multiplication and to $\ZZ$ by residue class.
+
+% Associated to $\chi_{\oD_1}$ is an id\'ele character
+% $$\AA_\QQ^*/\QQ^*\NN\AA^*\to \Gal(K/\QQ)\simeq\{\pm 1\}$$
+% %Should I explain Adeles...?
+
+% Thus for each $p$ of $\QQ$, there is a local character $\epsilon_p:\QQ_p\to\Gal(K/\QQ)$ associated to the extension $\QQ_p(\sqrt{\oD_1})$.
+Now, if $p\nmid D_1$, define the Frobenius
+
+$$\Frb(p) = \begin{cases} 1 &\t{ if } p \t{ splits in } K,\\ -1 &\t{ if } p \t{ remains inert in } K.\end{cases}$$
+
+Then, given $n = u p^{a_p}\in\ZZ$ where $\gcd(p,u) = 1$, we define $\epsilon_p$ by
+$$\epsilon_p(n) = \begin{cases}\sgn(n) &\text{ if } p=\infty\\ \Frb(p)^{a_p} &\text{ if } p\nmid \oD_1,\\ \chi_p(u)\chi_{\oD_1/p}(p)^{a_p} &\text{ if } p\mid \oD_1.\end{cases}$$
+
+These $\epsilon_p$ are thought of as `genus characters' of $K$.
+That is, they reflect whether or not a particular ideal is a square in the class group or not (this being its genus).
+Thus, we arrive at Dorman's main result:
+
+\begin{theorem}[{\cite[Thm~1.2]{Dorman:elliptic_modular}}]
+  Let $\ell$ be a rational prime with ramification index $e$ in $K$. Then,
+  $$\ord_{\ell}\left(J(\oD_1,\oD_2)^{\frac{4}{w_1w_2}}\right) = \frac{1}{2e} \sum_{x\in\ZZ}\sum_{n\geq 1}\rho_\ell(x) R\left(\frac{\oD_1\oD_2-x^2}{4\ell^n}\right)$$
+  where
+  $$\rho_\ell(x) = \begin{cases}0 &\text{ if there is a } p\mid \oD_1: p\ne \ell\text{ and } \epsilon_p(x^2 - \oD_1\oD_2) = -1\\ 2^{\#\{p:p\mid \gcd(x,\oD_1)\}} &\text{ otherwise.}\end{cases}$$
+\end{theorem}
+
+Notice the relationship between the powers of primes dividing $J(D_1,D_2)$ to ideals of some norm `in a specific genus class.' The generalized version of this result, which we will talk about in the following section is the main drive behind studying the questions of \textsection$\ref{Progress:Sec}$.
+
+
+\begin{remark}
+  A great portion of the proofs rely on facts surrounding embeddings of endomorphisms of elliptic curves  into the endomorphisms of their reduction, which requires a decent understanding on quaternion algebras. For general understanding of quaternion algebras, we direct the reader to \cite{Voight:quaternion}, which we found to be quite useful in the understanding on the proofs.
+\end{remark}
+
+\section{Lauter-Viray}
+Finally, we shall consider $\od_1,\od_2$ to be {\it arbitrary} discriminants.
+In such a case, we lose the fact that the $\cO_{d_i}$ are Dedekind domains, integrally closed, locally DVRs, etc.
+Remarkably, one can still state something of the same flavor as the results of Gross-Zagier.
+
+\begin{theorem}[{\cite[Thm~1.1]{Lauter-Viray:Singular}}]
+  Let $\od_1,\od_2$ be any two distinct discriminants. Then, there exists a function $F$ that takes non-negative integers of the form $m = \frac{\od_1\od_2 - x^2}{4}$ to (possibly fractional) prime powers. This function satisfies
+  $$J(\od_1,\od_2)^{\frac{8}{w_1w_2}} = \pm \prod_{\stackrel{x^2\leq\od_1\od_2}{x^2\equiv \od_1\od_2\bmod 4}} F\left(\frac{\od_1\od_2 - x^2}{4}\right).$$
+  Moreover, $F(m) = 1$ unless either
+  \begin{itemize}
+    \item $m = 0$ and $\od_2 = \od_1\ell^{2k}$ for some prime $\ell$, or
+    \item The Hilbert symbol $(\od_1,-m)_{\ell} = -1$ at a unique finite prime $\ell$ and this prime divides $m$.
+  \end{itemize}
+  In both of these cases $F(m)$ is a (possibly fractional) power of $\ell$.
+\end{theorem}
+
+We remark again that the fractional powers of primes occur exactly when $3\mid \od_1,\od_2$. Lauter-Viray give an additional result, generalizing the work of Dorman.
+
+\begin{theorem}[{\cite[Thm~1.5]{Lauter-Viray:Singular}}]\label{Thm:LVMain}
+  Let $\od_1,\od_2$ be any two distinct discriminants, and let $m$ be a non-negative integer of the form $\frac{\od_1\od_2 - x^2}{4}$ and $\ell$ a fixed prime that is coprime to $f_1 = \cond(d_1)$.
+
+  If $m> 0$ and either $\ell > 2$ or $2$ does not ramify in both $\QQ(\sqrt{\od_1})$ and $\QQ(\sqrt{\od_2})$, then $v_\ell(F(m))$ can be expressed as a weighted sum of the number of certain invertible integral ideals in $\cO_{\od_1}$ of norm $m/\ell^r$ for $r >0$.
+
+  Moreover, if $m$ is coprime to the conductor of $\od_1$, then $v_{\ell}(F(m))$ is an integer and the weights are easily computed and constant; more precisely we have
+  \begin{equation}\label{eqn:vlf}
+    v_{\ell}(F(m)) =
+    \begin{cases}
+      \frac{1}{e}\rho(m)\sum_{r\ge1}\fA(m/\ell^r) &
+      \textup{if }\ell\nmid \cond(\od_2),           \\
+      \rho(m)\fA(m/\ell^{1 + v(\cond(\od_2))})    &
+      \textup{if }\ell| \cond(\od_2),               \\
+    \end{cases}
+  \end{equation}
+  where $e$ is the ramification degree of $\ell$ in $\QQ(\sqrt{\od_1})$ and
+
+  \[\rho(m) =
+    \begin{cases}
+      0                        & \textup{if } (d_1, -m)_p = -1 \textup{ for }p|d_1, p \nmid f_1\ell, \\
+      2^{\#\{p|(m, d_1) : p\nmid f_2
+      \textup{ or } p= \ell\}} & \textup{otherwise},
+    \end{cases}
+  \]
+  \begin{equation}\label{A(N):Eq}
+    \fA(N) =  \#\left\{
+    \begin{array}{ll}
+                                & \Norm(\fb) = N, \fb \textup{ invertible}, \\
+      \fb\subseteq\cO_{\od_1} : & p\nmid\fb
+      \textup{ for all }p | (N, f_2), p\nmid \ell \od_1                     \\
+                                & \fp^3\nmid\fb\textup{ for all }
+      \fp|p|(N, f_2, \od_1), p\ne\ell
+    \end{array}
+    \right\}.
+  \end{equation}
+
+  If $m = 0$, then either $v_{\ell}(F(0)) = 0$ or $d_2 = d_1\ell^{2k}$ and
+  \[
+    v_{\ell}(F(0)) = \frac{2}{w_1}\cdot\#\Pic(\cO_{d_1}).
+  \]
+\end{theorem}
+
+Finally, Lauter-Viray conjectures a formula for the powers of the primes dividing the $J$ function in the case of the discriminants having coprime conductors.
+
+\begin{conjecture}[{\cite[Conj~1.7]{Lauter-Viray:Singular}}]
+  Let $d_1$ and $d_2$ be two distinct discriminants with relatively prime conductors.  Write $f$ for the product of the two conductors and for any prime $p$, let $d_{(p)}\in\{d_1,d_2\}$ be such that $p\nmid\cond(d_{(p)})$.  Then, for any prime $\ell$
+  \[
+    v_{\ell}(J(d_1,d_2)^{\frac{8}{w_1w_2}}) = H +
+    \sum_{\substack{x^2 < d_1d_2\\x^2\equiv d_1d_2\bmod{4}}}
+    \epsilon_{\ell}(x)\prod_{p|m_x, p\ne\ell}
+    \begin{cases}
+      1 + v_p(m) & \left(\frac{d_{(p)}}{p}\right) = 1, p\nmid f,                                    \\
+      2          & \left(\frac{d_{(p)}}{p}\right) = 1, p| f, \textup{ or}                           \\
+                 & p|d_{(p)}, (d_{(p)}, -m)_p = 1, p\nmid f                                         \\
+      1          & \left(\frac{d_{(p)}}{p}\right) = -1, p\nmid f, v_p(m)\textup{ even} \textup{ or} \\
+                 & p|d_{(p)}, (d_{(p)}, -m)_p = 1, p |f , v_p(m) = 2                                \\
+      0          & \textup{otherwise},
+    \end{cases}
+  \]
+  where $H = 0$ unless $d_2 = d_1\ell^{2k}$ for some $k >0 $, in which case $H = \frac{2}{w_1}\cdot\#\Pic(\cO_{d_1})$, and $m_x := \frac{d_1d_2 - x^2}{4}$.
+  \[
+    \epsilon_{\ell}(x) =
+    \begin{cases}
+      v_{\ell}(m_x)               & \textup{if }\ell\nmid f, \ell|d_{\ell}                     \\
+      \frac12(v_{\ell}(m_x) + 1), &
+      \textup{if }\ell\nmid fd_{(p)}, v_{\ell}(m) \textup{ odd},                               \\
+      0                           & \textup{if }\ell\nmid d_{(p)}, v_{\ell}(m) \textup{ even}, \\
+      1                           & \textup{otherwise}.
+    \end{cases}
+  \]
+\end{conjecture}
+
+Thus, we see the utility in considering a counting problem of particular invertible ideals of each norm.
+It is for this reason that we will shift our attention to the task of counting ideals in imaginary quadratic orders.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Results}\label{Progress:Sec}
+
+As we now see that the question of factoring $J(d_1,d_2)$ is directly related to the counting of ideals, we focus our attention on the following question:
+
+\begin{question}
+  Without the additional constraint of $m$ being coprime to the conductor of $d_1$, can we give an alternate formulation of $\fA(N)$ so that Thm~\ref{Thm:LVMain} still holds?
+\end{question}
+
+Though we do not give a solution to this problem, we make progress by counting a superset of the ideals considered in the expression of $\fA(N)$ in Thm~\ref{Thm:LVMain} and discuss further steps to be taken to find the proper collection of ideals to yield the desired equality.
+Namely, our results consist of determining the number of integral ideals of fixed norm in an order of arbitrary discriminant, as well as the number of invertible integral ideals of fixed norm.
+
+This problem sounds deceptively simple, especially considering the ease with which one can answer the same question when the order is maximal.
+We shall see that it requires quite a bit of delicacy to answer most questions when working in non-maximal orders.
+The main difficulty comes from the fact that we lose the factorization of ideals into a product of primes.
+This added complication becomes clear even in the statements of the number of ideals in each case.
+
+The proofs of the results follow in \textsection$\ref{Proofs:Sec}$.
+
+\section{Ideal Counting}
+
+\begin{proposition}\label{Dedekind:Prop}
+  Take $K =\QQ(\sqrt{d})$ to be imaginary quadratic. Let $p$ be a rational prime and $m\geq 0$ a non-negative integer. Then, the number of ideals of norm $p^m$ in $\cO_K$ is summarized by the following equality:
+  \[
+    \#\{\fa\subseteq \cO_K: \Norm(\fa) = p^m\} =
+    \begin{cases}
+      m+1 , &
+      \textup{if } p \textup{ splits,}           \\
+      1 ,   &
+      \textup{if } p \textup{ is inert and } 2\mid m
+      \textup{, or if } p \textup{ is ramified}, \\
+      0 ,   &
+      \textup{otherwise.}
+    \end{cases}
+  \]
+\end{proposition}
+\begin{proof}
+  Break into cases depending on the splitting behavior of the prime $p$: one has either $p = \fp$ is inert and is of norm $p^2$; $p = \fp^2$ and $\fp$ has norm $p$; or $p = \fp_1\fp_2$, each of which has norm $p$.
+  All ideals have a unique factorization as a product of primes; so, starting in split case, we have the ideals of norm $p^m$ will be exactly those of the form $\fp_1^r\fp_2^{m-r}$ for $r \in\{0,\ldots,m\}$, giving $m+1$ such ideals. In the inert case, the only possibility is $\fp^{m/2}$, requiring $m$ to be even. In the ramified case, the only ideal is $\fp^m$.
+\end{proof}
+
+In contrast to the Dedekind case, in an arbitrary imaginary quadratic order $\cO$ we lose the factorization into prime ideals. We do still have primary decomposition, but importantly, the localizations at prime ideals are no longer DVRs. This makes it difficult to compute the norm of the localization of our ideal.
+
+Our first result follows:
+
+\begin{theorem}\label{Thm:CondIdeals}
+  Let $K = \QQ(\sqrt{D})$ be an imaginary quadratic field of discriminant $D<0$ with maximal order $\cO_K = \ZZ[\frac{D+\sqrt{D}}{2}]$, and let $\cO = \ZZ[f\frac{D+\sqrt{D}}{2}]$ be the order of conductor $f$ in $K$. Choose a rational prime $p$ that divides the conductor $f$ and a non-negative integer $m$. Let $w:= v_p(f)$ and let $\epsilon = 0$ or $1$ if $m$ is odd or even, respectively. Then, if $v_p(d/4)\geq m$ then there are $\frac{p^{\floor{\frac{m}{2}}+1}-1}{p-1}$ ideals of norm $p^m$ in $\cO$; otherwise, if $v_p(d/4) < m$ and $p\ne 2$, the number of ideals of norm $p^m$ in $\cO$ is summarized as follows:
+  \[
+    \#\{\fa\subseteq \cO: [\cO:\fa] = p^m\} = \begin{cases}
+      \frac{p^{w+1}-1}{p-1}                                & \t{if } p \t{ ramifies in }\cO_K, \\
+      \frac{p^{w+\epsilon} -1}{p-1}                        & \t{if } p \t{ is inert in }\cO_K  \\
+      \frac{p^{w+\epsilon} -1}{p-1} + p^w(m+1-2w-\epsilon) & \t{if } p \t{ splits in }\cO_K.
+    \end{cases}
+  \]
+  Finally, the number of ideals of norm $2^m$, assuming $v_p(d/4) < m$, is given by the following equality:
+  \[
+    \#\{\fa\subseteq \cO: [\cO:\fa] = 2^m\} = \begin{cases}
+      2^{w+1}-1                                 & \t{if } D\equiv 0\bmod 8,         \\
+      2^{w+\epsilon}-1                          & \t{if } D\equiv 4\bmod 8,         \\
+      2^{w-1+\epsilon}-1                        & \t{if } 2 \t{ is inert in }\cO_K, w\ne1\\
+      2^{1+\epsilon}-1                        & \t{if } 2 \t{ is inert in }\cO_K, w=1 \\
+      2^{w+\epsilon}-1+2^{w}(m+1-2w-\epsilon) & \t{if } 2 \t{ is split in }\cO_K
+    \end{cases}
+  \]
+\end{theorem}
+
+Since we're interested in invertible ideals with a certain property, we see which of the ideals found in the previous theorem are actually invertible.
+This will require a case-by-case analysis to determine a closed form, which gives the following result.
+\begin{corollary}\label{Cor:InveribleIdeals}Using the notation of Thm~\ref{Thm:CondIdeals}, when $v_p(d/4)>m$, the number of invertible ideals of norm $p^m$ in $\cO_\od = \ZZ[f\frac{\oD + \sqrt{\oD}}{2}]$ is $p^{m/2}$ if $m$ is even and $0$ if $m$ is odd; otherwise, assuming $v_p(d/4) \leq m$, the number of ideals of norm $p^m$  is summarized by the following equality:
+
+  \[\#\{\fa\subseteq \cO: [\cO:\fa] = p^m\} =
+    \begin{cases}
+      p^w                      & \t{if } p \t{ ramifies in } \cO_K\\
+      p^w + p^{w-1}            & \t{if } p \t{ is inert in } \cO_K,~ m \t{ even}, \\
+      (p^w - p^{w -1})(m+1-2w) & \t{if } p \t{ splits in } \cO_K
+    \end{cases}
+  \]
+\end{corollary}
+
+We now see how the problem is a bit more complicated than the Dedekind case, simply from the statement of the results.
+In particular, we remark on the fact that in the maximal case, the number of ideals of norm $p^m$ is independent of $p$, which is no longer true in the non-maximal case.
+For some reason, the larger the prime, the more ideals lie over it.
+
+We begin with a couple of requisites.
+
+\section{Preliminary Results}\label{Prelims:Sec}
+
+\begin{proposition}\label{prop:OPrimes}
+  Let $\cO = \ZZ[\tau] = \ZZ[\frac{\od+\sqrt{\od}}{2}] = \ZZ[x]/(x^2-\od x+\frac{\od^2-\od}{4}) = \ZZ[x]/(g(x))$.  Let $p$ be a rational prime.
+  Denote the irreducible factors of $g(x)\bmod p$ by $\overline{g_i}(x)$. Then, the primes of $\cO$ containing $p$ are exactly $\fp_i = p\cO + (g_i(\tau))$, where $g_i$ is a lift of $\overline{g_i}$.
+\end{proposition}
+
+\begin{proof}
+  Let $\fp = (p) + I$ is a prime ideal in question over $(p)$ for some ideal $I$. Then we have the following isomorphism:
+  \[
+    \cO/\fp = \frac{\ZZ[x]/(g(x))}{(p)+I}\simeq \frac{\ZZ/p[x]/(\prod_i \overline {g_i}(x))}{\bar I},
+  \]
+  where $\bar I$ is the corresponding ideal under the reduction map.
+  In order to be an integral domain, $\bar I$ must contain $(\bar g_i)$ for some $i$. This implies, $\fp \supseteq (p,g_i)$, which is maximal; hence, $\fp = (p,g_i(\tau))$.
+\end{proof}
+
+\begin{lemma}\label{lemma:ZpLocal}
+  For any prime $\fp\subseteq \cO = \ZZ\left[\frac{\od +\sqrt{\od }}{2}\right]$, letting $\tau:= (d+\sqrt{d})/2$, we have $\cO_\fp \supseteq \ZZ_{(p)}\left[\tau\right]$ with equality when $\fp$ is not split in $\cO$. In particular, in the non-split case, $a+b\tau\in\cO\subseteq\cO_\fp$ is invertible in $\cO_\fp$ exactly when $p\nmid \Norm(a+b\tau)$.
+\end{lemma}
+
+\begin{proof}
+  Since $\fp$ lies over $(p)$, we know $\fp\cap \ZZ = (p)$.
+  Hence, every integer coprime to $p$ is invertible in $\cO_\fp$, showing $\ZZ_{(p)}\subseteq
+    \cO_\fp,$ giving the desired containment.
+
+  Now assume that $p$ is not split. In $\cO_\fp$ all elements are of the form $\alpha/\beta$ where $\alpha\in \cO, \beta\in\cO\setminus\fp$.
+  Since in $\cO$,
+  \[
+    \beta\bar\beta = \Norm(\beta) = \Norm(\prod_\fq \beta\cO_{\fq}\cap \cO) = \prod_{\fq} [\cO:\beta\cO_\fq\cap\cO]\in\ZZ,
+  \] each $[\cO:\beta\cO_\fq\cap\cO]$ is a power of the rational prime $q$ over which $\fq$ lies, and $\fp$ is the {\it unique} prime lying over $p$, we know that $p\nmid\beta\bar\beta$. Hence, $\bar\beta$ is invertible in $\cO_\fp$. This allows us to rewrite $\alpha/\beta = \alpha\bar\beta/\Norm(\beta)\in\ZZ_{(p)}[\tau]$, showing the reverse containment.
+\end{proof}
+
+\begin{remark}\label{rmk:SplitReqs}
+  The primes that split in $\cO$ are exactly those that split in $\cO_K$ and are prime to the conductor.
+\end{remark}
+
+For the remainder of this section, let $\cO = \ZZ[\frac{d+\sqrt{d}}{2}] = \ZZ[\tau]$ so that $\tau^2  -d\tau + \frac{d^2-d}{4} = 0$, take $p$ to be a rational prime {\bf dividing $f=\cond(d)$}, and define $w:= v_p(f)$.
+
+  Since we will be counting ideals of a fixed norm, we find necessary and sufficient conditions for the generators of a $\fp$-primary ideal to have norm $p^m$.
+  \begin{lemma}\label{lemma:pIdeals}
+  Let $g(x) = x^2  -dx + \frac{d^2-d}{4}$ so that $\cO = \ZZ[\tau] = \ZZ[x]/g(x)$ is the quadratic imaginary order of discriminant $d$. Let $\fp\subseteq \cO$ be a prime ideal over some rational prime $p$ dividing the conductor $\cond(d)$.
+    If $\fa\subseteq \cO$ is a $\fp$-primary ideal of norm $p^m$ for some non-negative integer $m$, then there exists a minimal integer $k$ with $m/2\leq k\leq m$ and a unique residue class $[A]\in\ZZ/p^{2k-m}$ where $g(A)\equiv 0\bmod p^{2k-m}$, which give $\fa = (p^k, p^{m-k}(\tau - A))$. Conversely, any such ideal is $\fp$-primary of norm $p^m$.
+  \end{lemma}
+  \begin{proof}
+    Assume that $\fa\subseteq \cO$ is of norm $p^m$ and let $k$ be such that $p^k$ is the minimal, non-negative integer in $\fa$.
+    If $k=0$, then $\fa =\cO$ implying $m=0$, and $(1,p^0(\tau-0))$ certainly takes the desired form.
+    So, we may assume $k>0$ throughout.
+    We write $\fa = (p^k) + (\alpha_i)_i$ where $\alpha_i\in \cO$ are the remaining generators of $\fa$.
+    Now, we manipulate $\cO/\fa$ as follows:
+    \[
+    \cO/\fa = \left[\ZZ[x]/(g(x))\right]/(p^k,\alpha_i) = \ZZ/p^k[x]/(g(x),\alpha_i)
+    \]
+    where by abuse of notation $g$ and the $\alpha_i$ are now considered as polynomials in $\ZZ/p^k[x]$. Note that the minimality of $p^k$ implies that the ideal $(g(x),\alpha_i)$ contains no non-zero constants.
+    Now, as $g$ is monic of degree $2$, we can assume that the $\alpha_i$ are linear.
+    In fact, we only need one such $\alpha_i$; to see this, consider an ideal $(p^ax+a_0,p^bx+b_0)\subseteq \ZZ/p^k[x]$ with $a\leq b$ that contains no non-zero constants.
+    Then, the difference between the second generator and $p^{b-a}$ time the first must be zero. i.e.,
+    \[
+    (p^bx-b_0)-p^{b-a}(p^{a}x-a_0) = p^{b-a}a_0-b_0\in (p^ax+a_0,p^bx+b_0)
+    \]
+    is a constant in the ideal; hence, $p^{b-a}a_0=b_0$ in $\ZZ/p^k$. However, this implies that the ideal is principal generated by $(p^ax-a_0)$.
+    Moreover, since this principal ideal $(p^ax-a_0)$ contains no non-zero constants, it must be that $a \leq v_p(a_0)$, as multiplication by $p^{k-a}$ would give a non-zero constant.
+
+    Thus, in our case, we may write $(g(x),\alpha_i) = (g(x), p^a(x-A))$.
+    Now, again by the fact that we require this ideal to not contain non-zero constants, we must have that $g(A) \equiv 0\bmod p^{k-a}$; one may see this by the fact that modding by the ideal gives relations $g(x) \equiv 0 \bmod p^k$ and $p^a(x-A)\equiv 0\bmod p^k$, which together give $g(A)\equiv 0\bmod p^{k-a}$.
+
+    As $[\cO:\fa] = p^m$, it must be that $[\ZZ/p^k[x]/g(x):(p^a(x-A))] = p^m$.
+    So, we note $m/2\leq k\leq m$, which we will use extensively throughout the proof beyond this lemma.
+    We may, of course, compute the index $[\ZZ/p^k[x]/g(x):(p^a(x-A))]$ directly by noting that in $\ZZ/p^k[x]/g(x)$, $x(p^a(x-A)) = (d-A)p^a(x-A))$.
+    So, one may compute the size of the ideal $\#|(p^a(x-A))| = p^{k-a}$ by just considering its integer multiples.
+    Hence, the index $[\ZZ/p^k[x]/g(x):(p^a(x-A))]=p^{2k}/p^{k-a}=p^{k+a}$, which shows $a=m-k$.
+    This computation shows the converse of the lemma, as well.
+
+  Putting this all together, we see that $\fa = (p^k,p^{m-k}(\tau-A))$ for some $A$ such that $g(A)\equiv 0\bmod p^{2k-m}$. Our final task is to show that such an ideal is unique up to choice of $A\bmod\; p^{2k-m}$.
+  To do this, we begin by noticing that $\cO$-linear combinations of the generators are exactly $\ZZ$-linear combinations.
+\begin{remark}\label{rmk:linComb}
+  This follows from an argument similar to that done in the quotient.
+  Namely, since $k>m-k$ we have
+  \[
+  \tau p^k = Ap^k +p^{2k-m}[p^{m-k}(\tau-A)]
+  \]
+  and similarly
+  \begin{align*}
+  \tau p^{m-k}(\tau-A) &= p^{m-k}(\tau^2 - A\tau)\\
+                       &= p^{m-k}\left[d\tau +\left(-\frac{d^2-d}{4}\right) - A\tau\right]\\
+                       &= p^{m-k}\left[d\tau +(A^2 -dA + Cp^{2k-m}) - A\tau\right], \t{ for some }C\in\ZZ\\
+                       &= Cp^k + (d-A)p^{m-k}(\tau-A).\label{eqn:tauLin}
+  \end{align*}
+  So, every element of our ideal is a $\ZZ$-linear combination of our generators.
+\end{remark}
+
+
+  Say $(p^k,p^{m-k}(\tau-A)) = (p^k,p^{m-k}(\tau-B))$ for some $A,B\in\ZZ$.
+  Then, there are integers $a_1,a_2$ such that
+  \[
+  p^{m-k}(\tau-A) = a_1p^k + a_2p^{m-k}(\tau-B).
+  \]
+  Considering the coefficients of $\tau$, we see that $1-a_2 = 0$, i.e., $a_2 =1$. Reordering the integer portion, we find
+  \[
+  p^{m-k}(B-A)=a_1p^k,
+  \]
+  showing that $A\equiv B\bmod\; p^{2k-m}$, as desired.
+    \end{proof}
+
+     \begin{lemma}\label{Lem:pLiftRoots}
+    For a prime $p$, we let $r$ and $s$ be non-negative integers such that $2r < s$ and $u$ be an integer coprime to $p$.
+    Then, the number of roots of $x^2 - p^{2r}u \equiv 0\bmod p^s$ is zero when $u$ is not a quadratic residue modulo $p^{s-2r}$.
+    Otherwise, when $u$ is a quadratic residue $\bmod\; p^{s-2r}$, finding the number of roots is equivalent to counting those $\mu\in \ZZ/p^{s-r}$ for which $\mu^2 \equiv 1\bmod\; p^{s-2r}$.
+    The number of such $\mu$ is explicitly given by the following:
+    \[
+      \#\{\mu\in \ZZ/p^{s-r} : \mu^2 \equiv 1 \bmod p^{s-2r}\} = \begin{cases}
+        2p^{r}    & , \text{ when } p\ne 2                          \\
+        2^{r}     & , \text{ when } p=2, \text{ and } s-2r=1     \\
+        2^{r + 1} & , \text{ when } p=2, \text{ and } s-2r=2     \\
+        2^{r + 2} & , \text{ when } p=2, \text{ and } s-2r\geq3.
+      \end{cases}
+    \]
+  \end{lemma}
+\begin{proof}
+When $p\ne 2$, the roots of $x^2-1\bmod p^{s-2r}$ are exactly $\pm 1$, as a root is such that $p^{s-2r}\mid (x-1)(x+1)$. In particular, $p\mid (x-1)$ or $(x+1)$, and the other term will be coprime to $p$.
+
+When ${s-2r}\geq 3$ and $p = 2$, the roots of $x^2-1\bmod 2^{s-2r}$ can by found by noticing that one of $(x-1),(x+1)$ is divisible by $2$ but not $4$, meaning that one of the factors of $x^2 -1$ is divisible by $2^{{s-2r}-1}$.
+Hence, $x = \pm 1$ or $2^{s-2r}\pm 1$.
+In the final two cases, when $s-2r=1$, we have the sole root, $x = 1$ and when $s-2r =2$, we check we only get two roots, $\pm 1$.
+This gives $1, 2,$ or $4$ roots in the respective cases.
+
+Now, elements of $\ZZ/p^{s-r}$ that map to these roots will be of the form $\bar x + yp^{s-2r}$ $1\leq y\leq p^{r}$ where $\bar x$ is a lift of one of the roots we found $\bmod\; p^{s-2r}$.
+For each of the $1,2$ or $4$ roots we find, such lifts are distinct, which agrees with the number claimed in the statement of the lemma.
+\end{proof}
+
+\begin{lemma}\label{Lem:min_p}
+For any integers $r$ and $s$ where $r\geq 0$, the ideal $(p^r(\tau-s))\cO_\fp$ contains minimal, positive integer $p^{r+v_p(\Norm(\tau-s))}$.
+\end{lemma}
+\begin{proof}
+Letting $k=r+v_p(\Norm(\tau-s))$, we see that $p^r(\tau-s)(\bar{\tau}-s) = p^k u$ for some $(u,p)=1$.
+So, we need only show minimality.
+For convenience, we note that $\cO_\fp = \ZZ_{(p)}[\tau] = \ZZ_{(p)}[\sqrt{d}/2]$ since $d/2\in\cO_\fp$.
+
+We rewrite $p^r(\tau-s) = p^r(\sqrt{d}/2+a)$ for some $a\in\ZZ_{(p)}$.
+Say $\beta=b_0+b_1\sqrt{d}/2\in\cO_\fp$ is such that $p^r(\sqrt{d}/2-a)\beta = p^\ell$ is minimal in $\ell$.
+Since $p^\ell$ is in $\ZZ_{(p)}$, the coefficient on $\sqrt{d}/2$ must be zero, i.e., $p^r(b_0+ab_1)=0$. Hence,
+\[
+\det\begin{bmatrix}
+a & 1\\
+b_0 & -b_1
+\end{bmatrix} = 0.
+\]
+That is, this matrix has rank $1$ over $\QQ$.
+This tells us that the conjugate of $\beta$ is a $\ZZ_{(p)}$-multiple of $\sqrt{d}/2 +a=\tau-s$, giving the result.
+\end{proof}
+
+
+\begin{lemma}\label{Lem:principal_gen}Given $\alpha,\beta,$ and $r\in\ZZ$ with $r\geq0$, the ideals $p^r(\tau-\alpha)\cO_\fp$ and $p^r(\tau-\beta)\cO_\fp$ are equal exactly when $v_p(\Norm(\tau-\alpha)) = v_p(\Norm(\tau-\beta))$ and $\alpha\equiv \beta\bmod\; p^{v_p(\Norm(\tau-\alpha))}$.
+\end{lemma}
+\begin{proof}
+Note that the intersections with $\cO$ are the $\fp$-primary ideals $(p^{r+v_p(\Norm(\tau-\alpha))},p^r(\tau-\alpha))$ and $(p^{r+v_p(\Norm(\tau-\beta))},p^r(\tau-\beta))$ from Lemma~\ref{Lem:min_p}.
+The result follows from the uniqueness of the equivalence class of $A$ in Lemma~\ref{lemma:pIdeals}.
+\end{proof}
+
+We can now prove Thm~\ref{Thm:CondIdeals} and Corollary~\ref{Cor:InveribleIdeals}.
+
+\section{Proofs}\label{Proofs:Sec}
+
+\begin{proof}
+  We will use the notation $\fr(p^m) := \#\{\fa\subseteq \cO:[\cO:\fa]=p^m\}$ and $\fr_k(p^m):= \#\{\fa\subseteq \cO:[\cO:\fa]=p^m,p^k\in\fa, \t{ and } p^{k-1}\not\in\fa\}$.
+    We note that in the proof of the Lemma~\ref{lemma:pIdeals} for an ideal $\fa = (p^k,p^{m-k}(\tau-A))$ the minimal value $k$ must lie in $m/2\leq k\leq m$.
+    As a consequence, our task will be to count the roots of $g(x)\equiv 0\bmod p^{2k-m}$ for each $k$ in $m/2\leq k\leq m$.
+  Totaling such values will then give us the desired count of ideals, i.e.,
+  \[
+  \fr(p^m) = \sum_{m/2\leq k\leq m} \fr_k(p^m).
+  \]
+
+  Firstly, notice that with a little cosmetic work,
+  \[ g(x) = x^2-dx+\frac{d^2-d}{4} = (x-d/2)^2-d/4.
+  \]
+  Now, if $p=2$, then $4\mid d$ and both $d/2$ and $d/4$ are integers; otherwise, if $p\ne 2$, then $2$ is invertible $\bmod\; p^{2k-m}$, allowing us to consider $g(x+d/2)\bmod p^{2k-m}$.
+  Hence, using the change of variables $x\mapsto x+d/2$, the ideal counting problem reduces to counting roots of $x^2-d/4\bmod p^{2k-m}$.
+
+  We split into two cases depending on whether or not the constant term is zero.
+  Equivalently, we break into cases based upon $2k-m\leq v_p(d/4)$ or $2k-m> v_p(d/4)$.
+  As we will be counting by ranging over the values of $k$ we rewrite these conditions in terms on $k$, i.e., $k \leq \frac{v_p(d/4)+m}{2}$ and $k>\frac{v_p(d/4)+m}{2}$.
+  This is because if $k \leq \frac{v_p(d/4)+m}{2}$, then $x^2 - d/4\equiv x^2 - 0\bmod p^{2k-m}$.
+
+    Letting $\kappa = \frac{v_p(d/4)+m}{2}$ we see,
+  \begin{align*}
+  \fr(p^m) &= \sum_{m/2\leq k\leq m} \fr_k(p^m)\\
+           &= \sum_{m/2\leq k\leq \kappa} \#\{x\in \ZZ/p^{2k-m}:x^2=0\} + \sum_{\kappa<k\leq m} \#\{x\in \ZZ/p^{2k-m}:x^2-d/4=0\}.
+  \end{align*}
+
+  For the first summand, $k\leq \kappa$, in order for $x$ to be a root, $v_p(x) \geq (2k-m)/2$.
+  Hence, there are $p^{k-\ceil{m/2}}$ possibilities for $x$.
+
+  Notice that if $v_p(d/4) \geq m$ then $k$ will always be less than $\kappa$.
+  So, the total number of ideals would be given by
+  \[
+  \fr(p^m) =\sum_{m/2\leq k\leq m} p^{k-\ceil{\frac{m}{2}}} = \frac{p^{\floor{\frac{m}{2}}+1}-1}{p-1}
+  \]
+
+  In the event that $m>v_p(d/4)$ then there is the possibility $k>\kappa$, and the problem becomes a bit more involved.
+
+  So, we now assume $k>\kappa$.
+  Notice that if $p$ ramifies in the maximal order $\cO_K = \ZZ[\frac{D+\sqrt{D}}{2}]$, $g(x+d/2)=x^2-(f^2/4)D$ does not have a root $\bmod\; p^{2k-m}$.
+  To see this, if $p\ne 2$ or $D\equiv 0\bmod\; 8$, then, in terms of integers, $v_p(x^2)$ is even but $v_p(d/4)$ would be odd. Moreover, when $D\equiv 4\bmod\; 8$ one considers $x^2 - f^2(D/4)$ where $D/4\equiv 3\bmod 4$, which is a quadratic residue only modulo $2$; however, $2k-m=1$ when $k = \frac{1+m}{2}\leq \frac{v_p(d/4)+m}{2}=\kappa$, outside our current case, showing there are no roots when $p$ ramifies in $\cO_K$ and $k>\kappa$.
+  So, if $p$ ramifies, the total collection of such ideals can be computed by summing those $k \leq \kappa$, i.e.,
+  \[
+  \fr(p^m) =\sum_{m/2\leq k\leq \kappa} p^{k-\ceil{\frac{m}{2}}} = \frac{p^{w+\floor{\frac{v_p(D/4)+m}{2}}-\ceil{\frac{m}{2}}+1}-1}{p-1},
+  \]
+  which matches the proposed solution for each of the cases where $p$ ramifies in $\cO_K$.
+
+  Outside of the ramified case, we use Lemma~\ref{Lem:pLiftRoots}.
+  Firstly, rewrite
+  \[
+  x^2 - d/4 = x^2-p^{2w}(f^2/p^{2w})D/4\bmod p^{2k-m}.
+  \]
+  When $p=2$, using the notation of Lemma~\ref{Lem:pLiftRoots}, we may take $r=w-1$ and $u=f^2D/p^{2w}$, and when $p\ne 2$ we take $r=w$ and $u=f^2D/(4p^{2w})$.
+  The number of ideals is then given by the result of the lemma.
+
+Thus, we have found the number of ideals for each value of $k$.
+We now explicitly sum these $k$ depending on whether $p$ is inert or split in $\cO_K$ to match the explicit forms given in the theorem, as we have already considered $p$ being ramified.
+
+  Consider the case of $p\ne 2$. When $p$ is inert, $D$ is not a quadratic residue $\bmod\; p^{2k-m}$; so, we get the same sum as in the ramified case:
+  \[
+  \fr(p^m) =\sum_{m/2\leq k\leq \frac{v_p(d/4)+m}{2}} p^{k-\ceil{\frac{m}{2}}} = \frac{p^{w+\floor{\frac{m}{2}}-\ceil{\frac{m}{2}}+1}-1}{p-1},
+  \]
+  which we simplify using the fact that $v_p(D/4) = 0$.
+  Notice that $\floor{\frac{m}{2}}-\ceil{\frac{m}{2}} + 1 = 0,1$ when $m$ is odd, even, respectively; so, if we define $\epsilon = 0,1$ when $m$ is odd, even, we see this agrees with the theorem.
+
+  If instead $p$ splits in $\cO_K$, then Lemma~\ref{Lem:pLiftRoots} gives $2p^w$ roots for each values of $k$ between $\kappa < k\leq m$.
+  Again using the $\epsilon$ notation, we obtain the following total:
+  \[
+  \fr(p^m) =\left(\sum_{m/2\leq k\leq \frac{v_p(d/4)+m}{2}} p^{k-\ceil{\frac{m}{2}}}\right) + 2p^w(m-\floor{\frac{v_p(d/4)+m}{2}}) = \frac{p^{w+\epsilon}-1}{p-1} + p^w(m+1 - 2w-\epsilon),
+  \]
+  completing the case of $p\ne 2$.
+
+  Now, turn to the case of $p=2$.
+  When $2$ is inert in $\cO_K$, i.e., $D\equiv 5\bmod\; 8$, we know that $D$ is a quadratic residue only $\bmod\; 2$ or $4$.
+  The only case in which $2k-m=1$ or $2$ and $k >\kappa = w-1+\frac{m}{2}$ is when $w=1$.
+  In such a case, Lemma~\ref{Lem:pLiftRoots} tells us that we will have $1$ or $2$ roots when $2k-m=1$ or $2$, respectively.
+  So, in total, if we let $\delta = 0,1$ when $w\ne 1$ or $w=1$, respectively, then the total number of ideals when $2$ is inert in $\cO_K$ is given by
+  \[
+  \fr(p^m) =\left(\sum_{m/2\leq k\leq \kappa} 2^{k-\ceil{\frac{m}{2}}}\right) + \delta 2^{\epsilon} = 2^{w+\floor{\frac{m}{2}}-\ceil{\frac{m}{2}}}-1+ \delta 2^{\epsilon} = 2^{w-1+\epsilon}-1 +\delta 2^{\epsilon}.
+  \]
+
+  Finally, in much the same way, when $2$ splits in $\cO_K$, the total number of ideals is given by
+ \[
+  \left(\sum_{m/2\leq k\leq \kappa} 2^{k-\ceil{\frac{m}{2}}}\right) + 2^{w-1+\epsilon} + 2^{w+1}(m-\floor{\kappa} - 1) = 2^{w+\epsilon}-1+2^{w}(m+1-2w-\epsilon)
+  \]
+  where the middle term $2^{w-1+\epsilon}$ comes from the fact that $2k-m=1$ or $2$ depends on $m$ being odd or even, respectively.
+\end{proof}
+
+Now, we prove the statement of Corollary~\ref{Cor:InveribleIdeals}.
+
+\begin{proof}
+Say $(p^k,p^{m-k}(\tau-A)) = \gamma\cO_\fp$ for some
+\[
+\gamma = c_1p^k + c_2p^{m-k}(\tau-A).
+\]
+Being a generator, there is another element $\gamma'\in\cO_\fp$ for which $\gamma\gamma' = p^{m-k}(\tau-A)$.
+By considering the coefficient on $\tau$, we see that $v_p(c_2) = 0$.
+% To see this, multiplication by an element of $\ZZ_{(p)}$ certainly satisfies this
+% and since $\tau p^{m-k}(\tau-A) = Cp^k + (d-A)p^{m-k}(\tau-A)$ for some
+% $C\in\ZZ$, multiplication by any element of $\cO_\fp$ will only increase
+% the p-adic valuation of the coefficient of $\tau$.
+Hence, multiplying by a unit, we can assume $\gamma$ is actually of the form
+\begin{align*}
+\gamma &= c_1p^k + p^{m-k}(\tau-A)\\
+  &= p^{m-k}(\tau - (A -c_1p^{2k-m}))\\
+  &= p^{m-k}(\tau - \alpha)
+\end{align*}
+for some integer $\alpha$ in the same equivalence class $\bmod\;p^{2k-m}$ as $A$.
+
+Applying Lemma~\ref{Lem:min_p} and Lemma~\ref{Lem:principal_gen}, we need to count those $\alpha$ where $v_p(\Norm(\tau-\alpha)) = 2k-m$, i.e., $\alpha$ must be a root of $g(x)\bmod\;p^{2k-m}$ but not a root $\bmod\;p^{2k-m+1}$.
+We break up into cases similar to the proof of the theorem in an attempt to see which lifts give us {\it some} non-root $\bmod\; p^{2k-m+1}$; namely, consider the cases of $m < v_p(d/4)$ and $m\geq v_p(d/4)$.
+Additionally, as we range over values of $k$, those $k$ where $2k-m< v_p(d/4)$, $2k-m=v_p(d/4)$, and $2k-m>v_p(d/4)$ will be useful to consider as the counting will depend on whether $d/4\equiv 0\bmod\; p^{2k-m}$.
+Writing these in terms of $k$, we will consider $k < \frac{v_p(d/4)+m}{2}, k = \frac{v_p(d/4)+m}{2},$ and $k > \frac{v_p(d/4)+m}{2}$.
+
+Define
+\[
+\fR(p^m) := \#\{\fa\subseteq\cO:\fa\t{ is locally principal, }[\cO:\fa]=p^m\}
+\]
+and
+\[
+\fR_k(p^m) := \#\{\fa\subseteq \cO:\fa\t{ is locally principal, } [\cO:\fa]=p^m, p^k\in\fa, \t{ and }p^{k-1}\not\in\fa\}.
+\]
+Then, letting $\kappa= \frac{v_p(d/4)+m}{2}$,
+\[
+\fR(p^m) = \sum_{m/2\leq k< \kappa} \fR_k(p^m) + \fR_\kappa(p^m) + \sum_{\kappa<k\leq m} \fR_k(p^m),
+\]
+where $\fR_\kappa(p^m)=0$ when $\kappa$ is not an integer.
+
+When $m< v_p(d/4)$ then all values $m/2\leq k\leq m$ will be such that the polynomial $g(x+d/2) = x^2 - d/4 \equiv x^2 \bmod\; p^{2k-m+1}$.
+If $m$ is odd, then we see that any value $x$ for which $x^2\equiv 0\bmod\; p^{2k-m}$ will also satisfy $x^2 \equiv 0\bmod\; p^{2k-m+1}$.
+So, there are no such principally generated ideals when $m$ is odd.
+However, when $m$ is even, we may take those $x = p^{k-\frac{m}{2}}u$ where $u\in \{1,.\ldots, p^{k-\frac{m}{2}}-1\}$ is coprime to $p$.
+
+For each $k$ the number of such values is $\phi(p^{k-\frac{m}{2}})$, and so the total number of principal ideals will be
+\[
+\fR(p^m) = \sum_{k=m/2}^{m} \phi(p^{2k-m}) = p^{m/2},
+\]
+agreeing with the corollary.
+Additionally, when $m=0$, there is a unique such ideal, and we will assume $m>0$ from here onwards.
+
+Assume now $m\geq v_p(d/4)$. We will work through the cases of $p$ ramifying, remaining inert, and splitting in $\cO_K$, and within each case, treat $p=2$ separately.
+
+We first work through the case of $p$ being ramified in $\cO_K$.
+For clarity, we work through the case of $p\ne 2$.
+For $k < \kappa$ the argument is the same as above, giving us $0$ ideals when $m$ is odd and
+\[
+\sum_{k=m/2}^{w+\frac{m}{2}}\phi(p^{k-m/2}) = p^w
+\]
+when $m$ is even.
+Now, when $k = \kappa$, then we have to be a bit careful.
+Noting that this equality can only occur when $m$ is odd, we ask which $x$ are such that $x^2\equiv 0\bmod\; p^{2\kappa-m}$ but $x^2-d/4\not\equiv 0\bmod\; p^{2\kappa-m+1}$.
+Certainly the lift of any such value remains zero, as $m$ is odd, and since $d/4\not\equiv 0\bmod\; p^{2\kappa-m+1}$ any of the $p^{w}$ roots of the former lifts to a non-root.
+Hence, regardless of the parity of $m$, we have $\fR(p^m) = p^w$ when $p\ne 2$.
+
+The proof when $p=2$ ramifies in $\cO_K$ breaks into $D\equiv 4\bmod\; 8$ and $D\equiv 0\bmod\; 8$; however, $D\equiv 0\bmod\; 8$ is exactly the same as $p\ne 2$ since $v_2(d/4) = 2w+1$.
+So, we proceed assuming $D\equiv 4\bmod\; 8$.
+For $k < \kappa$ we get no ideals when $m$ is odd, and we get
+\[
+\sum_{k=m/2}^{w+\frac{m}{2}-1} \phi(2^{k-\frac{m}{2}}) = 2^{w-1}
+\]
+ideals when $m$ is even.
+Now, when $k=\kappa$, which occurs only when $m$ is even, the values $x=2^{w+1}r$ for any $r\in\{0,\ldots,2^{w-1}\}$ will be exactly the desired values.
+This gives $2^{w-1}$ additional values, totaling $2^w$ locally principal ideals when $m$ is not odd.
+When $d/4\not\equiv 0\bmod\; 2^{2k-m}$, then $x^2-d/4\equiv x^2 - 2^{2w}(f^2/2^{2w})(D/4)\equiv 0\bmod\; 2^{2k-m}$ has a root only when $2k-m = 2w+1$ since $D/4\equiv 3\bmod 4$, which is not a quadratic residue.
+Hence, when $m$ is odd, we can take $k = w+\frac{m+1}{2}$ so that $2k-m=2w+1$, and by lemma~\ref{Lem:pLiftRoots}, with $s=2w+1,r=w$ we see that there are $2^w$ such roots.
+In any case, when $p$ is ramified, $\fR(p^m) = p^w$.
+
+Now, assume that $p$ is inert in $\cO_K$.
+Again, for convenience, we will prove $p\ne2$ separate from $p= 2$.
+Assuming $p\ne 2$, we find that the number of ideals gained over those $k$ where $2k-m<v_p(d/4)$ when $m$ is odd is zero, and when $m$ is even we find
+\[
+\sum_{k=m/2}^{w+\frac{m}{2}-1} \phi(p^{k-m/2}) = p^{w-1}
+\]
+ideals.
+When $k=w+m/2$, none of the lifts are roots, and so, all $p^w$ roots give us an ideal.
+Noting there are no roots when $k>w+m/2$, we have $\fR(p^m) = p^w+p^{w-1}$ when $p\ne 2$ and $m$ is even.
+
+Now assume $p=2$.
+Then, in much the same way, the number of ideals gained over those $k < \frac{v_p(d/4)+m}{2}$ when $m$ is odd is zero, and when $m$ is even we find
+\[
+\sum_{k=m/2}^{w+\frac{m}{2}-2} \phi(2^{k-m/2})=\begin{cases}
+0 &\t{ if } w = 1\\
+2^{w-2} &\t{ if } w>1.
+\end{cases}
+\]
+When $k=w-1+m/2$, which occurs only when $m$ is even, we gain those $x=2^{w}r$ for any $r$, giving an additional $2^{w-2}$ roots.
+So, regardless of the value of $w$, this gives $\fR(2^m)=2^{w-1}$ roots when $m$ is even and $0$ otherwise.
+
+As we are in the inert case, $D\equiv 5\bmod\; 8$; hence, for $k>w-1+m/2$, $x^2-d/4\bmod\;2^{2k-m}$ has a root only when $k=2w-2+1$ or $2w-2+2$ depending on whether $m$ is odd or even, respectively.
+In the odd case, all the roots are still roots after being lifted, and in the even case, none of the lifts are roots.
+Hence, only in the even case, we gain additional ideals.
+Applying lemma~\ref{Lem:pLiftRoots}, we find an additional $2^{w}$ roots.
+Hence, whether or not $p=2$, we have $\fR(p^m)=p^w+p^{w-1}$ when $m$ is even and $p$ is inert in $\cO_K$.
+
+Finally, we work through the case of $p$ being split in $\cO_K$.
+Starting with $p\ne 2$ and $m$ even, we gain $p^{w-1}$ ideals from those $k < \kappa$.
+When $k=\kappa$, we count those $x$ such that $x^2\equiv 0\bmod\; p^{2w}$ but $x^2-d/4\not\equiv 0\bmod\; p^{2w+1}$.
+The total number of roots mod $p^{2w}$ is $p^w$, but we have to take away those roots that are reductions of roots.
+Using, lemma~\ref{Lem:pLiftRoots}, we know there are $2p^{w}$ roots mod $p^{2w+1}$, giving $p^{w-1}$ reductions; hence, we gain $p^{w} - 2p^{w-1}$ ideals.
+Finally, for each $k>\kappa$, we gain $2p^{w}-2p^{w-1}$ by a similar counting argument.
+Adding all of these together, we find
+\begin{align*}
+\fR(p^m) &= \sum_{m/2\leq k\leq \kappa} \fR_k(p^m) + \fR_\kappa(p^m) + \sum_{\kappa<k\leq m} \fR_k(p^m)\\
+         &=p^w + (p^w-2p^{w-1}) + (2p^{w}-2p^{w-1})(m-(w+m/2+1)+1)\\
+         &= (p^w-p^{w-1})(m+1-2w)
+\end{align*}
+When $m$ is odd, the only roots come from those $k>\kappa$.
+Namely, we find $2(p^w-p^{w-1})(m-(\frac{m+1}{2} + w)+1) = (p^w-p^{w-1})(m+1-2w)$ invertible ideals, as well.
+
+Our final case will be $p=2$ splitting in $\cO_K$, i.e., $D\equiv 1\bmod\; 8$.
+When $m$ is even, in exactly the same way as the inert case, we find $2^{w-1}=2^w-2^{w-1}$ ideals when $k\leq \kappa = w-1+m/2$.
+If $k$ is such that $2k-m = 1$ or $2$, then lemma~\ref{Lem:pLiftRoots} shows us that all lifts are still roots.
+So, we sum over $k\geq w+1+m/2$, each giving $2(2^w-2^{w-1})$ ideals to get
+\[
+2(2^w-2^{w-1})(m-(w+1+m/2)+1) =(2^w-2^{w-1})(m-2w)
+\]
+additional ideals, showing the total agrees with the $p\ne2$ case.
+The case of $m$ is odd is similar, giving
+\[
+\fR(2^m) = 2(2^w-2^{w-1})(m-(w+1+(m+1)/2)+1) =(2^w-2^{w-1})(m+1-2w).
+\]
+\end{proof}
+
+\section{Conclusion and Future Work}
+
+Now that we have determined the number of invertible ideals in an arbitrary imaginary quadratic order, the next step would be to determine an expression for $\fA(N)$ from equality~(\ref{A(N):Eq}) that would satisfy the relation~(\ref{eqn:vlf}) in Lauter-Viray's theorem without their additional assumptions.
+
+In the proof of the equality, Lauter-Viray make extensive use of the assumption that $m$ need be coprime to the conductor of $d_1$. The constraints given in (\ref{A(N):Eq}) are a necessary set of conditions for the equality to hold in general, but when $m$ is not coprime to $d_1$ they appear to be too lax.
+As such, to determine a set of sufficient conditions, we wish to perform explicit calculations to determine the genus class of the invertible ideals, which we have yet to properly do in the case where the ideal non-trivially intersects the conductor.
+
+Additionally, we remark (as was pointed out to us by Bianca Viray) that the number of ideals of fixed norm seems to have a relationship to the number of ideals in the maximal order. Namely, the number seems to differ by a factor of the size of one of $\GG_a(\ZZ/p^{r}),\GG_m(\ZZ/p^{r}),$ or $\PP^1(\ZZ/p^r)$ for an appropriate choice of $r$. Whether this is merely coincidence, or if there exist some underlying maps of interest is still unclear, but it is a question that seems worth keeping in the back of our minds.
+
+\bibliography{bibliography}
+
+\end{document}
