@@ -276,6 +276,7 @@ function replaceAt(s, index, character) {
 }
 function wordSubmit(word_to_check, is_cpu = false) {
     let colors = "";
+    word_to_check = word_to_check.toLowerCase();
     if (!is_cpu) {
         if (word_to_check.length < WORD_LENGTH) {
             flash();
