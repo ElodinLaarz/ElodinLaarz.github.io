@@ -2,9 +2,10 @@
 // import { sign } from "crypto";
 // import { cp } from "fs";
 // import { start } from "repl";
-import { five_letter_dic, wordSuggestions, alphabet } from "./helprFunctions.js";
+import { small_dic, extra_words, wordSuggestions, alphabet } from "./helprFunctions.js";
 // import {}
-let cur_dic = [...five_letter_dic];
+let full_dic = [...small_dic].concat([...extra_words]);
+let cur_dic = [...full_dic];
 // let prev_dic : string[] = [];
 const WORD_LENGTH = 5;
 const root = document.querySelector("#app");
@@ -104,7 +105,7 @@ function resetAll(reset_dic = false) {
         reset_dic = false;
         player_cur_row_index = 0;
         cpu_cur_row_index = 0;
-        cur_dic = five_letter_dic;
+        cur_dic = [...full_dic];
         let player_game_rows = document.getElementsByClassName('game-rows')[0];
         if (player_game_rows) {
             player_game_rows.innerHTML = `<tr class="player-cur-row">
@@ -206,7 +207,7 @@ function startGame() {
     resetAll(true);
     document.addEventListener('keydown', logKey);
     document.addEventListener('keypress', addToWord);
-    secret_word = five_letter_dic[Math.floor(Math.random() * five_letter_dic.length)];
+    secret_word = small_dic[Math.floor(Math.random() * small_dic.length)];
     // console.log(secret_word);
     if (start_button) {
         start_button.style.display = "none";
@@ -284,7 +285,7 @@ function wordSubmit(word_to_check, is_cpu = false) {
                 chat_box.innerHTML = "Whoops! Finish entering a word, first!";
             }
         }
-        else if (!five_letter_dic.includes(word_to_check)) {
+        else if (!full_dic.includes(word_to_check)) {
             flash();
             if (chat_box) {
                 chat_box.innerHTML = "Hmmm... I don't think that \"" + word.toUpperCase() +

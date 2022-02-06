@@ -1,8 +1,6 @@
-// import {five_dict} from "./five_word_dictionary_list.js"
-import { five_letter_dic, wordSuggestions } from "./helprFunctions.js";
-// import {}
-let cur_dic = [...five_letter_dic];
-// let prev_dic : string[] = [];
+import { small_dic, extra_words, wordSuggestions } from "./helprFunctions.js";
+let full_dic = [...small_dic].concat([...extra_words]);
+let cur_dic = [...full_dic];
 const WORD_LENGTH = 5;
 const root = document.querySelector("#app");
 if (root) {
@@ -73,7 +71,7 @@ function resetAll(reset_dic = false) {
         Once you've entered your word and the colors, press submit!`;
         reset_dic = false;
         cur_row_index = 0;
-        cur_dic = five_letter_dic;
+        cur_dic = full_dic;
         let game_rows = document.getElementsByClassName('game-rows')[0];
         if (game_rows) {
             game_rows.innerHTML = `<tr class="player-cur-row">
@@ -179,7 +177,7 @@ function flash() {
     }
 }
 function wordSubmit() {
-    if (word.length < WORD_LENGTH || !five_letter_dic.includes(word)) {
+    if (word.length < WORD_LENGTH || !full_dic.includes(word)) {
         flash();
     }
     else {

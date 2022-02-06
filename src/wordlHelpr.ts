@@ -1,9 +1,7 @@
-// import {five_dict} from "./five_word_dictionary_list.js"
-import {five_letter_dic, wordScore, wordSuggestions, alphabet} from "./helprFunctions.js"
-// import {}
+import {small_dic, extra_words, wordScore, wordSuggestions, alphabet} from "./helprFunctions.js"
 
-let cur_dic : string[] = [...five_letter_dic];
-// let prev_dic : string[] = [];
+let full_dic = [...small_dic].concat([...extra_words])
+let cur_dic : string[] = [...full_dic];
 
 
 const WORD_LENGTH : number = 5;
@@ -90,7 +88,7 @@ function resetAll(reset_dic = false){
 
         reset_dic = false;
         cur_row_index = 0;
-        cur_dic=five_letter_dic;
+        cur_dic=full_dic;
 
         let game_rows = document.getElementsByClassName('game-rows')[0];
         if(game_rows){
@@ -211,7 +209,7 @@ function flash(){
 
 function wordSubmit(){
 
-    if (word.length < WORD_LENGTH || !five_letter_dic.includes(word)){
+    if (word.length < WORD_LENGTH || !full_dic.includes(word)){
         flash();
     }else{
         // This is terrible, I know, but... Just gonna hard-code in the rgb
