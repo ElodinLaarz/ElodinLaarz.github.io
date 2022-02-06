@@ -10,6 +10,11 @@ let cur_dic : string[] = [...full_dic];
 // let prev_dic : string[] = [];
 
 
+
+// TODO: Add colored keyboard
+// TODO: Make mobile friendly
+
+
 const WORD_LENGTH : number = 5;
 
 const root : Element | null = document.querySelector("#app");

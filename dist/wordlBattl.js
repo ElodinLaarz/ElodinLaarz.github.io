@@ -7,6 +7,8 @@ import { small_dic, extra_words, wordSuggestions, alphabet } from "./helprFuncti
 let full_dic = [...small_dic].concat([...extra_words]);
 let cur_dic = [...full_dic];
 // let prev_dic : string[] = [];
+// TODO: Add colored keyboard
+// TODO: Make mobile friendly
 const WORD_LENGTH = 5;
 const root = document.querySelector("#app");
 if (root) {
