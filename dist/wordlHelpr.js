@@ -178,6 +178,8 @@ function flash() {
     }
 }
 function wordSubmit() {
+    cur_color_indices = new Array(WORD_LENGTH).fill(0);
+    ;
     if (word.length < WORD_LENGTH || !full_dic.includes(word)) {
         flash();
     }
