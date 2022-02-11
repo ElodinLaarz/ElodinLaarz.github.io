@@ -9,6 +9,7 @@ let cur_dic = [...full_dic];
 // let prev_dic : string[] = [];
 // TODO: Add colored keyboard
 // TODO: Make mobile friendly
+// TODO: Add hard-mode difficulty -- Computer guesses better and also steals from your word ideas
 const WORD_LENGTH = 5;
 const root = document.querySelector("#app");
 if (root) {

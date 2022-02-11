@@ -92,6 +92,7 @@ function resetAll(reset_dic = false) {
             }
         }
     }
+    cur_color_indices = new Array(WORD_LENGTH).fill(0);
     word = "";
     cur_row = document.getElementsByClassName("player-cur-row")[0];
     // Set the on-click event for the letter boxes to change their colors.
@@ -178,8 +179,6 @@ function flash() {
     }
 }
 function wordSubmit() {
-    cur_color_indices = new Array(WORD_LENGTH).fill(0);
-    ;
     if (word.length < WORD_LENGTH || !full_dic.includes(word)) {
         flash();
     }

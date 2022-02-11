@@ -13,6 +13,7 @@ let cur_dic : string[] = [...full_dic];
 
 // TODO: Add colored keyboard
 // TODO: Make mobile friendly
+// TODO: Add hard-mode difficulty -- Computer guesses better and also steals from your word ideas
 
 
 const WORD_LENGTH : number = 5;
