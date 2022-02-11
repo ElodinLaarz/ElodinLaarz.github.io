@@ -86,7 +86,14 @@ function wordSuggestions(word : string, colors : string, dic : string[]) : strin
         good_letters[i] = new Set(alphabet);
     }
 
+    // This has to be populated first to list all possible words
+    // when a gray duplicate letter appears before a yellow letter.
     let cur_yellow_letters = new Set<string>();
+    for (let i = 0; i < colors.length; i++){
+        if (colors[i] == 'Y'){
+            cur_yellow_letters.add(word[i]);
+        }
+    }
    
     for (let i = 0; i < colors.length; i++){
         let color : string = colors[i];
@@ -96,7 +103,6 @@ function wordSuggestions(word : string, colors : string, dic : string[]) : strin
         }else if (color == 'Y'){
             guess_letter_count[word[i]]++;
             good_letters[i].delete(word[i]);
-            cur_yellow_letters.add(word[i]);
         }else{
             good_letters[i].delete(word[i]);
             if (!cur_yellow_letters.has(word[i])){

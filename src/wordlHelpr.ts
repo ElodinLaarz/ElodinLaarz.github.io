@@ -130,7 +130,6 @@ function resetAll(reset_dic = false){
     }
 }
 
-// TODO: The colors seem to change inappropriately when you click on different letters.
 function colorChange(id : string) : void {
 
     // There are three colors to choose from
