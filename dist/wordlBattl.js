@@ -442,11 +442,11 @@ function wordSubmit(word_to_check, is_cpu = false, hard_mode_guess = false) {
                 colorBox(i, "black", true);
             }
         }
-        if (guess_is_correct) {
-            endGame();
-        }
         // computer update
         if (!hard_mode_guess) {
+            if (guess_is_correct) {
+                endGame();
+            }
             let game_rows = document.getElementsByClassName("game-rows")[1];
             if (game_rows) {
                 let prev_row = game_rows.children[cpu_cur_row_index];

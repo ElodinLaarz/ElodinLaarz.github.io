@@ -501,13 +501,12 @@ function wordSubmit(word_to_check : string, is_cpu = false, hard_mode_guess : bo
                 colorBox(i, "black", true);
             }
         }
-
-        if (guess_is_correct){
-            endGame();
-        }
         
         // computer update
         if (!hard_mode_guess){
+            if (guess_is_correct){
+                endGame();
+            }
             let game_rows = document.getElementsByClassName("game-rows")[1];
             if (game_rows){
                         
