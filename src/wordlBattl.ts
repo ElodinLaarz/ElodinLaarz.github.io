@@ -488,13 +488,13 @@ function wordSubmit(word_to_check : string, is_cpu = false, hard_mode_guess : bo
         for (let i = 0; i < secret_word.length; i++){
             if(word_to_check[i] == secret_word[i]){
                 replaceAt(colors, i, 'G');
-                colorBox(i, "#07B73B", true);
+                if (!hard_mode_guess) colorBox(i, "#07B73B", true);
             
             }else if(secret_word.includes(word_to_check[i]) && --secret_dic_count[word_to_check[i]] >= 0){
                 // make it yellow
                 guess_is_correct = false;
                 colors = replaceAt(colors, i, 'Y');
-                colorBox(i, "#C7C706", true);
+                if (!hard_mode_guess) colorBox(i, "#C7C706", true);
             }else{
                 // make it black
                 guess_is_correct = false;
