@@ -1,7 +1,10 @@
-import {small_dic, extra_words, wordScore, wordSuggestions, alphabet} from "./helprFunctions.js"
+import {small_dic, extra_words, freq_score, wordSuggestions, setHardMode} from "./helprFunctions.js"
 
 let full_dic = [...small_dic].concat([...extra_words])
 let cur_dic : string[] = [...full_dic];
+
+// Gives improved sorting
+setHardMode(true);
 
 
 const WORD_LENGTH : number = 5;

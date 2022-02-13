@@ -1,6 +1,8 @@
-import { small_dic, extra_words, wordSuggestions } from "./helprFunctions.js";
+import { small_dic, extra_words, wordSuggestions, setHardMode } from "./helprFunctions.js";
 let full_dic = [...small_dic].concat([...extra_words]);
 let cur_dic = [...full_dic];
+// Gives improved sorting
+setHardMode(true);
 const WORD_LENGTH = 5;
 const root = document.querySelector("#app");
 if (root) {

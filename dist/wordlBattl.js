@@ -2,14 +2,14 @@
 // import { sign } from "crypto";
 // import { cp } from "fs";
 // import { start } from "repl";
-import { small_dic, extra_words, wordSuggestions, alphabet } from "./helprFunctions.js";
+import { small_dic, extra_words, setHardMode, wordSuggestions, alphabet } from "./helprFunctions.js";
 // import {}
 let full_dic = [...small_dic].concat([...extra_words]);
 let cur_dic = [...full_dic];
 // let prev_dic : string[] = [];
+let hard_mode = false;
 // TODO: Add colored keyboard
 // TODO: Make mobile friendly
-// TODO: Add hard-mode difficulty -- Computer guesses better and also steals from your word ideas
 const WORD_LENGTH = 5;
 const root = document.querySelector("#app");
 if (root) {
@@ -46,6 +46,8 @@ if (root) {
                 <section class="chat-box">
                     <section class="scroll">
                     </section>
+                    <button id="hard-off">Hard Mode : OFF</button>
+                    <br>
                     <button id="start">Start!</button>
                 </section>
                 
@@ -72,6 +74,7 @@ let player_score_value = 0;
 let computer_score = document.getElementById("computer-score");
 let computer_score_value = 0;
 let cpu_difficulty = 0;
+const hard_mode_button = document.getElementById("hard-off");
 const start_button = document.getElementById("start");
 const submit_button = document.getElementById("submit");
 const reset_button = document.getElementById("reset");
@@ -203,6 +206,37 @@ function resetAll(reset_dic = false) {
     word = "";
 }
 // const rows = root?.getElementsByClassName("row");
+if (hard_mode_button) {
+    hard_mode_button.onclick = hardModeToggle;
+}
+function hardModeToggle() {
+    if (hard_mode) {
+        hard_mode = false;
+        setHardMode(false);
+        let computer_header = document.getElementById("computer-score");
+        if (computer_header) {
+            computer_header.innerHTML = "Computer Board";
+        }
+        if (hard_mode_button) {
+            // hard_mode_button.removeAttribute('id');
+            hard_mode_button.setAttribute('id', 'hard-off');
+            hard_mode_button.innerHTML = "Hard Mode : OFF";
+        }
+    }
+    else {
+        hard_mode = true;
+        setHardMode(true);
+        let computer_header = document.getElementById("computer-score");
+        if (computer_header) {
+            computer_header.innerHTML = "HARD Computer Board";
+        }
+        if (hard_mode_button) {
+            // hard_mode_button.removeAttribute('id');
+            hard_mode_button.setAttribute('id', 'hard-on');
+            hard_mode_button.innerHTML = "Hard Mode : ON!";
+        }
+    }
+}
 if (start_button) {
     start_button.onclick = startGame;
 }
@@ -214,6 +248,9 @@ function startGame() {
     // console.log(secret_word);
     if (start_button) {
         start_button.style.display = "none";
+    }
+    if (hard_mode_button) {
+        hard_mode_button.style.display = "none";
     }
     if (chat_box) {
         chat_box.innerHTML = "The game has begun! It's your turn to guess-- start typing!";
@@ -278,7 +315,7 @@ function colorBox(index, color, is_cpu = false) {
 function replaceAt(s, index, character) {
     return s.substring(0, index) + character + s.substring(index + 1);
 }
-function wordSubmit(word_to_check, is_cpu = false) {
+function wordSubmit(word_to_check, is_cpu = false, hard_mode_guess = false) {
     let colors = "";
     word_to_check = word_to_check.toLowerCase();
     if (!is_cpu) {
@@ -297,6 +334,9 @@ function wordSubmit(word_to_check, is_cpu = false) {
         }
         else {
             colors = "BBBBB";
+            if (hard_mode) {
+                cur_dic = wordSuggestions(word_to_check, wordSubmit(word_to_check, true, true), cur_dic);
+            }
             // note the number of occurences of each letter in the word
             // used to tell if a letter should be black/yellow if it has
             // already been seen
@@ -406,40 +446,50 @@ function wordSubmit(word_to_check, is_cpu = false) {
             endGame();
         }
         // computer update
-        let game_rows = document.getElementsByClassName("game-rows")[1];
-        if (game_rows) {
-            let prev_row = game_rows.children[cpu_cur_row_index];
-            for (let i = 0; i < prev_row.children.length; i++) {
-                prev_row.children[i].innerHTML = word_to_check[i].toUpperCase();
+        if (!hard_mode_guess) {
+            let game_rows = document.getElementsByClassName("game-rows")[1];
+            if (game_rows) {
+                let prev_row = game_rows.children[cpu_cur_row_index];
+                for (let i = 0; i < prev_row.children.length; i++) {
+                    prev_row.children[i].innerHTML = word_to_check[i].toUpperCase();
+                }
+                prev_row.classList.add("row");
+                prev_row.classList.remove("computer-cur-row");
+                if (cpu_cur_row_index + 1 < num_rows) {
+                    let new_row = game_rows.children[cpu_cur_row_index + 1];
+                    computer_cur_row = new_row;
+                    new_row.classList.remove("row");
+                    new_row.classList.add("computer-cur-row");
+                }
+                else {
+                    endGame();
+                }
+                cpu_cur_row_index++;
+                // word = "";
+                // resetAll();
             }
-            prev_row.classList.add("row");
-            prev_row.classList.remove("computer-cur-row");
-            if (cpu_cur_row_index + 1 < num_rows) {
-                let new_row = game_rows.children[cpu_cur_row_index + 1];
-                computer_cur_row = new_row;
-                new_row.classList.remove("row");
-                new_row.classList.add("computer-cur-row");
-            }
-            else {
-                endGame();
-            }
-            cpu_cur_row_index++;
-            // word = "";
-            // resetAll();
         }
     }
     return colors;
 }
 function computerGuess() {
-    computer_word = cur_dic[Math.floor(Math.random() * cur_dic.length)];
+    if (hard_mode) {
+        computer_word = cur_dic[0];
+    }
+    else {
+        computer_word = cur_dic[Math.floor(Math.random() * cur_dic.length)];
+    }
     cur_dic = wordSuggestions(computer_word, wordSubmit(computer_word, true), cur_dic);
 }
 function updateScore() {
     if (player_score) {
         player_score.innerHTML = "Your Board - Score " + player_score_value;
     }
-    if (computer_score) {
+    if (computer_score && !hard_mode) {
         computer_score.innerHTML = "Computer Board - Score " + computer_score_value;
+    }
+    else if (computer_score && hard_mode) {
+        computer_score.innerHTML = "HARD Computer Board - Score " + computer_score_value;
     }
 }
 function endGame(give_up = false) {
