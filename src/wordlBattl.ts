@@ -52,6 +52,7 @@ if (root){
                 <section class="chat-box">
                     <section class="scroll">
                     </section>
+                    <br><br>
                     <button id="hard-off">Hard Mode : OFF</button>
                     <br>
                     <button id="start">Start!</button>

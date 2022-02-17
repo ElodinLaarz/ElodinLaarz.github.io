@@ -144,7 +144,7 @@ ul {
   border-width: 0.05em;
   border-radius: 0.5em;
   font-family: 'Source Code Pro';
-  font-size: 150%;
+  font-size: 100%;
   font-weight: bold;
   width: 25%;
   height: 5vh;
@@ -171,7 +171,7 @@ ul {
   position: relative;
   text-align: center;
   width: 80%;
-  height: 70%;
+  height: 50%;
   left: 10%;
   top: 10%;
   font-weight: bold;
@@ -185,26 +185,28 @@ ul {
 }
 
 #battlPage .game .chat-box #hard-off {
-  background-color: gray;
-  font-size: small;
+  background-color: #808080;
   position: relative;
-  left: 5.6em;
+  left: 10%;
   color: black;
-  width: 15em;
-  padding: 0.1em;
+  width: 80%;
+  margin: 10% 0 3% 0;
+  padding: 1%;
 }
 
 #battlPage .game .chat-box #hard-on {
+  font-size: 100%;
   background-color: red;
-  font-size: small;
   position: relative;
-  left: 5.6em;
+  left: 10%;
   color: black;
-  width: 15em;
-  padding: 0.1em;
+  width: 80%;
+  margin: 10% 0 3% 0;
+  padding: 1%;
 }
 
 #battlPage .game .chat-box #start {
+  font-size: 100%;
   background-color: lime;
   color: black;
   margin: 0;
