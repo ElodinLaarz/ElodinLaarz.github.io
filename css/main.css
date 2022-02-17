@@ -146,7 +146,8 @@ ul {
 #battlPage .game .chat-box {
   position: absolute;
   top: 15%;
-  left: 41%;
+  left: 40%;
+  margin: 0;
   background: #0D0208;
   border-radius: 7vw;
   opacity: 30%;
