@@ -127,12 +127,9 @@ ul{
 
         // }
         #submit{
-            // display:none;
-            // font-size : 0.1em;
 	        background-color: #C7C706;
         }    
         #reset{
-            // display:none;
             background-color: #C70606;
             position: absolute;
             right: 0;
@@ -150,6 +147,8 @@ ul{
             padding: 3%em;
         }
         .chat-box{
+            display: flex;
+            flex-direction: column;
             position: absolute;
             top: 15%;
             left: 40%;
@@ -159,6 +158,18 @@ ul{
             opacity: 30%;
             height: 70vh;
             width: 20vw;
+            color: hsl(0, 0%, 100%);
+            #player-name-text{
+                display:flexbox;
+                flex-direction: column;
+                // background-color:aqua;
+                input{
+                    position:relative;
+                    left: 15%;
+                    width: 70%;
+                    margin: 3% 0 3% 0;
+                }
+            }
             .scroll{
                 -ms-overflow-style: none; /* for Internet Explorer, Edge */
                 scrollbar-width: none; /* for Firefox */
@@ -208,6 +219,11 @@ ul{
                 // top : 2.5em;
                 width: 40%;
                 left:30%;
+            }
+            #reset-game{
+                position:absolute;
+                bottom: -3em;
+                width: 100%;
             }
         }
     }

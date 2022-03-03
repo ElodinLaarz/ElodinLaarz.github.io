@@ -144,6 +144,13 @@ ul {
 }
 
 #battlPage .game .chat-box {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   position: absolute;
   top: 15%;
   left: 40%;
@@ -153,6 +160,22 @@ ul {
   opacity: 30%;
   height: 70vh;
   width: 20vw;
+  color: white;
+}
+
+#battlPage .game .chat-box #player-name-text {
+  display: flexbox;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+#battlPage .game .chat-box #player-name-text input {
+  position: relative;
+  left: 15%;
+  width: 70%;
+  margin: 3% 0 3% 0;
 }
 
 #battlPage .game .chat-box .scroll {
@@ -205,6 +228,12 @@ ul {
   position: relative;
   width: 40%;
   left: 30%;
+}
+
+#battlPage .game .chat-box #reset-game {
+  position: absolute;
+  bottom: -3em;
+  width: 100%;
 }
 
 #helprPage .game #buttons {

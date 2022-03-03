@@ -1,21 +1,16 @@
-// // import {five_dict} from "./five_word_dictionary_list.js"
-// import { sign } from "crypto";
-// import { cp } from "fs";
-// import { start } from "repl";
 import {small_dic, extra_words, setHardMode, wordSuggestions, alphabet} from "./helprFunctions.js"
-// import {}
 
 let full_dic = [...small_dic].concat([...extra_words])
 let cur_dic : string[] = [...full_dic];
-// let prev_dic : string[] = [];
 
 let hard_mode : boolean = false;
 
 // TODO: Add colored keyboard
 // TODO: Make mobile friendly
-
+// TODO: Add High Scores Database.
 
 const WORD_LENGTH : number = 5;
+const POINTS_TO_WIN : number = 3;
 
 const root : Element | null = document.querySelector("#app");
 if (root){
@@ -53,11 +48,14 @@ if (root){
                     <section class="scroll">
                     </section>
                     <br><br>
-                    <button id="hard-off">Hard Mode : OFF</button>
-                    <br>
+                    <section id="player-name-text">
+                    Enter your name : <input id="player-name">
+                    </section>
                     <button id="start">Start!</button>
+                    <button id="hard-off">Hard Mode : OFF</button>
+                    <button id="reset-game">Reset Game</button>
                 </section>
-                
+
                 <section class="computer-board container">
                     <h2 id="computer-score">Computer Board</h2>
                     <table>
@@ -80,17 +78,20 @@ let secret_word : string;
 
 let chat_box = document.getElementsByClassName("scroll")[0];
 
+let player_name : string = "";
+
 let player_score = document.getElementById("player-score");
 let player_score_value : number = 0;
 let computer_score = document.getElementById("computer-score");
 let computer_score_value : number = 0;
 
-let cpu_difficulty = 0;
+const player_name_region = document.getElementById("player-name-text");
 
 const hard_mode_button = document.getElementById("hard-off");
 const start_button = document.getElementById("start");
 const submit_button = document.getElementById("submit");
 const reset_button = document.getElementById("reset");
+const reset_game_button = document.getElementById("reset-game");
 
 let player_cur_row : Element;
 let computer_cur_row : Element;
@@ -117,6 +118,12 @@ function resetAll(reset_dic = false){
                 }
             };
             submit_button.style.display = "inline";
+        }
+        if (reset_game_button){
+            reset_game_button.style.display = "inline";
+            reset_game_button.onclick = function(){
+                resetAll();
+            };
         }
 
         chat_box.innerHTML = `Play Wordl against a computer opponent!<br><br>
@@ -175,14 +182,26 @@ function resetAll(reset_dic = false){
         player_cur_row = document.getElementsByClassName("player-cur-row")[0];
         computer_cur_row = document.getElementsByClassName("computer-cur-row")[0];
     }else{
+        if (player_name_region){
+            player_name_region.style.display = "inline";
+        }
+        
         if (start_button){
             start_button.style.display = "inline";
+            start_button.innerHTML = "Start!";
+            start_button.onclick = startGame;
+        }
+        if (hard_mode_button){
+            hard_mode_button.style.display = "inline";
         }
         if (reset_button){
             reset_button.style.display = "none";
         }
         if (submit_button){
             submit_button.style.display = "none";
+        }
+        if (reset_game_button){
+            reset_game_button.style.display = "none";
         }
 
         chat_box.innerHTML = `Play Wordl against a computer opponent!<br><br>
@@ -192,6 +211,21 @@ function resetAll(reset_dic = false){
         If the letter background turns black, then that letter is not in the word!<br><br>
         
         See if you can guess the word before the computer does!`;
+
+        if (player_score){
+            player_score_value = 0;
+            player_score.innerHTML = "Player Board";
+        }
+        if (computer_score){
+            computer_score_value = 0;
+            if (hard_mode){
+                computer_score.innerHTML = "HARD Computer Board";
+            }else{
+                computer_score.innerHTML = "Computer Board";
+            }
+        }
+
+
         let player_game_rows = document.getElementsByClassName('game-rows')[0];
         if(player_game_rows){
             player_game_rows.innerHTML = ``;
@@ -230,9 +264,6 @@ function resetAll(reset_dic = false){
 
     word = "";
 }
-
-// const rows = root?.getElementsByClassName("row");
-
 
 if (hard_mode_button){
     hard_mode_button.onclick = hardModeToggle;
@@ -286,6 +317,9 @@ function startGame(){
     }
     if (hard_mode_button){
         hard_mode_button.style.display = "none";
+    }
+    if (player_name_region){
+        player_name_region.style.display = "none";
     }
 
     if (chat_box){
@@ -570,11 +604,12 @@ function endGame(give_up : boolean = false){
     document.removeEventListener('keypress', addToWord);
 
     if(reset_button){
-        reset_button.onclick = function(){};
+        reset_button.style.display = 'none';
+        // reset_button.onclick = function(){};
     }
-    
     if(submit_button){
-        submit_button.onclick = function(){};
+        submit_button.style.display = 'none';
+        // submit_button.onclick = function(){};
     }
 
     if (word == secret_word){
@@ -586,16 +621,25 @@ function endGame(give_up : boolean = false){
     }else if(computer_word == secret_word || give_up){
         computer_score_value++;
         updateScore();
-        if(chat_box){
-            chat_box.innerHTML = "Oh, tough luck. It seems that guessing \"" + secret_word.toUpperCase() + "\" was difficult!<br><br>" +
-            "The computer gets the point this time!";
+        if (computer_score_value >= POINTS_TO_WIN){
+            if(chat_box){
+                chat_box.innerHTML = "GAME OVER.\n The computer earned 3 points.\n" + 
+                "You scored " + String(player_score_value) + 
+                " points!\n Check to see how you fared on the scoreboard!";
+
+            }
+        }else{
+            if(chat_box){
+                chat_box.innerHTML = "Oh, tough luck. It seems that guessing \"" + secret_word.toUpperCase() + "\" was difficult!<br><br>" +
+                "The computer gets the point this time!";
+            }
         }
     }else{
         if(chat_box){
             chat_box.innerHTML = "Woah! That was a toughie. I'll let you in on the secret. The word was \"" + secret_word + "\"!";
         }
     }
-    if(start_button){
+    if(start_button && computer_score_value < POINTS_TO_WIN){
         start_button.style.display = "inline";
         start_button.innerHTML = "Next Word!";
     }
