@@ -1,2 +1,4 @@
 # ElodinLaarz.github.io
-Website
+
+Personal Website to showcase recreational projects.
+
