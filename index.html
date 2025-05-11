@@ -1,45 +1,408 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Caleb Geiger</title>
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self'">
-        <link rel="stylesheet"  href="styles.css">
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-
+        <meta charset="UTF-8">
+        <meta name="viewport"
+            content="width=device-width, initial-scale=1.0">
+        <title>Caleb Geiger - Software Engineer</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+            integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer" />
+        <link rel="preconnect"
+            href="https://fonts.googleapis.com">
+        <link rel="preconnect"
+            href="https://fonts.gstatic.com"
+            crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+            rel="stylesheet">
+        <style>
+            body {
+            font-family: 'OpenSans', sans-serif;
+            background-color: #f8fafc; /* Tailwind gray-50 */
+            color: #1f2937; /* Tailwind gray-800 */
+            }
+            .section-padding {
+            padding-top: 4rem; /* 64px */
+            padding-bottom: 4rem; /* 64px */
+            }
+            .project-card {
+            transition: transform 0.3s ease-in-out,
+                box-shadow 0.3s ease-in-out;
+            }
+            .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+                0 4px 6px -2px rgba(0, 0, 0, 0.05); /* Tailwind shadow-lg */
+            }
+            .btn {
+            @apply inline-block px-6 py-3 rounded-lg text-base font-medium;
+            @apply shadow-md transition-colors duration-300;
+            }
+            .btn-primary {
+            @apply bg-sky-600 text-white hover:bg-sky-700;
+            }
+            .btn-secondary {
+            @apply bg-gray-200 text-gray-700 hover:bg-gray-300;
+            }
+            .icon-link {
+            @apply text-gray-500 hover:text-sky-600;
+            @apply transition-colors duration-300;
+            }
+        </style>
     </head>
-    <body>
-        <h1 id="caleb-geiger">Caleb Geiger</h1>
-        <ul>
-        <li>I am a former mathematics graduate student at the University of Washington under <a href="https://sites.math.washington.edu/~bviray/">Bianca Viray</a>.</li>
-        <li>My research focused on non-maximal orders in number field and their relation to the class group. My thesis can be found <a href="./Thesis/Masters_Thesis_FINAL.pdf">here</a>. Recently, I’ve been considering orders as they pertain to cryptography.</li>
-        <li>I like math-ing, teaching, and climbing.</li>
-        </ul>
-        <h2 id="projects">Coding Projects</h2>
-        <ul>
-        <li><a href="/wordlHelpr.html">WordlHelper</a> and <a href="/wordlBattl.html">WordlBattl</a> -- Play for yourself!</li>
-        <li><a href="https://github.com/ElodinLaarz/HanabiAI">HanabiAI</a></li>
-        <li><a href="https://github.com/ElodinLaarz/CryptoPractice">Cryptography and Sage</a></li>
-        <li><a href="https://github.com/ElodinLaarz/GoogleHash2020">Google Hash Code 2020</a></li>
-        <li><a href="https://github.com/ElodinLaarz/Stats-ML">Machine Learning</a></li>
-        </ul>        
-        <h2 id="teaching">Teaching</h2>
-        <ul>
-        <li><a href="https://math.washington.edu/courses/2020/spring/math/308/d">Spring 2020: Matrix Algebra with Applications</a></li>
-        <li><a href="https://math.washington.edu/courses/2019/spring/math/308/f">Spring 2019: Matrix Algebra with Applications</a></li>
-        <li><a href="https://math.washington.edu/courses/2019/winter/math/307/g">Winter 2019: Introduction to Differential Equations</a></li>
-        <li><a href="https://math.washington.edu/courses/2018/autumn/math/307/n">Autumn 2018: Introduction to Differential Equations</a></li>
-        <li><a href="https://math.washington.edu/courses/2018/summer/math/126/a">Summer 2018: Calculus with Analytic Geometry III</a></li>
-        <li><a href="https://math.washington.edu/courses/2018/spring/math/307/h">Spring 2018: Introduction to Differential Equations</a></li>
-        </ul>
-        <h2 id="links">Links</h2>
-        <ul>
-            <li><i class="fas fa-portrait"></i> <a href="./CV/CV.pdf">Mathematics CV</a></li>
-            <li><i class="fas fa-file-code"></i> <a href="./CV/tech_cv.pdf">Tech CV</a></li>
-        <li><i class="fab fa-github-square"></i> <a href="https://github.com/ElodinLaarz/">Github</a></li>
-        Website design was stolen (with permission) from <a href="https://kevinywlui.github.io/">Dr. Kevin Lui</a>.
-        </ul>
+    <body class="antialiased">
+        <nav class="bg-white shadow-md sticky top-0 z-50">
+            <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+                <a href="#"
+                    class="text-2xl font-bold text-sky-600">Caleb Geiger</a>
+                <div class="space-x-4">
+                    <a href="#hero"
+                        class="text-gray-600 hover:text-sky-600 transition-colors duration-300">Home</a>
+                    <a href="#skills"
+                        class="text-gray-600 hover:text-sky-600 transition-colors duration-300">Skills</a>
+                    <a href="#projects"
+                        class="text-gray-600 hover:text-sky-600 transition-colors duration-300">Projects</a>
+                    <a href="#education"
+                        class="text-gray-600 hover:text-sky-600 transition-colors duration-300">Education</a>
+                    <a href="#links"
+                        class="text-gray-600 hover:text-sky-600 transition-colors duration-300">Links</a>
+                </div>
+            </div>
+        </nav>
+        <section id="hero"
+            class="bg-sky-700 text-white section-padding">
+            <div class="container mx-auto px-6 text-center">
+                <h1 class="text-5xl md:text-6xl font-bold mb-4">
+                    Caleb Geiger
+                </h1>
+                <p class="text-xl md:text-2xl font-light mb-6">
+                    Software Engineer | From Abstract Mathematics to Concrete Code
+                </p>
+                <p class="max-w-2xl mx-auto text-sky-100 mb-8">
+                    Software Engineer at Google. I currently work on networking
+                    and distributed systems, with a focus on telemetry and
+                    observability. My background in mathematics has given me a
+                    strong foundation in algorithm design and analysis, which I
+                    apply to my work in software engineering. I am passionate
+                    about building efficient and scalable systems, and I enjoy
+                    tackling complex problems with innovative solutions. I am
+                    always eager to learn new technologies and improve my
+                    skills, and this portfolio showcases some of the projects
+                    that I have made recreationally.
+                </p>
+            </div>
+        </section>
+        <section id="skills"
+            class="section-padding">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">
+                    Technical Skills
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="bg-white p-6 rounded-lg shadow-lg">
+                        <h3 class="text-xl font-semibold mb-4 text-sky-600 flex items-center">
+                            <i class="fas fa-code mr-3 text-2xl"></i>Languages
+                        </h3>
+                        <ul class="list-disc list-inside space-y-2 text-gray-700">
+                            <li>Golang</li>
+                            <li>Python</li>
+                            <li>HTML, CSS (Basic)</li>
+                            <li>TypeScript (Basic)</li>
+                            <li>C++ (Learning)</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-lg">
+                        <h3 class="text-xl font-semibold mb-4 text-sky-600 flex items-center">
+                            <i class="fas fa-tools mr-3 text-2xl"></i>
+                            Tools & Platforms
+                        </h3>
+                        <ul class="list-disc list-inside space-y-2 text-gray-700">
+                            <li>Git & GitHub</li>
+                            <li>Linux/Unix Environment</li>
+                            <li>
+                                <a href="https://neovim.io/"
+                                target="_blank"
+                                class="text-sky-600 hover:underline">
+                                    Neovim
+                                </a> Enjoyer
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-lg">
+                        <h3 class="text-xl font-semibold mb-4 text-sky-600 flex items-center">
+                            <i class="fas fa-lightbulb mr-3 text-2xl"></i>
+                            Other Relevant Skills
+                        </h3>
+                        <ul class="list-disc list-inside space-y-2 text-gray-700">
+                            <li>Mathematics</li>
+                            <li>Networking and Telemetry</li>
+                            <li>
+                                <a href="https://github.com/openconfig"
+                                   target="_blank"
+                                   class="text-sky-600 hover:underline">
+                                       OpenConfig
+                                </a>
+                                Contributor
+                            </li>
+                            <li>AI/ML (Recreational)</li>
+                            <li>Game Development (Recreational)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="projects"
+            class="bg-gray-100 section-padding">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">
+                    Software Engineering Portfolio
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden project-card">
+                        <img src="https://placehold.co/600x400/3498db/ffffff?text=Wordl+Games"
+                            alt="Wordl Games Screenshot"
+                            class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold mb-2 text-sky-700">
+                                WordlHelper & WordlBattl
+                            </h3>
+                            <p class="text-gray-600 text-sm mb-4">
+                                Interactive web-based games inspired by Wordle.
+                                WordlHelper assists users in solving Wordle puzzles,
+                                and WordlBattl allows competitive play against an
+                                AI agent.
+                                <br>
+                                I wanted to implement a project in Typescript
+                                without using any frameworks; so, I used HTML, CSS,
+                                and TS to create a simple tool to help solve&nbsp;
+                                <a href="https://www.nytimes.com/games/wordle/index.html"
+                                    target="_blank"
+                                    class="text-sky-600 hover:underline">Wordle</a>
+                                puzzles.
+                                <br>
+                                Creating an AI player was a simple addition
+                                afterwards.
+                            </p>
+                            <p class="text-sm text-gray-500 mb-1">
+                                <strong class="font-medium text-gray-700">
+                                    Concepts:
+                                </strong>
+                                Full-stack development, game logic, UI/UX.
+                            </p>
+                            <p class="text-sm text-gray-500 mb-4">
+                                <strong class="font-medium text-gray-700">
+                                    Learned:
+                                </strong>
+                                HTML, CSS, TypeScript.
+                            </p>
+                            <div class="space-x-2">
+                                <a href="./projects/wordl-games/helpr.html"
+                                    target="_blank"
+                                    class="btn-secondary text-sm px-4 py-2">
+                                    WordlHelpr
+                                </a>
+                                <a href="./projects/wordl-games/battl.html"
+                                    target="_blank"
+                                    class="btn-secondary text-sm px-4 py-2">
+                                    WordlBattl
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden project-card">
+                        <img src="https://placehold.co/600x400/2ecc71/ffffff?text=Hanabi+AI"
+                            alt="HanabiAI Screenshot"
+                            class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold mb-2 text-sky-700">
+                                HanabiAI
+                            </h3>
+                            <p class="text-gray-600 text-sm mb-4">
+                                An AI agent designed to play the cooperative card
+                                game Hanabi. Explores strategies for information
+                                deduction and coordinated play.
+                                <br>
+                                The core of the project was to investigate genetic
+                                algorithms, which I had never used before.
+                                I was playing a lot of
+                                <a href="https://boardgamearena.com/gamepanel?game=hanabi"
+                                    target="_blank"
+                                    class="text-sky-600 hover:underline">Hanabi</a>
+                                at the time, so I decided to combine the two
+                                interests.
+                            </p>
+                            <p class="text-sm text-gray-500 mb-1">
+                                <strong class="font-medium text-gray-700">
+                                    Concepts:
+                                </strong>
+                                AI algorithm design, game simulation,
+                                performance analysis.
+                            </p>
+                            <p class="text-sm text-gray-500 mb-4">
+                                <strong class="font-medium text-gray-700">
+                                    Technologies:
+                                </strong>
+                                Python, AI/ML concepts.
+                            </p>
+                            <a href="https://github.com/ElodinLaarz/HanabiAI"
+                                target="_blank"
+                                class="btn-secondary text-sm px-4 py-2">
+                                <i class="fab fa-github mr-1"></i> View Code
+                            </a>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden project-card">
+                        <img src="https://placehold.co/600x400/e74c3c/ffffff?text=Crypto+Sage"
+                            alt="Cryptography Project Screenshot"
+                            class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold mb-2 text-sky-700">
+                                Cryptography and Sage
+                            </h3>
+                            <p class="text-gray-600 text-sm mb-4">
+                                A collection of projects and exercises exploring
+                                various cryptographic concepts and algorithms,
+                                implemented using SageMath.
+                            </p>
+                            <p class="text-sm text-gray-500 mb-1">
+                                <strong class="font-medium text-gray-700">
+                                    Concepts:
+                                </strong>
+                                Implementation of cryptographic schemes,
+                                mathematical analysis.
+                            </p>
+                            <p class="text-sm text-gray-500 mb-4">
+                                <strong class="font-medium text-gray-700">
+                                    Technologies:
+                                </strong>
+                                SageMath, Python, Number Theory, Abstract Algebra.
+                            </p>
+                            <a href="https://github.com/ElodinLaarz/CryptoPractice"
+                                target="_blank"
+                                class="btn-secondary text-sm px-4 py-2">
+                                <i class="fab fa-github mr-1"></i> View Code
+                            </a>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden project-card">
+                        <img src="https://placehold.co/600x400/9b59b6/ffffff?text=Google+Hash+2020"
+                            alt="Google Hash Code Screenshot"
+                            class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold mb-2 text-sky-700">
+                                Google Hash Code 2020
+                            </h3>
+                            <p class="text-gray-600 text-sm mb-4">
+                                Participated in Google Hash Code 2020, a team-based
+                                programming competition. Developed algorithmic
+                                solutions to interesting engineering problem.
+                            </p>
+                            <p class="text-sm text-gray-500 mb-1">
+                                <strong class="font-medium text-gray-700">
+                                    Concepts:
+                                </strong>
+                                Algorithm development, problem analysis,
+                                team collaboration.
+                            </p>
+                            <p class="text-sm text-gray-500 mb-4">
+                                <strong class="font-medium text-gray-700">
+                                    Technologies:
+                                </strong>
+                                Python, Algorithmic Problem Solving.
+                            </p>
+                            <a href="https://github.com/ElodinLaarz/GoogleHash2020"
+                                target="_blank"
+                                class="btn-secondary text-sm px-4 py-2">
+                                <i class="fab fa-github mr-1"></i> View Code
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="education"
+            class="section-padding">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">
+                    Education
+                </h2>
+                <div class="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-semibold text-sky-700 mb-2">
+                        University of Washington
+                    </h3>
+                    <p class="text-gray-700 font-medium mb-1">
+                        (MS) Mathematics: Number Theory
+                    </p>
+                    <p class="text-gray-600 text-sm mb-4">
+                        Advisor:
+                        <a href="https://sites.math.washington.edu/~bviray/"
+                            target="_blank"
+                            class="text-sky-600 hover:underline">Bianca Viray</a>
+                    </p>
+                    <p class="text-gray-700 mb-2">
+                        My research focused on non-maximal orders in number
+                        fields and their relation to the class group. This
+                        rigorous mathematical training in areas like number
+                        theory and abstract algebra has provided a strong
+                        foundation for my subsequent interest in software
+                        engineering and algorithm design.
+                    </p>
+                    <a href="./education/thesis/thesis.pdf"
+                        target="_blank"
+                        class="inline-block text-sky-600 hover:text-sky-800 transition-colors duration-300">
+                        <i class="fas fa-book-open mr-2"></i>View Thesis
+                    </a>
+                </div>
+            </div>
+        </section>
+        <footer id="links"
+            class="bg-gray-800 text-gray-300 py-12">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-2xl font-semibold mb-6">Connect With Me</h2>
+                <div class="flex justify-center space-x-6 mb-8">
+                    <a href="https://github.com/ElodinLaarz/"
+                        target="_blank"
+                        class="icon-link text-3xl"
+                        aria-label="GitHub Profile">
+                        <i class="fab fa-github-square"></i>
+                    </a>
+                    <a href="./education/cv.pdf"
+                        target="_blank"
+                        class="icon-link text-3xl"
+                        aria-label="Technical CV">
+                        <i class="fas fa-file-code"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/caleb-geiger/"
+                        target="_blank"
+                        class="icon-link text-3xl"
+                        aria-label="LinkedIn Profile">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                </div>
+                <p class="text-sm text-gray-500">
+                    &copy; <span id="currentYear"></span>
+                    Caleb Geiger. All rights reserved.
+                </p>
+                <p class="text-xs text-gray-600 mt-2">
+                    Built with Tailwind CSS & Font Awesome.
+                </p>
+            </div>
+        </footer>
+        <script>
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+            document.getElementById('currentYear').textContent =
+                new Date().getFullYear();
+        </script>
     </body>
 </html>
