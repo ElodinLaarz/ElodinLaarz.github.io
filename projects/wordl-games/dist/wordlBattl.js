@@ -1,26 +1,23 @@
-// // import {five_dict} from "./five_word_dictionary_list.js"
-// import { sign } from "crypto";
-// import { cp } from "fs";
-// import { start } from "repl";
 import { small_dic, extra_words, setHardMode, wordSuggestions, alphabet } from "./helprFunctions.js";
-// import {}
+
 let full_dic = [...small_dic].concat([...extra_words]);
 let cur_dic = [...full_dic];
-// let prev_dic : string[] = [];
 let hard_mode = false;
+
 // TODO: Add colored keyboard
 // TODO: Make mobile friendly
+
 const WORD_LENGTH = 5;
 const root = document.querySelector("#app");
 if (root) {
     root.innerHTML = `<div class="navbar">
         <div class="container">
-            <a class="battlLogo" href="wordlBattl.html">Wordl<span>Battl</span></a>
+            <a class="battlLogo" href="battl.html">Wordl<span>Battl</span></a>
 
             <nav>
                 <ul class="primary-nav">
-                    <li><a class="helpr" href="wordlHelpr.html">Wordl<span>Helpr</span></a></li>
-                    <li><a class="battl" href="wordlBattl.html">Wordl<span>Battl</span></a></li>
+                    <li><a class="helpr" href="helpr.html">Wordl<span>Helpr</span></a></li>
+                    <li><a class="battl" href="battl.html">Wordl<span>Battl</span></a></li>
                 </ul>
                 <ul class="secondary-nav">
                     <li><a class="home" href="index.html">Main Site</a></li>
@@ -529,4 +526,4 @@ function endGame(give_up = false) {
         start_button.innerHTML = "Next Word!";
     }
 }
-//# sourceMappingURL=wordlBattl.js.map
+

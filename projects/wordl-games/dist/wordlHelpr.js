@@ -1,19 +1,22 @@
 import { small_dic, extra_words, wordSuggestions, setHardMode } from "./helprFunctions.js";
+
 let full_dic = [...small_dic].concat([...extra_words]);
 let cur_dic = [...full_dic];
+//
 // Gives improved sorting
 setHardMode(true);
 const WORD_LENGTH = 5;
 const root = document.querySelector("#app");
+
 if (root) {
     root.innerHTML = `<div class="navbar">
         <div class="container">
-            <a class="helprLogo" href="wordlHelpr.html">Wordl<span>Helpr</span></a>
+            <a class="helprLogo" href="helpr.html">Wordl<span>Helpr</span></a>
 
             <nav>
                 <ul class="primary-nav">
-                    <li><a class="helpr" href="wordlHelpr.html">Wordl<span>Helpr</span></a></li>
-                    <li><a class="battl" href="wordlBattl.html">Wordl<span>Battl</span></a></li>
+                    <li><a class="helpr" href="helpr.html">Wordl<span>Helpr</span></a></li>
+                    <li><a class="battl" href="battl.html">Wordl<span>Battl</span></a></li>
                 </ul>
                 <ul class="secondary-nav">
                     <li><a class="home" href="index.html">Main Site</a></li>
@@ -242,4 +245,4 @@ function wordSubmit() {
         }
     }
 }
-//# sourceMappingURL=wordlHelpr.js.map
+
