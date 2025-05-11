@@ -20,7 +20,7 @@ if (root) {
                     <li><a class="battl" href="battl.html">Wordl<span>Battl</span></a></li>
                 </ul>
                 <ul class="secondary-nav">
-                    <li><a class="home" href="index.html">Main Site</a></li>
+                    <a class="home" href="../../../index.html">HOME</a>
                 </ul>
             </nav>
         </div>
