@@ -3,3 +3,7 @@
 
 node_modules/
 
+# LLMs
+CLAUDE.md
+GEMINI.md
+TODO.md
