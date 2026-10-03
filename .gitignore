@@ -4,6 +4,6 @@
 node_modules/
 
 # LLMs
-GEMINI.md
 CLAUDE.md
+GEMINI.md
 TODO.md
