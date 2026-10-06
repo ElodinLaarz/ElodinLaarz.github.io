@@ -49,26 +49,34 @@ The Earth artwork and icon are copied from the Idle Microbes Play store
 assets. Keep this page focused on the game's Earth content.
 
 Closed Alpha version 0.9.4 (34), the tester group, 173 countries and the Earth
-store listing were sent for review on 2026-10-06. Google review remains pending.
+store listing were sent for review on 2026-10-06. Console subsequently showed
+the app in closed testing and the dashboard marked the closed release published.
 The page includes the track's observed opt-in URL:
 https://play.google.com/apps/testing/com.formalizedchaos.idlemicrobes
 
-The app remains paid. Group membership provides eligibility; it does not waive
-the price or enroll a tester. Each tester must opt in with the same Google
-account and redeem an individual paid-app promo code before installing.
-Google allows 500 non-subscription codes per app per quarter. Campaign
-131314822 contains 500 one-use paid-app codes, scheduled for October 6, 2026
-at 7:00 PM through April 6, 2027 at 12:00 AM as shown in Console.
+## Free app update
+
+On 2026-10-06 the owner requested changing the Google Play app to free and
+removing the promo-code signup instructions. The owner accepts a public legal
+name and authorized the permanent price change before confirming full-address
+removal. The price was saved on 2026-10-06. Console confirms the app is available
+for free and cannot be changed back to paid. The page uses the free install flow.
+
+Group membership provides eligibility; each tester must separately opt in with
+the same Google account before installing. A free app requires no promo code
+or support-email request. The page retains the age, country, internal-test and
+installation-channel requirements. A nonowner opt-in and installation remain
+unverified.
+
+The earlier paid-app campaign 131314822 and its private code list are preserved.
 Codes and tester identities stay out of this public repository.
 
-The support email link requests a code; it does not automatically send or
-allocate one. The owner verifies group membership, checks age/country eligibility,
-assigns an unused code once, records the assignment privately and replies to
-the requester. Codes cannot be sold and must remain private. The page states
-the offer terms and directs testers to wait if Play asks for payment.
-One nonowner redemption and installation remain required after approval.
+Google still requires the legal name of a personal developer account to be shown.
+Changing the app to free does not promise removal of account identity disclosures.
+The first public-listing check after the price change showed Install and still
+showed the full address under About the developer. Address removal remains open.
 
 Google references:
 - https://support.google.com/googleplay/android-developer/answer/9845334
-- https://support.google.com/googleplay/android-developer/answer/6321495
-- https://play.google/promo-code-developer-terms/
+- https://support.google.com/googleplay/android-developer/answer/6334373
+- https://support.google.com/googleplay/android-developer/answer/13628312
