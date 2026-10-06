@@ -1,0 +1,89 @@
+:root {
+  color-scheme: dark;
+  --bg: #101b23;
+  --panel: #1c2c34;
+  --text: #f7f3e9;
+  --muted: #b1c3c5;
+  --green: #c3ec98;
+  --rule: #34464e;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 24px; }
+body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.65 system-ui, -apple-system, "Segoe UI", sans-serif; }
+a { color: inherit; text-underline-offset: 4px; }
+a:focus-visible { outline: 3px solid var(--green); outline-offset: 5px; }
+.skip-link { position: absolute; top: -80px; left: 20px; z-index: 10; padding: 10px 16px; background: var(--green); color: var(--bg); }
+.skip-link:focus { top: 12px; }
+.site-header, main, .site-footer { width: min(1120px, calc(100% - 64px)); margin-inline: auto; }
+.site-header { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding-block: 28px; border-bottom: 1px solid var(--rule); }
+.wordmark { display: inline-flex; gap: 9px; align-items: center; font-size: 17px; font-weight: 700; letter-spacing: -.4px; text-decoration: none; }
+.brand-dot { width: 8px; height: 8px; background: var(--green); border-radius: 50%; }
+.header-link { color: var(--muted); font-size: 13px; text-decoration: none; }
+.header-link:hover { color: var(--text); }
+.hero { padding-block: 70px 64px; }
+.hero-copy { max-width: 750px; }
+.eyebrow { display: flex; gap: 9px; align-items: center; margin: 0 0 18px; color: var(--green); font-size: 11px; font-weight: 650; text-transform: uppercase; letter-spacing: 1.6px; }
+.eyebrow span { width: 6px; height: 6px; background: currentColor; border-radius: 50%; }
+h1, h2, h3, p { margin-top: 0; }
+h1 { margin-bottom: 23px; font-size: clamp(42px, 6vw, 74px); line-height: 1.07; font-weight: 650; letter-spacing: -3px; }
+h1 em { color: var(--green); font-style: normal; }
+.intro { max-width: 520px; margin-bottom: 28px; color: var(--muted); font-size: 18px; line-height: 1.7; }
+.button { display: inline-flex; align-items: center; justify-content: space-between; gap: 26px; min-height: 52px; padding: 12px 20px; background: var(--green); color: var(--bg); border: 1px solid var(--green); border-radius: 5px; font-size: 14px; font-weight: 750; text-decoration: none; transition: background-color .15s; }
+.button:hover { background: #dcf8bf; }
+.button span { font-size: 20px; font-weight: 400; }
+.hero-note { color: var(--muted); margin: 12px 0 36px; font-size: 12px; }
+.hero-image { margin: 0; }
+.hero-image img { display: block; width: 100%; height: auto; border: 1px solid var(--rule); border-radius: 8px; }
+.hero-image figcaption { margin-top: 10px; color: var(--muted); font-size: 11px; text-align: right; }
+.signup-section { display: grid; grid-template-columns: 1fr 1fr; align-items: start; gap: 68px; border-top: 1px solid var(--rule); padding-block: 64px; }
+h2 { font-size: clamp(29px, 3.2vw, 41px); line-height: 1.18; letter-spacing: -1.2px; font-weight: 650; margin-bottom: 22px; }
+.signup-intro > p:not(.eyebrow) { max-width: 390px; color: var(--muted); font-size: 15px; }
+.signup-intro .status { display: flex; align-items: center; gap: 9px; font-size: 12px !important; margin-top: 25px; }
+.status span { width: 6px; height: 6px; flex-shrink: 0; border-radius: 50%; background: var(--green); }
+.signup-panel { padding: 30px; background: var(--panel); border: 1px solid var(--rule); border-radius: 8px; }
+.game-icon { display: block; border-radius: 13px; margin-bottom: 22px; }
+.signup-panel h3 { font-size: 21px; line-height: 1.4; letter-spacing: -.4px; margin-bottom: 12px; }
+.signup-panel p { color: var(--muted); font-size: 14px; margin-bottom: 20px; }
+.signup-button { width: 100%; margin-bottom: 16px; }
+.signup-panel .signup-help { font-size: 12px; margin-bottom: 20px; }
+.signup-help strong { color: var(--text); }
+.signup-panel .small { border-top: 1px solid var(--rule); padding-top: 16px; margin-bottom: 0; font-size: 12px; }
+.questions { border-top: 1px solid var(--rule); padding-block: 50px 60px; }
+.questions > h2 { margin-bottom: 32px; font-size: 28px; }
+.question-row { display: grid; grid-template-columns: 1fr 1.5fr; gap: 70px; padding-block: 25px; border-top: 1px solid var(--rule); }
+.question-row h3 { font-size: 15px; font-weight: 600; margin-bottom: 0; }
+.question-row p { font-size: 14px; color: var(--muted); margin-bottom: 0; }
+.question-row a { color: var(--text); }
+.site-footer { border-top: 1px solid var(--rule); display: flex; justify-content: space-between; gap: 20px; color: var(--muted); padding-block: 25px 40px; font-size: 11px; }
+.site-footer > div { display: flex; flex-wrap: wrap; gap: 24px; }
+@media (min-width: 980px) {
+  .hero { position: relative; }
+  .hero-copy { position: relative; z-index: 1; }
+  .hero-image { margin-top: 48px; }
+}
+@media (max-width: 720px) {
+  .site-header, main, .site-footer { width: calc(100% - 36px); }
+  .site-header { padding-block: 22px; gap: 12px; }
+  .wordmark { font-size: 14px; }
+  .header-link { font-size: 11px; }
+  .hero { padding-block: 42px 36px; }
+  h1 { font-size: clamp(36px, 7.8vw, 55px); letter-spacing: -1.6px; }
+  .intro { font-size: 16px; }
+  .hero-note { max-width: 250px; margin-bottom: 28px; }
+  .signup-section { grid-template-columns: 1fr; gap: 27px; padding-block: 40px; }
+  h2 { font-size: 32px; }
+  .signup-panel { padding: 24px; }
+  .questions { padding-block: 36px; }
+  .question-row { grid-template-columns: 1fr; gap: 10px; padding-block: 22px; }
+  .site-footer { flex-direction: column; gap: 12px; padding-bottom: 30px; }
+}
+@media (max-width: 360px) {
+  .header-link { display: none; }
+  h1 { font-size: 35px; letter-spacing: -1.5px; }
+  .signup-panel { padding: 20px; }
+  .button { gap: 12px; padding-inline: 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .button { transition: none; }
+}
