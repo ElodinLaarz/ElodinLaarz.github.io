@@ -57,11 +57,10 @@ https://play.google.com/apps/testing/com.formalizedchaos.idlemicrobes
 ## Free app update
 
 On 2026-10-06 the owner requested changing the Google Play app to free and
-removing the promo-code signup instructions. This branch prepares that page
-update. The owner accepts a public legal name and requires removal of the full
-home address. Keep the pricing change and page publication pending until the
-address removal path is confirmed. Publish the page only after the permanent
-free setting is saved and verified in Console.
+removing the promo-code signup instructions. The owner accepts a public legal
+name and authorized the permanent price change before confirming full-address
+removal. The price was saved on 2026-10-06. Console confirms the app is available
+for free and cannot be changed back to paid. The page uses the free install flow.
 
 Group membership provides eligibility; each tester must separately opt in with
 the same Google account before installing. A free app requires no promo code
@@ -74,7 +73,8 @@ Codes and tester identities stay out of this public repository.
 
 Google still requires the legal name of a personal developer account to be shown.
 Changing the app to free does not promise removal of account identity disclosures.
-Full-address visibility must be checked separately after the pricing change.
+The first public-listing check after the price change showed Install and still
+showed the full address under About the developer. Address removal remains open.
 
 Google references:
 - https://support.google.com/googleplay/android-developer/answer/9845334
