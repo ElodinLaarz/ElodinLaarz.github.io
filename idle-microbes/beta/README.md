@@ -10,7 +10,11 @@ subscriber data, analytics script or third-party asset dependencies.
 ## Group configuration
 
 Public signup link:
-https://groups.google.com/a/formalizedchaos.com/g/idle-microbes-beta
+https://groups.google.com/a/formalizedchaos.com/g/idle-microbes-beta/about
+
+Use the public About page for the signup button. It shows the description,
+joining button and group permissions to nonmembers. The Conversations page
+shows a permission message to nonmembers because conversations are private.
 
 Google Workspace Groups for Business is enabled. Its sharing policy allows
 public group access and external members. Individual group permissions still
