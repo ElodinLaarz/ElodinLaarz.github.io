@@ -58,7 +58,10 @@ https://play.google.com/apps/testing/com.formalizedchaos.idlemicrobes
 
 On 2026-10-06 the owner requested changing the Google Play app to free and
 removing the promo-code signup instructions. This branch prepares that page
-update. Publish it only after the permanent free setting is confirmed in Console.
+update. The owner accepts a public legal name and requires removal of the full
+home address. Keep the pricing change and page publication pending until the
+address removal path is confirmed. Publish the page only after the permanent
+free setting is saved and verified in Console.
 
 Group membership provides eligibility; each tester must separately opt in with
 the same Google account before installing. A free app requires no promo code
