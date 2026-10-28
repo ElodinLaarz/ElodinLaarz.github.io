@@ -102,3 +102,22 @@ Google references:
 - https://support.google.com/googleplay/android-developer/answer/9845334
 - https://support.google.com/googleplay/android-developer/answer/6334373
 - https://support.google.com/googleplay/android-developer/answer/13628312
+
+## Feedback form
+
+https://formalizedchaos.com/idle-microbes/beta/feedback/ lets testers send
+feedback without leaving the browser. The page posts to a Google Apps Script
+web app owned by the developer, which appends one row per submission to the
+"Web feedback" tab of a private Google spreadsheet. The script source and the
+spreadsheet ID stay out of this public repository.
+
+The page needs the script's `/exec` URL in `FEEDBACK_ENDPOINT`. Until it is set,
+Send shows "isn't connected yet" with an email fallback. A link such as
+`feedback/?v=0.9.4&p=play` prefills the game version and platform
+(`play`, `obtainium`, `windows` or `linux`).
+
+The page has no analytics. The script receives only what the tester enters,
+plus the time the page was open and a random submission ID, which it uses to
+drop bots and duplicate sends. It never receives IP addresses. Text that starts
+with `=`, `+`, `-` or `@` is stored as plain text. The privacy policy's "Beta
+feedback form" section describes this.

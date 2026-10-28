@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101b23">
+  <meta name="description" content="Send feedback on the Idle Microbes beta: bugs, pacing, confusing moments and ideas.">
+  <meta name="robots" content="noindex">
+  <link rel="canonical" href="https://formalizedchaos.com/idle-microbes/beta/feedback/">
+  <link rel="icon" type="image/png" href="../assets/icon.png">
+  <title>Idle Microbes · Beta feedback</title>
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    .feedback-section { display: grid; grid-template-columns: 1fr 1.35fr; align-items: start; gap: 68px; padding-block: 64px; }
+    .feedback-intro { position: sticky; top: 32px; }
+    .feedback-intro h1 { font-size: clamp(36px, 4.4vw, 54px); letter-spacing: -2px; }
+    .feedback-intro p:not(.eyebrow) { max-width: 390px; color: var(--muted); font-size: 15px; }
+    .feedback-intro .privacy { font-size: 12px; border-top: 1px solid var(--rule); padding-top: 16px; margin-top: 28px; }
+    .feedback-intro .privacy a { color: var(--text); }
+    .feedback-panel { padding: 30px; background: var(--panel); border: 1px solid var(--rule); border-radius: 8px; }
+    .field, fieldset { margin: 0 0 26px; padding: 0; border: 0; min-width: 0; }
+    .field label, legend { display: block; margin-bottom: 8px; padding: 0; font-size: 14px; font-weight: 600; }
+    .opt { color: var(--muted); font-weight: 400; }
+    .hint { display: block; margin-top: 6px; color: var(--muted); font-size: 12px; }
+    input[type=text], input[type=email], select, textarea {
+      width: 100%; padding: 11px 13px; background: var(--bg); color: var(--text);
+      border: 1px solid var(--rule); border-radius: 5px; font: inherit; font-size: 15px;
+    }
+    input[type=text], input[type=email], select { min-height: 46px; }
+    textarea { min-height: 140px; resize: vertical; line-height: 1.55; }
+    #steps { min-height: 96px; }
+    input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 3px solid var(--green); outline-offset: 2px; border-color: var(--green); }
+    input::placeholder, textarea::placeholder { color: #7f9396; }
+    .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .choices { display: flex; flex-wrap: wrap; gap: 8px; }
+    .choices input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+    .choices label { margin: 0; padding: 8px 14px; border: 1px solid var(--rule); border-radius: 5px; font-size: 14px; font-weight: 500; cursor: pointer; }
+    .choices label:hover { border-color: var(--muted); }
+    .choices input:checked + label { background: var(--green); border-color: var(--green); color: var(--bg); font-weight: 700; }
+    .choices input:focus-visible + label { outline: 3px solid var(--green); outline-offset: 3px; }
+    .scale label { min-width: 46px; text-align: center; }
+    .scale-ends { display: flex; justify-content: space-between; max-width: 286px; margin-top: 6px; color: var(--muted); font-size: 12px; }
+    .trap { position: absolute; left: -9999px; }
+    .submit-row { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; border-top: 1px solid var(--rule); padding-top: 24px; }
+    .submit-row .button { cursor: pointer; font-family: inherit; }
+    .submit-row .button[disabled] { opacity: .6; cursor: progress; }
+    .form-status { margin: 0; font-size: 13px; color: var(--muted); }
+    .form-status.error { color: #ffb4a2; }
+    .form-status a { color: var(--text); }
+    .sent h2 { margin-bottom: 12px; }
+    .sent p { color: var(--muted); font-size: 15px; }
+    .sent .button { cursor: pointer; font-family: inherit; }
+    [hidden] { display: none !important; }
+    @media (max-width: 860px) {
+      .feedback-section { grid-template-columns: 1fr; gap: 28px; padding-block: 40px; }
+      .feedback-intro { position: static; }
+    }
+    @media (max-width: 520px) {
+      .feedback-panel { padding: 22px 18px; }
+      .pair { grid-template-columns: 1fr; gap: 0; }
+      .submit-row .button { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <a class="wordmark" href="/">Formalized Chaos<span class="brand-dot" aria-hidden="true"></span></a>
+    <a class="header-link" href="../">Beta info</a>
+  </header>
+  <main id="main">
+    <section class="feedback-section" aria-labelledby="feedback-title">
+      <div class="feedback-intro">
+        <p class="eyebrow"><span aria-hidden="true"></span> Idle Microbes beta</p>
+        <h1 id="feedback-title">How is your colony doing?</h1>
+        <p>Bugs, slow stretches, confusing moments, things you loved. Every note is read and helps decide what changes in the next build.</p>
+        <p>Only the feedback box is required.</p>
+        <p class="privacy">Your answers go to a private spreadsheet that only Formalized Chaos can access. Google delivers them and sees your IP address; we don’t receive it, and this page has no analytics. Leave the email box empty to stay anonymous. <a href="../../privacy/">Privacy policy</a></p>
+      </div>
+
+      <div class="feedback-panel">
+        <form id="feedback-form" novalidate>
+          <fieldset>
+            <legend>What kind of feedback?</legend>
+            <div class="choices" id="type-choices">
+              <input type="radio" name="type" id="t-bug" value="Bug" required><label for="t-bug">Bug</label>
+              <input type="radio" name="type" id="t-balance" value="Balance or pacing"><label for="t-balance">Balance or pacing</label>
+              <input type="radio" name="type" id="t-confusing" value="Confusing"><label for="t-confusing">Confusing</label>
+              <input type="radio" name="type" id="t-idea" value="Idea"><label for="t-idea">Idea</label>
+              <input type="radio" name="type" id="t-liked" value="Something I liked"><label for="t-liked">Something I liked</label>
+              <input type="radio" name="type" id="t-other" value="Other"><label for="t-other">Other</label>
+            </div>
+          </fieldset>
+
+          <div class="field">
+            <label for="message">Tell us about it</label>
+            <textarea id="message" name="message" required minlength="3" maxlength="5000"></textarea>
+          </div>
+
+          <div class="field" id="steps-field" hidden>
+            <label for="steps">What were you doing right before it happened? <span class="opt">Optional</span></label>
+            <textarea id="steps" name="steps" maxlength="3000" placeholder="For example: bought an upgrade, then the colony stopped spreading"></textarea>
+          </div>
+
+          <fieldset>
+            <legend>How much are you enjoying it? <span class="opt">Optional</span></legend>
+            <div class="choices scale">
+              <input type="radio" name="rating" id="r1" value="1"><label for="r1">1</label>
+              <input type="radio" name="rating" id="r2" value="2"><label for="r2">2</label>
+              <input type="radio" name="rating" id="r3" value="3"><label for="r3">3</label>
+              <input type="radio" name="rating" id="r4" value="4"><label for="r4">4</label>
+              <input type="radio" name="rating" id="r5" value="5"><label for="r5">5</label>
+            </div>
+            <div class="scale-ends" aria-hidden="true"><span>Not much</span><span>A lot</span></div>
+          </fieldset>
+
+          <div class="pair">
+            <div class="field">
+              <label for="progress">How far have you got? <span class="opt">Optional</span></label>
+              <input type="text" id="progress" name="progress" maxlength="200" placeholder="Area reached, number of cells">
+            </div>
+            <div class="field">
+              <label for="playtime">Time played <span class="opt">Optional</span></label>
+              <select id="playtime" name="playtime">
+                <option value="">Choose…</option>
+                <option>Under 1 hour</option>
+                <option>1–5 hours</option>
+                <option>5–20 hours</option>
+                <option>Over 20 hours</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="pair">
+            <div class="field">
+              <label for="platform">Where are you playing? <span class="opt">Optional</span></label>
+              <select id="platform" name="platform">
+                <option value="">Choose…</option>
+                <option>Android (Google Play)</option>
+                <option>Android (Obtainium)</option>
+                <option>Windows</option>
+                <option>Linux</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="version">Game version <span class="opt">Optional</span></label>
+              <input type="text" id="version" name="version" maxlength="40" autocomplete="off">
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="device">Phone or computer <span class="opt">Optional</span></label>
+            <input type="text" id="device" name="device" maxlength="120" placeholder="For example: Pixel 7, Android 15">
+            <span class="hint">Helps us reproduce bugs and performance problems.</span>
+          </div>
+
+          <div class="field">
+            <label for="email">Email, if you’d like a reply <span class="opt">Optional</span></label>
+            <input type="email" id="email" name="email" maxlength="200" autocomplete="email">
+            <span class="hint">Used only to follow up on this note.</span>
+          </div>
+
+          <div class="trap" aria-hidden="true">
+            <label for="website">Leave this empty</label>
+            <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+          </div>
+
+          <div class="submit-row">
+            <button class="button" type="submit" id="send">Send feedback <span aria-hidden="true">↗</span></button>
+            <p class="form-status" id="status" role="status" aria-live="polite"></p>
+          </div>
+        </form>
+
+        <div class="sent" id="sent" hidden tabindex="-1">
+          <h2>Feedback sent.</h2>
+          <p>Thanks for playing the beta. If you left an email, we may write back with a question.</p>
+          <button class="button" type="button" id="again">Send more feedback <span aria-hidden="true">↺</span></button>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <span>© 2026 Formalized Chaos</span>
+    <div><a href="../">Beta info</a><a href="../../privacy/">Game privacy policy</a><a href="mailto:support@formalizedchaos.com">Contact</a></div>
+  </footer>
+
+  <script>
+  (function () {
+    // Paste the Apps Script web app URL (ends in /exec) here after deploying.
+    var FEEDBACK_ENDPOINT = 'PASTE_APPS_SCRIPT_EXEC_URL_HERE';
+    var SUPPORT = 'support@formalizedchaos.com';
+
+    var form = document.getElementById('feedback-form');
+    var send = document.getElementById('send');
+    var status = document.getElementById('status');
+    var sent = document.getElementById('sent');
+    var stepsField = document.getElementById('steps-field');
+    var started = Date.now();
+    var submissionId = newId();
+
+    function newId() {
+      if (window.crypto && crypto.randomUUID) return crypto.randomUUID();
+      return Date.now().toString(36) + Math.random().toString(36).slice(2);
+    }
+
+    // Prefill from links like feedback/?v=0.9.3&p=play (useful from inside the game).
+    var q = new URLSearchParams(location.search);
+    var platforms = { play: 'Android (Google Play)', obtainium: 'Android (Obtainium)', windows: 'Windows', linux: 'Linux' };
+    function prefill() {
+      if (q.get('v')) form.version.value = q.get('v').slice(0, 40);
+      if (platforms[q.get('p')]) form.platform.value = platforms[q.get('p')];
+    }
+    prefill();
+
+    form.addEventListener('change', function (e) {
+      if (e.target.name === 'type') stepsField.hidden = e.target.value !== 'Bug';
+    });
+
+    var messages = {
+      empty: 'Write a few words in the feedback box, then send again.',
+      email: 'That email address doesn’t look complete. Fix it or leave the box empty.',
+      busy: 'Lots of feedback is arriving right now. Wait a minute, then send again.'
+    };
+
+    function showError(text, offerEmail) {
+      status.className = 'form-status error';
+      if (!offerEmail) { status.textContent = text; return; }
+      var body = 'Type: ' + (form.type.value || '-') + '\n\n' + form.message.value;
+      var mail = 'mailto:' + SUPPORT + '?subject=' + encodeURIComponent('Idle Microbes beta feedback') +
+        '&body=' + encodeURIComponent(body.slice(0, 1800));
+      status.innerHTML = '';
+      status.append(text + ' You can also ');
+      var a = document.createElement('a');
+      a.href = mail; a.textContent = 'email it to us';
+      status.append(a, '.');
+    }
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      status.className = 'form-status';
+      status.textContent = '';
+      if (!form.type.value) { showError('Choose what kind of feedback this is.'); form.querySelector('[name=type]').focus(); return; }
+      if (form.message.value.trim().length < 3) { showError(messages.empty); form.message.focus(); return; }
+      if (!form.email.checkValidity()) { showError(messages.email); form.email.focus(); return; }
+      if (FEEDBACK_ENDPOINT.indexOf('https://script.google.com/') !== 0) {
+        showError('The feedback form isn’t connected yet.', true); return;
+      }
+
+      var data = new URLSearchParams(new FormData(form));
+      data.set('elapsed', String(Date.now() - started));
+      data.set('id', submissionId);
+      send.disabled = true;
+      status.textContent = 'Sending…';
+
+      fetch(FEEDBACK_ENDPOINT, { method: 'POST', body: data })
+        .then(function (r) { return r.json(); })
+        .then(function (res) {
+          if (!res.ok) throw new Error(res.error || 'unknown');
+          form.reset();
+          prefill();
+          stepsField.hidden = true;
+          status.textContent = '';
+          form.hidden = true;
+          sent.hidden = false;
+          sent.focus();
+          submissionId = newId();
+        })
+        .catch(function (err) {
+          var known = messages[err && err.message];
+          showError(known || 'Feedback wasn’t sent. Check your connection and send again.', !known);
+        })
+        .then(function () { send.disabled = false; });
+    });
+
+    document.getElementById('again').addEventListener('click', function () {
+      sent.hidden = true;
+      form.hidden = false;
+      started = Date.now();
+      form.querySelector('[name=type]').focus();
+    });
+  })();
+  </script>
+</body>
+</html>
