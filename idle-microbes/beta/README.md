@@ -76,6 +76,28 @@ Changing the app to free does not promise removal of account identity disclosure
 The first public-listing check after the price change showed Install and still
 showed the full address under About the developer. Address removal remains open.
 
+## Paid app update
+
+A free Play app cannot become paid, so the paid game moved to a new Play app,
+`com.formalizedchaos.microbes`. The free app `com.formalizedchaos.idlemicrobes`
+was unpublished on 2026-10-26. The paid app's closed release, with the same
+tester group, was published on 2026-10-27. Its opt-in URL is
+https://play.google.com/apps/testing/com.formalizedchaos.microbes
+
+Closed testers must buy a paid app, so the page again asks testers to request a
+free code by email. Campaign 131578919 on the paid app holds 100 one-use
+paid-app codes, valid from 2026-10-27 17:00 GMT to 2027-04-27 00:00 GMT. The
+page states that limit and that date. Campaign 131314822 belongs to the old app
+and its codes do not work for the paid app. Codes and tester identities stay out
+of this public repository.
+
+On 2026-10-27 the owner redeemed one code from this campaign on a nonowner
+account that had joined the group and opted in to the closed track, and the game
+installed at no charge. The page's "How do I redeem my code?" answer lists the
+redemption routes: Play Store > profile > Payments & subscriptions > Redeem
+code, https://play.google.com/redeem, or Redeem code as the payment method on
+the listing.
+
 Google references:
 - https://support.google.com/googleplay/android-developer/answer/9845334
 - https://support.google.com/googleplay/android-developer/answer/6334373
