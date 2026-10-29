@@ -74,7 +74,7 @@
         <p class="eyebrow"><span aria-hidden="true"></span> Idle Microbes beta</p>
         <h1 id="feedback-title">How is your colony doing?</h1>
         <p>Bugs, slow stretches, confusing moments, things you loved. Every note is read and helps decide what changes in the next build.</p>
-        <p>Only the feedback box is required.</p>
+        <p>Only the kind of feedback and the feedback box are required.</p>
         <p class="privacy">Your answers go to a private spreadsheet that only Formalized Chaos can access. Google delivers them and sees your IP address; we don’t receive it, and this page has no analytics. Leave the email box empty to stay anonymous. <a href="../../privacy/">Privacy policy</a></p>
       </div>
 
@@ -250,6 +250,7 @@
       var data = new URLSearchParams(new FormData(form));
       data.set('elapsed', String(Date.now() - started));
       data.set('id', submissionId);
+      if (form.type.value !== 'Bug') data.delete('steps');
       send.disabled = true;
       status.textContent = 'Sending…';
 
